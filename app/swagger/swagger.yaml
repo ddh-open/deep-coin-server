@@ -1,0 +1,2795 @@
+basePath: /
+definitions:
+  config.DevopsSysConfig:
+    properties:
+      createId:
+        description: 创建者
+        type: integer
+      created_at:
+        type: string
+      id:
+        description: 主键
+        type: integer
+      key:
+        description: 配置的key
+        type: string
+      name:
+        description: 配置名
+        type: string
+      remark:
+        description: 描述
+        type: string
+      updateId:
+        description: 更新人
+        type: integer
+      updated_at:
+        type: string
+      value:
+        description: 配置的value
+        type: string
+    type: object
+  domain.DevopsSysDomain:
+    properties:
+      createId:
+        description: 创建者
+        type: integer
+      created_at:
+        type: string
+      domainNum:
+        description: 商户号
+        type: string
+      enable:
+        description: 是否启用
+        type: integer
+      englishName:
+        description: 英文名
+        type: string
+      id:
+        description: 主键
+        type: integer
+      name:
+        description: 域账户名
+        type: string
+      remark:
+        description: 描述
+        type: string
+      updateId:
+        description: 更新人
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  group.DevopsSysGroup:
+    properties:
+      alias:
+        description: 别名
+        type: string
+      code:
+        description: 机构编码
+        type: string
+      created_at:
+        type: string
+      domain:
+        description: 域
+        type: integer
+      enable:
+        description: 是否启用
+        type: integer
+      id:
+        description: 主键
+        type: integer
+      linkman:
+        description: 联系人
+        type: string
+      linkmanNo:
+        description: 联系人电话
+        type: string
+      name:
+        description: 部门/11111
+        type: string
+      parentId:
+        description: 上级机构
+        type: integer
+      remark:
+        description: 组描述
+        type: string
+      sort:
+        description: 序号
+        type: integer
+      updated_at:
+        type: string
+      wechat:
+        description: wechat
+        type: string
+    type: object
+  menu.DevopsSysMenu:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenu'
+        type: array
+      closeTab:
+        description: 自动关闭tab
+        type: integer
+      component:
+        description: 对应前端文件路径
+        type: string
+      created_at:
+        type: string
+      defaultMenu:
+        description: 是否是基础路由（开发中）
+        type: integer
+      hidden:
+        description: 是否在列表隐藏
+        type: integer
+      icon:
+        description: 菜单图标
+        type: string
+      id:
+        description: 主键
+        type: integer
+      keepAlive:
+        description: 是否缓存
+        type: integer
+      menuBtn:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenuBtn'
+        type: array
+      name:
+        description: 路由name
+        type: string
+      parameters:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenuParameter'
+        type: array
+      parentId:
+        description: 父菜单ID
+        type: string
+      path:
+        description: 路由path
+        type: string
+      sort:
+        description: 排序标记
+        type: integer
+      title:
+        description: 菜单名
+        type: string
+      updated_at:
+        type: string
+    type: object
+  menu.DevopsSysMenuBtn:
+    properties:
+      created_at:
+        type: string
+      desc:
+        type: string
+      id:
+        description: 主键
+        type: integer
+      name:
+        type: string
+      sysBaseMenuID:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  menu.DevopsSysMenuEntity:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenu'
+        type: array
+      closeTab:
+        description: 自动关闭tab
+        type: integer
+      component:
+        description: 对应前端文件路径
+        type: string
+      created_at:
+        type: string
+      defaultMenu:
+        description: 是否是基础路由（开发中）
+        type: integer
+      hidden:
+        description: 是否在列表隐藏
+        type: integer
+      icon:
+        description: 菜单图标
+        type: string
+      id:
+        description: 主键
+        type: integer
+      keepAlive:
+        description: 是否缓存
+        type: integer
+      menuBtn:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenuBtn'
+        type: array
+      name:
+        description: 路由name
+        type: string
+      parameters:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenuParameter'
+        type: array
+      parentId:
+        description: 父菜单ID
+        type: string
+      path:
+        description: 路由path
+        type: string
+      sort:
+        description: 排序标记
+        type: integer
+      title:
+        description: 菜单名
+        type: string
+      updated_at:
+        type: string
+    type: object
+  menu.DevopsSysMenuParameter:
+    properties:
+      created_at:
+        type: string
+      devopsSysMenuID:
+        type: integer
+      id:
+        description: 主键
+        type: integer
+      key:
+        description: 地址栏携带参数的key
+        type: string
+      type:
+        description: 地址栏携带参数为params还是query
+        type: string
+      updated_at:
+        type: string
+      value:
+        description: 地址栏携带参数的值
+        type: string
+    type: object
+  node.ActionRule:
+    properties:
+      actType:
+        description: and 表示会签 or表示或签，默认为或签
+        type: string
+      autoUp:
+        type: boolean
+      isEmpty:
+        type: boolean
+      labelNames:
+        type: string
+      labels:
+        type: integer
+      level:
+        type: integer
+      memberCount:
+        description: 表示需要通过的人数 如果是会签
+        type: integer
+      type:
+        type: string
+    type: object
+  node.CondNode:
+    properties:
+      attrs:
+        $ref: '#/definitions/node.UserNode'
+      type:
+        type: string
+      value:
+        type: string
+    type: object
+  node.ConditionNode:
+    properties:
+      boundEqual:
+        type: string
+      conditions:
+        items:
+          $ref: '#/definitions/node.CondNode'
+        type: array
+      isEmpty:
+        type: boolean
+      lowerBound:
+        description: 类型为range
+        type: string
+      lowerBoundEqual:
+        type: string
+      oriValue:
+        items:
+          type: string
+        type: array
+      paramKey:
+        type: string
+      paramLabel:
+        type: string
+      paramValues:
+        description: 类型为 value
+        items:
+          type: string
+        type: array
+      type:
+        type: string
+      unit:
+        type: string
+      upperBound:
+        type: string
+      upperBoundEqual:
+        type: string
+    type: object
+  node.Node:
+    properties:
+      childNode:
+        $ref: '#/definitions/node.Node'
+      conditionNodes:
+        items:
+          $ref: '#/definitions/node.Node'
+        type: array
+      name:
+        type: string
+      nodeId:
+        type: string
+      prevId:
+        type: string
+      properties:
+        $ref: '#/definitions/node.Properties'
+      type:
+        type: string
+    type: object
+  node.Properties:
+    properties:
+      actionRules:
+        items:
+          $ref: '#/definitions/node.ActionRule'
+        type: array
+      activateType:
+        description: ONE_BY_ONE 代表依次审批
+        type: string
+      agreeAll:
+        type: boolean
+      conditions:
+        items:
+          items:
+            $ref: '#/definitions/node.ConditionNode'
+          type: array
+        type: array
+      noneActionAction:
+        type: string
+      script:
+        type: string
+    type: object
+  node.UserNode:
+    properties:
+      avatar:
+        type: string
+      name:
+        type: string
+    type: object
+  operation.DevopsSysOperationRecord:
+    properties:
+      agent:
+        description: 代理
+        type: string
+      body:
+        description: 请求Body
+        type: string
+      created_at:
+        type: string
+      error_message:
+        description: 错误信息
+        type: string
+      id:
+        description: 主键
+        type: integer
+      ip:
+        description: 请求ip
+        type: string
+      latency:
+        description: 延迟
+        type: string
+      method:
+        description: 请求方法
+        type: string
+      path:
+        description: 请求路径
+        type: string
+      resp:
+        description: 响应Body
+        type: string
+      status:
+        description: 请求状态
+        type: integer
+      updated_at:
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  path.DevopsSysApi:
+    properties:
+      apiGroup:
+        description: api组
+        type: string
+      createId:
+        description: 创建者
+        type: integer
+      created_at:
+        type: string
+      description:
+        description: api中文描述
+        type: string
+      id:
+        description: 主键
+        type: integer
+      method:
+        description: 方法:创建POST(默认)|查看GET|更新PUT|删除DELETE
+        type: string
+      path:
+        description: api路径
+        type: string
+      updateId:
+        description: 更新人
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  request.CabinInReceive:
+    properties:
+      domain:
+        type: string
+      method:
+        type: string
+      pType:
+        type: string
+      resource:
+        description: 路径
+        type: string
+      source:
+        type: string
+    type: object
+  request.CopyRoleParams:
+    properties:
+      copyId:
+        type: string
+      created_at:
+        type: string
+      domain:
+        description: 域
+        type: integer
+      enable:
+        description: 是否启用//radio/1,启用,2,禁用
+        type: integer
+      id:
+        description: 主键
+        type: integer
+      name:
+        description: 名称
+        type: string
+      parentId:
+        description: 角色
+        type: string
+      remark:
+        description: 说明//textarea
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态//radio/2,隐藏,1,显示
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  request.DataDelete:
+    properties:
+      ids:
+        type: string
+    type: object
+  request.PageRequest:
+    properties:
+      filter:
+        items:
+          type: string
+        type: array
+      page:
+        type: integer
+      pageSize:
+        type: integer
+    type: object
+  request.ProcRequest:
+    properties:
+      company:
+        description: 用户所在公司
+        type: string
+      name:
+        type: string
+      resource:
+        $ref: '#/definitions/node.Node'
+        description: 流程定义json字符串
+      userId:
+        description: 用户id
+        type: string
+      username:
+        type: string
+    type: object
+  request.ReceiverProcess:
+    properties:
+      company:
+        type: string
+      department:
+        type: string
+      procInstID:
+        type: string
+      procName:
+        type: string
+      title:
+        type: string
+      userId:
+        type: string
+      username:
+        type: string
+      var:
+        additionalProperties:
+          type: string
+        type: object
+    type: object
+  request.SearchApiParams:
+    properties:
+      apiGroup:
+        description: api组
+        type: string
+      createId:
+        description: 创建者
+        type: integer
+      created_at:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      description:
+        description: api中文描述
+        type: string
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      method:
+        description: 方法:创建POST(默认)|查看GET|更新PUT|删除DELETE
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      path:
+        description: api路径
+        type: string
+      updateId:
+        description: 更新人
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  request.SearchConfigParams:
+    properties:
+      createId:
+        description: 创建者
+        type: integer
+      created_at:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      key:
+        description: 配置的key
+        type: string
+      name:
+        description: 配置名
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      remark:
+        description: 描述
+        type: string
+      updateId:
+        description: 更新人
+        type: integer
+      updated_at:
+        type: string
+      value:
+        description: 配置的value
+        type: string
+    type: object
+  request.SearchLogsParams:
+    properties:
+      agent:
+        description: 代理
+        type: string
+      body:
+        description: 请求Body
+        type: string
+      created_at:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      error_message:
+        description: 错误信息
+        type: string
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      ip:
+        description: 请求ip
+        type: string
+      latency:
+        description: 延迟
+        type: string
+      method:
+        description: 请求方法
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      path:
+        description: 请求路径
+        type: string
+      resp:
+        description: 响应Body
+        type: string
+      status:
+        description: 请求状态
+        type: integer
+      timeFilter:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  request.SearchMenusParams:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenu'
+        type: array
+      closeTab:
+        description: 自动关闭tab
+        type: integer
+      component:
+        description: 对应前端文件路径
+        type: string
+      created_at:
+        type: string
+      defaultMenu:
+        description: 是否是基础路由（开发中）
+        type: integer
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      filter:
+        items:
+          type: string
+        type: array
+      hidden:
+        description: 是否在列表隐藏
+        type: integer
+      icon:
+        description: 菜单图标
+        type: string
+      id:
+        description: 主键
+        type: integer
+      keepAlive:
+        description: 是否缓存
+        type: integer
+      menuBtn:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenuBtn'
+        type: array
+      name:
+        description: 路由name
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      parameters:
+        items:
+          $ref: '#/definitions/menu.DevopsSysMenuParameter'
+        type: array
+      parentId:
+        description: 父菜单ID
+        type: string
+      path:
+        description: 路由path
+        type: string
+      sort:
+        description: 排序标记
+        type: integer
+      title:
+        description: 菜单名
+        type: string
+      updated_at:
+        type: string
+    type: object
+  response.PageResult:
+    properties:
+      columns: {}
+      list: {}
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+    type: object
+  response.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  role.DevopsSysRole:
+    properties:
+      created_at:
+        type: string
+      domain:
+        description: 域
+        type: integer
+      enable:
+        description: 是否启用//radio/1,启用,2,禁用
+        type: integer
+      id:
+        description: 主键
+        type: integer
+      name:
+        description: 名称
+        type: string
+      parentId:
+        description: 角色
+        type: string
+      remark:
+        description: 说明//textarea
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态//radio/2,隐藏,1,显示
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  sys.ChangePasswordRequest:
+    properties:
+      oldPassword:
+        type: string
+      password:
+        type: string
+      type:
+        type: integer
+      username:
+        type: string
+    type: object
+  sys.DeleteById:
+    properties:
+      ids:
+        description: 角色ID
+        type: string
+    type: object
+  sys.LoginRequest:
+    properties:
+      password:
+        type: string
+      type:
+        type: integer
+      username:
+        type: string
+    type: object
+  sys.RelativeRoleApisRequest:
+    properties:
+      apiIds:
+        items:
+          type: string
+        type: array
+      roleId:
+        type: string
+    type: object
+  sys.RelativeRoleMenuRequest:
+    properties:
+      menuIds:
+        items:
+          type: string
+        type: array
+      roleId:
+        type: string
+    type: object
+  sys.RelativeUserRequest:
+    properties:
+      roleIds:
+        items:
+          type: string
+        type: array
+      userId:
+        type: string
+    type: object
+  sys.RequestById:
+    properties:
+      ids:
+        description: 角色ID
+        type: string
+    type: object
+  third.AddMerchantApmRequest:
+    properties:
+      merchant_id:
+        description: 商户id
+        type: string
+      merchant_name:
+        description: 商户名称
+        type: string
+      namespaces:
+        description: 商户环境
+        items:
+          type: string
+        type: array
+    type: object
+  third.AddMerchantClsLogTopicRequest:
+    properties:
+      merchant_id:
+        description: 商户id
+        type: string
+      merchant_name:
+        description: 商户名称
+        type: string
+      namespaces:
+        description: 商户环境
+        items:
+          type: string
+        type: array
+    type: object
+  third.DeleteMerchantLog:
+    properties:
+      merchant_id:
+        description: 商户id
+        type: string
+      merchant_name:
+        description: 商户名称
+        type: string
+    type: object
+  third.TencentResourceListRequest:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+      limit:
+        type: integer
+      names:
+        items:
+          type: string
+        type: array
+      offset:
+        type: integer
+      type:
+        type: integer
+    type: object
+  user.DevopsSysUserEntity:
+    properties:
+      address:
+        description: 地址
+        type: string
+      createID:
+        description: 创建者
+        type: integer
+      created_at:
+        type: string
+      email:
+        description: email
+        type: string
+      enable:
+        description: 是否启用//radio/1,启用,2,禁用
+        type: integer
+      endTime:
+        description: 结束时间
+        type: string
+      id:
+        description: 主键
+        type: integer
+      merchants:
+        description: 所属商户
+        type: string
+      password:
+        description: 密码
+        type: string
+      realName:
+        description: 真实姓名
+        type: string
+      remark:
+        description: 说明
+        type: string
+      roleIds:
+        items:
+          type: string
+        type: array
+      salt:
+        description: 密码盐
+        type: string
+      status:
+        description: 状态
+        type: integer
+      tel:
+        description: 手机号
+        type: string
+      theme:
+        description: 主题
+        type: string
+      titleURL:
+        description: 头像地址
+        type: string
+      updateID:
+        description: 更新人
+        type: integer
+      updated_at:
+        type: string
+      userType:
+        description: 用户类型
+        type: integer
+      username:
+        description: 登录名/11111
+        type: string
+      uuid:
+        description: UUID
+        type: string
+      workNum:
+        description: 工号
+        type: string
+    type: object
+  user.DevopsSysUserView:
+    properties:
+      address:
+        description: 地址
+        type: string
+      createID:
+        description: 创建者
+        type: integer
+      created_at:
+        type: string
+      email:
+        description: email
+        type: string
+      enable:
+        description: 是否启用//radio/1,启用,2,禁用
+        type: integer
+      endTime:
+        description: 结束时间
+        type: string
+      id:
+        description: 主键
+        type: integer
+      merchants:
+        description: 所属商户
+        type: string
+      password:
+        description: 密码
+        type: string
+      realName:
+        description: 真实姓名
+        type: string
+      remark:
+        description: 说明
+        type: string
+      roleIds:
+        items:
+          type: string
+        type: array
+      roleName:
+        type: string
+      salt:
+        description: 密码盐
+        type: string
+      status:
+        description: 状态
+        type: integer
+      tel:
+        description: 手机号
+        type: string
+      theme:
+        description: 主题
+        type: string
+      titleURL:
+        description: 头像地址
+        type: string
+      updateID:
+        description: 更新人
+        type: integer
+      updated_at:
+        type: string
+      userType:
+        description: 用户类型
+        type: integer
+      username:
+        description: 登录名/11111
+        type: string
+      uuid:
+        description: UUID
+        type: string
+      workNum:
+        description: 工号
+        type: string
+    type: object
+  workflow.ProcessPageReceiver:
+    properties:
+      candidate:
+        description: 审批人
+        type: string
+      company:
+        type: string
+      created_at:
+        type: string
+      department:
+        description: 用户部门
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      duration:
+        type: integer
+      endTime:
+        type: string
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      isFinished:
+        type: boolean
+      nodeID:
+        description: 当前节点
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      procDefId:
+        description: 流程定义ID
+        type: integer
+      procDefName:
+        description: 流程定义名
+        type: string
+      startTime:
+        type: string
+      startUserId:
+        type: string
+      startUserName:
+        type: string
+      taskID:
+        description: 当前任务
+        type: integer
+      title:
+        description: title 标题
+        type: string
+      updated_at:
+        type: string
+    type: object
+  workflow.TaskReceiver:
+    properties:
+      candidate:
+        type: string
+      comment:
+        type: string
+      company:
+        type: string
+      pass:
+        type: string
+      procInstID:
+        type: integer
+      taskID:
+        type: integer
+      userID:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is Devops API
+  title: Swagger Devops API
+  version: 0.0.1
+paths:
+  /sys/api/add:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: api路径, api中文描述, api组, 方法
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/path.DevopsSysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建基础api
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建基础api
+      tags:
+      - Apis
+  /sys/api/all:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取所有的Api 不分页,返回包括api列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  additionalProperties:
+                    items:
+                      $ref: '#/definitions/path.DevopsSysApi'
+                    type: array
+                  type: object
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取所有的Api 不分页
+      tags:
+      - Apis
+  /sys/api/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/path.DevopsSysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除api
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 删除api
+      tags:
+      - Apis
+  /sys/api/deletes:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.RequestById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除选中Api
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 删除选中Api
+      tags:
+      - Apis
+  /sys/api/get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 根据id获取api
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.RequestById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 根据id获取api,返回包括api详情
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/path.DevopsSysApi'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取api
+      tags:
+      - Apis
+  /sys/api/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 分页获取API列表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SearchApiParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分页获取API列表,返回包括列表,总数,页码,每页数量
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.PageResult'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取API列表
+      tags:
+      - Apis
+  /sys/api/modify:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: api路径, api中文描述, api组, 方法
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/path.DevopsSysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改基础api
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 修改基础api
+      tags:
+      - Apis
+  /sys/api/role:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 给角色关联api 权限
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.RelativeRoleApisRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 给角色关联api权限
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 给角色关联api权限
+      tags:
+      - Apis
+  /sys/config/add:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: api路径, api中文描述, api组, 方法
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/config.DevopsSysConfig'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建基础api
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建config
+      tags:
+      - Config
+  /sys/config/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.RequestById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除api
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 删除config
+      tags:
+      - Config
+  /sys/config/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 分页获取API列表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SearchConfigParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分页获取API列表,返回包括列表,总数,页码,每页数量
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.PageResult'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取config列表
+      tags:
+      - Config
+  /sys/config/modify:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: api路径, api中文描述, api组, 方法
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/config.DevopsSysConfig'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改基础api
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 修改config
+      tags:
+      - Config
+  /sys/domain/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获得域接口
+      parameters:
+      - description: 域id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得域接口
+      tags:
+      - Domain
+  /sys/domain/add:
+    post:
+      consumes:
+      - application/json
+      description: 新增域接口
+      parameters:
+      - description: 域
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/domain.DevopsSysDomain'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增域接口
+      tags:
+      - Domain
+  /sys/domain/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除域接口
+      parameters:
+      - description: 域ids
+        in: body
+        name: ids
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除域接口
+      tags:
+      - Domain
+  /sys/domain/list:
+    post:
+      consumes:
+      - application/json
+      description: 获得域列表接口
+      parameters:
+      - description: 页数，页大小，筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.DevopsSysDomain'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得域列表接口
+      tags:
+      - Domain
+  /sys/domain/modify:
+    put:
+      consumes:
+      - application/json
+      description: 修改域接口
+      parameters:
+      - description: 域
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/domain.DevopsSysDomain'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改域接口
+      tags:
+      - Domain
+  /sys/group/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获得分组接口
+      parameters:
+      - description: 分组id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得分组接口
+      tags:
+      - Group
+  /sys/group/add:
+    post:
+      consumes:
+      - application/json
+      description: 新增分组接口
+      parameters:
+      - description: 分组
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/group.DevopsSysGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增分组接口
+      tags:
+      - Group
+  /sys/group/add/resources:
+    post:
+      consumes:
+      - application/json
+      description: 给分组新增资源接口
+      parameters:
+      - description: Ptype为p2 , source 是分组的id，resource 是资源， method 为write或者read,或者owner
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/request.CabinInReceive'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 给分组新增资源接口
+      tags:
+      - Role
+  /sys/group/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除分组接口
+      parameters:
+      - description: 分组ids
+        in: body
+        name: ids
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除分组接口
+      tags:
+      - Group
+  /sys/group/list:
+    post:
+      consumes:
+      - application/json
+      description: 获得分组列表接口
+      parameters:
+      - description: 页数，页大小，筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得分组列表接口
+      tags:
+      - Group
+  /sys/group/modify:
+    post:
+      consumes:
+      - application/json
+      description: 修改分组接口
+      parameters:
+      - description: 分组
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/group.DevopsSysGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改分组接口
+      tags:
+      - Group
+  /sys/group/resource/{name}:
+    get:
+      consumes:
+      - application/json
+      description: 获得分组资源接口
+      parameters:
+      - description: 分组name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: 域
+        in: query
+        name: domain
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得分组资源接口
+      tags:
+      - Group
+  /sys/menu/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获得菜单接口
+      parameters:
+      - description: 菜单id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得菜单接口
+      tags:
+      - Menu
+  /sys/menu/add:
+    post:
+      consumes:
+      - application/json
+      description: 新增菜单接口
+      parameters:
+      - description: 菜单
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/menu.DevopsSysMenuEntity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增菜单接口
+      tags:
+      - Menu
+  /sys/menu/add/role:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.RelativeRoleMenuRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 增加menu和角色关联关系
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 增加menu和角色关联关系
+      tags:
+      - Menu
+  /sys/menu/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 菜单id
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.DeleteById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除菜单
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 删除菜单
+      tags:
+      - Menu
+  /sys/menu/get/tree:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/menu.DevopsSysMenu'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户动态路由
+      tags:
+      - Menu
+  /sys/menu/list:
+    post:
+      consumes:
+      - application/json
+      description: 获得菜单列表接口
+      parameters:
+      - description: 页数，页大小，筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SearchMenusParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得菜单列表接口
+      tags:
+      - Menu
+  /sys/menu/modify:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 路由path, 父菜单ID, 路由name, 对应前端文件路径, 排序标记
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/menu.DevopsSysMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新菜单
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 更新菜单
+      tags:
+      - Menu
+  /sys/menu/role/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取指定角色menu
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取指定角色menu
+      tags:
+      - Menu
+  /sys/menu/user:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取指定角色menu
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户的menu
+      tags:
+      - Menu
+  /sys/operation/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获得操作记录接口
+      parameters:
+      - description: 操作记录的id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得操作记录接口
+      tags:
+      - Operation
+  /sys/operation/list:
+    post:
+      consumes:
+      - application/json
+      description: 获得操作记录列表接口
+      parameters:
+      - description: 页数，页大小，筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SearchLogsParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/operation.DevopsSysOperationRecord'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 获得操作记录列表接口
+      tags:
+      - Operation
+  /sys/roles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获得角色接口
+      parameters:
+      - description: 角色id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得角色接口
+      tags:
+      - Role
+  /sys/roles/add:
+    post:
+      consumes:
+      - application/json
+      description: 新增角色接口
+      parameters:
+      - description: 角色
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/role.DevopsSysRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增角色接口
+      tags:
+      - Role
+  /sys/roles/add/resources:
+    post:
+      consumes:
+      - application/json
+      description: 给角色新增权限接口
+      parameters:
+      - description: 新增api权限Ptype为p； 新增菜单权限Ptype为p3 , source 是角色的id，resource 是资源
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/request.CabinInReceive'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 给角色新增权限接口
+      tags:
+      - Role
+  /sys/roles/copy:
+    post:
+      consumes:
+      - application/json
+      description: 复制角色接口
+      parameters:
+      - description: 'copyId '
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CopyRoleParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 复制角色接口
+      tags:
+      - Role
+  /sys/roles/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除角色接口
+      parameters:
+      - description: 角色ids
+        in: body
+        name: ids
+        required: true
+        schema:
+          $ref: '#/definitions/request.DataDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除角色接口
+      tags:
+      - Role
+  /sys/roles/list:
+    post:
+      consumes:
+      - application/json
+      description: 获得角色列表接口
+      parameters:
+      - description: 页数，页大小，筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得角色列表接口
+      tags:
+      - Role
+  /sys/roles/modify:
+    post:
+      consumes:
+      - application/json
+      description: 修改角色接口
+      parameters:
+      - description: 角色
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/role.DevopsSysRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改角色接口
+      tags:
+      - Role
+  /third/tencent/apm/addMerchantApm:
+    post:
+      consumes:
+      - application/json
+      description: 新增商户apm
+      parameters:
+      - description: 商户名称，商户id，名称空间
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/third.AddMerchantApmRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增商户apm
+      tags:
+      - ThirdTencent
+  /third/tencent/cls/topic/addMerchantClsLogTopic:
+    post:
+      consumes:
+      - application/json
+      description: 新增商户的日志主题和日志集
+      parameters:
+      - description: 商户名称，商户id，名称空间
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/third.AddMerchantClsLogTopicRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增商户的日志主题和日志集
+      tags:
+      - ThirdTencent
+  /third/tencent/cls/topic/deleteMerchantLog:
+    post:
+      consumes:
+      - application/json
+      description: 删除商户日志主题和日志集
+      parameters:
+      - description: 商户名称，商户id
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/third.DeleteMerchantLog'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除商户日志主题和日志集
+      tags:
+      - ThirdTencent
+  /third/tencent/resource/list:
+    post:
+      consumes:
+      - application/json
+      description: 获得腾讯云资源列表接口
+      parameters:
+      - description: 页数，页大小，筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/third.TencentResourceListRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得腾讯云资源列表接口
+      tags:
+      - ThirdTencent
+  /user/add:
+    post:
+      consumes:
+      - application/json
+      description: 用户新增接口
+      parameters:
+      - description: 用户的相关字段， 用户的旧密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.DevopsSysUserEntity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户新增接口
+      tags:
+      - User
+  /user/changePassword:
+    post:
+      consumes:
+      - application/json
+      description: 用户修改密码接口
+      parameters:
+      - description: 用户名，原密码， 新密码，账户类型
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户修改密码接口
+      tags:
+      - User
+  /user/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 用户删除接口
+      parameters:
+      - description: 传用户id, 多个以, 隔开
+        in: body
+        name: ids
+        required: true
+        schema:
+          $ref: '#/definitions/request.DataDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户删除接口
+      tags:
+      - User
+  /user/info:
+    get:
+      description: 根据token获取id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.DevopsSysUserView'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户详情的接口
+      tags:
+      - User
+  /user/list:
+    post:
+      description: 根据参数获取用户列表
+      parameters:
+      - description: 分页查询
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PageResult'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户列表的接口
+      tags:
+      - User
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录接口
+      parameters:
+      - description: 用户名，密码，账户类型
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户登录接口
+      tags:
+      - User
+  /user/logout:
+    post:
+      description: 用户退出接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户退出接口
+      tags:
+      - User
+  /user/modify:
+    put:
+      consumes:
+      - application/json
+      description: 用户修改接口
+      parameters:
+      - description: 用户的相关字段， 用户的旧密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.DevopsSysUserEntity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户修改接口
+      tags:
+      - User
+  /user/register:
+    post:
+      description: 用户注册接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户注册接口
+      tags:
+      - User
+  /user/relative/apis:
+    get:
+      consumes:
+      - application/json
+      description: 获得用户api权限接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得用户api权限接口
+      tags:
+      - User
+  /user/relative/roles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获得用户角色接口
+      parameters:
+      - description: 用户id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得用户角色接口
+      tags:
+      - User
+  /user/relative/roles/add:
+    post:
+      consumes:
+      - application/json
+      description: 用户关联角色接口
+      parameters:
+      - description: 关联参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.RelativeUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户关联角色接口
+      tags:
+      - User
+  /user/relative/roles/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除用户角色接口
+      parameters:
+      - description: 关联参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sys.RelativeUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除用户角色接口
+      tags:
+      - User
+  /v1/workflow/identity/{id}:
+    post:
+      consumes:
+      - application/json
+      description: 获取流程的所有参与者
+      parameters:
+      - description: 流程id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取流程的所有参与者
+      tags:
+      - process
+  /v1/workflow/proc/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除工作流接口
+      parameters:
+      - description: 工作流id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除工作流接口
+      tags:
+      - proc
+  /v1/workflow/proc/list:
+    post:
+      consumes:
+      - application/json
+      description: 查询定义的工作流列表
+      parameters:
+      - description: page  pageSize  filter 筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询定义的工作流列表
+      tags:
+      - proc
+  /v1/workflow/proc/save:
+    post:
+      consumes:
+      - application/json
+      description: 定义工作流接口
+      parameters:
+      - description: 流程名， 用户id， 用户所在的公司，定义流程json串
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ProcRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 定义工作流接口
+      tags:
+      - proc
+  /v1/workflow/process/inst:
+    post:
+      consumes:
+      - application/json
+      description: 查询到我审批的流程实例
+      parameters:
+      - description: 查询轮到自己审批的流程
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/workflow.ProcessPageReceiver'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询到我审批的流程实例
+      tags:
+      - process
+  /v1/workflow/process/inst/myself:
+    post:
+      consumes:
+      - application/json
+      description: 查询到我发起的流程实例
+      parameters:
+      - description: 查询到我发起的流程实例
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/workflow.ProcessPageReceiver'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询到我发起的流程实例
+      tags:
+      - process
+  /v1/workflow/process/inst/notify:
+    post:
+      consumes:
+      - application/json
+      description: 查询到我发起的流程实例
+      parameters:
+      - description: 查询到我发起的流程实例
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/workflow.ProcessPageReceiver'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询抄送我的流程实例
+      tags:
+      - process
+  /v1/workflow/process/start:
+    post:
+      consumes:
+      - application/json
+      description: 开启工作流实例
+      parameters:
+      - description: 模型ReceiverProcess 中的数据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReceiverProcess'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 开启工作流实例
+      tags:
+      - process
+  /v1/workflow/task/complete:
+    post:
+      consumes:
+      - application/json
+      description: 撤回
+      parameters:
+      - description: 撤回所需参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/workflow.TaskReceiver'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 撤回
+      tags:
+      - process
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: bearer
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,7 @@
+user:
+  port: devops-user.devops.svc:80
+  serviceName: localhost
+
+third:
+  port: devops-user.devops.svc:80
+  serviceName: localhost

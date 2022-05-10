@@ -1,0 +1,23 @@
+swagger: true
+address: :8086
+debug: false
+
+jwt:
+    signing-key: 'FreedDevops'
+    expires-time: 604800
+    buffer-time: 86400
+    issuer: 'FreedDevops'
+
+# casbin configuration
+casbin:
+    model-path: './resource/rbac_model.conf'
+
+ldap:
+    enable: true
+    host: '172.16.11.253'
+    port: '636'
+    dn: 'ou=freemud,dc=office,dc=freemud,dc=cn'
+    bind_dn: 'CN=devopsldap,OU=AD同步账户,OU=freemud,DC=office,DC=freemud,DC=cn'
+    bind_passwd: '1234!@#$.com'
+    search_ou: 'ou=freemud,dc=office,dc=freemud,dc=cn'
+    search_filter: '(&(objectClass=user)(sAMAccountName=%s))'
