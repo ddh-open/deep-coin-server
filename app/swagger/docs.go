@@ -2523,7 +2523,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.PageRequest"
+                            "$ref": "#/definitions/workflow.ProcPageReceiver"
                         }
                     }
                 ],
@@ -4270,6 +4270,62 @@ const docTemplate = `{
                 }
             }
         },
+        "workflow.ProcPageReceiver": {
+            "type": "object",
+            "properties": {
+                "company": {
+                    "description": "用户所在公司",
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "resource": {
+                    "description": "流程定义json字符串",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户id",
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "integer"
+                }
+            }
+        },
         "workflow.ProcessPageReceiver": {
             "type": "object",
             "properties": {
@@ -4330,9 +4386,6 @@ const docTemplate = `{
                 },
                 "procDefName": {
                     "description": "流程定义名",
-                    "type": "string"
-                },
-                "startTime": {
                     "type": "string"
                 },
                 "startUserId": {

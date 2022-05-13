@@ -5,7 +5,7 @@ import (
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 )
 
 // UserRelativeRole godoc

@@ -1,10 +1,10 @@
 package test
 
 import (
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/provider/app"
-	"github.com/ddh-open/gin/framework/provider/config"
-	"github.com/ddh-open/gin/framework/provider/env"
+	"devops-http/framework"
+	"devops-http/framework/provider/app"
+	"devops-http/framework/provider/config"
+	"devops-http/framework/provider/env"
 )
 
 const (

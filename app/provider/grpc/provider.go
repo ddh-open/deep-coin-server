@@ -2,7 +2,7 @@ package grpc
 
 import (
 	"devops-http/app/contract"
-	"github.com/ddh-open/gin/framework"
+	"devops-http/framework"
 )
 
 // ProviderGrpc 服务管理

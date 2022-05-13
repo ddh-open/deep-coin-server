@@ -2,7 +2,7 @@ package utils
 
 import (
 	"devops-http/app/module/base"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 	"github.com/pkg/errors"
 )
 

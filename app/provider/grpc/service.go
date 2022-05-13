@@ -1,8 +1,8 @@
 package grpc
 
 import (
-	"github.com/ddh-open/gin/framework"
-	contract2 "github.com/ddh-open/gin/framework/contract"
+	"devops-http/framework"
+	contract2 "devops-http/framework/contract"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"

@@ -1,11 +1,11 @@
 package app
 
 import (
-	"github.com/ddh-open/gin/boot"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/contract"
-	"github.com/ddh-open/gin/framework/gin"
-	"github.com/ddh-open/gin/framework/middleware"
+	"devops-http/boot"
+	"devops-http/framework"
+	"devops-http/framework/contract"
+	"devops-http/framework/gin"
+	"devops-http/framework/middleware"
 )
 
 // NewHttpEngine 创建了一个绑定了路由的Web引擎

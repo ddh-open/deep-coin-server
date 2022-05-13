@@ -15,10 +15,10 @@ import (
 	"devops-http/app/module/third/api/tencent"
 	workflow "devops-http/app/module/workflow/api"
 	"devops-http/app/swagger"
-	"github.com/ddh-open/gin/framework/contract"
-	"github.com/ddh-open/gin/framework/gin"
-	ginSwagger "github.com/ddh-open/gin/framework/middleware/gin-swagger"
-	"github.com/ddh-open/gin/framework/middleware/gin-swagger/swaggerFiles"
+	"devops-http/framework/contract"
+	"devops-http/framework/gin"
+	ginSwagger "devops-http/framework/middleware/gin-swagger"
+	"devops-http/framework/middleware/gin-swagger/swaggerFiles"
 )
 
 // Routes 绑定业务层路由

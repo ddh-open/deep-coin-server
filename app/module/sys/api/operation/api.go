@@ -4,8 +4,8 @@ import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/sys/service/operation"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type ApiOperation struct {

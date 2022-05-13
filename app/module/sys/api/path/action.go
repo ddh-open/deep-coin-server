@@ -7,7 +7,7 @@ import (
 	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
 	"devops-http/app/module/sys/model/path"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 	"go.uber.org/zap"
 )
 

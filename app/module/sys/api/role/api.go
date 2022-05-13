@@ -2,8 +2,8 @@ package role
 
 import (
 	"devops-http/app/module/sys/service/role"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type ApiRole struct {

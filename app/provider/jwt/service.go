@@ -2,7 +2,7 @@ package jwt
 
 import (
 	contract2 "devops-http/app/contract"
-	"github.com/ddh-open/gin/framework/contract"
+	"devops-http/framework/contract"
 	"github.com/golang-jwt/jwt"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/singleflight"

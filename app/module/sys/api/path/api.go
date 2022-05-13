@@ -2,8 +2,8 @@ package path
 
 import (
 	"devops-http/app/module/sys/service/path"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type ApiPath struct {

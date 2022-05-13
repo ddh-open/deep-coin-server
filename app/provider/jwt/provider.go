@@ -2,8 +2,8 @@ package jwt
 
 import (
 	"devops-http/app/contract"
-	"github.com/ddh-open/gin/framework"
-	contract2 "github.com/ddh-open/gin/framework/contract"
+	"devops-http/framework"
+	contract2 "devops-http/framework/contract"
 )
 
 // ProviderJWT 提供jwt的具体实现方法

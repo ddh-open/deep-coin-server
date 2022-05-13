@@ -2,8 +2,8 @@ package user
 
 import (
 	"devops-http/app/module/sys/service/user"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type ApiUser struct {

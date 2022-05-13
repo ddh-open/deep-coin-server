@@ -1050,6 +1050,45 @@ definitions:
         description: 工号
         type: string
     type: object
+  workflow.ProcPageReceiver:
+    properties:
+      company:
+        description: 用户所在公司
+        type: string
+      created_at:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      name:
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      resource:
+        description: 流程定义json字符串
+        type: string
+      updated_at:
+        type: string
+      userId:
+        description: 用户id
+        type: string
+      username:
+        type: string
+      version:
+        type: integer
+    type: object
   workflow.ProcessPageReceiver:
     properties:
       candidate:
@@ -1093,8 +1132,6 @@ definitions:
         type: integer
       procDefName:
         description: 流程定义名
-        type: string
-      startTime:
         type: string
       startUserId:
         type: string
@@ -2630,7 +2667,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.PageRequest'
+          $ref: '#/definitions/workflow.ProcPageReceiver'
       produces:
       - application/json
       responses:

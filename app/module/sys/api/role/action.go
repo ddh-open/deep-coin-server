@@ -4,7 +4,7 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 )
 
 // GetRoles godoc

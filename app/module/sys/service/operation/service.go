@@ -5,9 +5,9 @@ import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/sys/model/operation"
+	"devops-http/framework"
+	contract2 "devops-http/framework/contract"
 	"fmt"
-	"github.com/ddh-open/gin/framework"
-	contract2 "github.com/ddh-open/gin/framework/contract"
 	"go.uber.org/zap"
 )
 

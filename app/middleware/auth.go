@@ -5,8 +5,8 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/response"
+	"devops-http/framework/gin"
 	"devops-http/resources/proto/userGrpc"
-	"github.com/ddh-open/gin/framework/gin"
 )
 
 var whiteList = append(make([]string, 0), "/user/login", "/user/register")

@@ -1,10 +1,10 @@
 package casbin
 
 import (
+	"devops-http/framework"
+	"devops-http/framework/contract"
 	"github.com/casbin/casbin/v2"
 	gormAdapter "github.com/casbin/gorm-adapter/v3"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/contract"
 	"gorm.io/gorm"
 )
 

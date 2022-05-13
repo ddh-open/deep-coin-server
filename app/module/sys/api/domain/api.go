@@ -2,8 +2,8 @@ package domain
 
 import (
 	"devops-http/app/module/sys/service/domain"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type ApiDomain struct {

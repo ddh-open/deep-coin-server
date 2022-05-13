@@ -3,8 +3,8 @@ package identity
 import (
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/workflow/service/identity"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type apiIdentity struct {

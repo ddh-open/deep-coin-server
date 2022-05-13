@@ -4,7 +4,7 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/base/third"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 )
 
 // TencentListResource godoc

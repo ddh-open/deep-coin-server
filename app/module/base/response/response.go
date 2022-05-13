@@ -1,7 +1,7 @@
 package response
 
 import (
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 	"net/http"
 )
 

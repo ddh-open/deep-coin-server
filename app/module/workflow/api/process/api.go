@@ -5,8 +5,8 @@ import (
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/workflow/service/process"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type instProcess struct {

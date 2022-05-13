@@ -2,8 +2,8 @@ package ldap
 
 import (
 	"crypto/tls"
+	"devops-http/framework/contract"
 	"fmt"
-	"github.com/ddh-open/gin/framework/contract"
 	"github.com/go-ldap/ldap/v3"
 	"github.com/pkg/errors"
 	"golang.org/x/text/encoding/unicode"

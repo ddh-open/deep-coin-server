@@ -6,8 +6,8 @@ import (
 	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/workflow/service/node"
 	"devops-http/app/module/workflow/service/proc"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type defProc struct {
@@ -90,7 +90,7 @@ func (api *defProc) Delete(c *gin.Context) {
 // @Description 查询定义的工作流列表
 // @accept application/json
 // @Produce application/json
-// @Param data body request.ProcPageReceiver true "page  pageSize  filter 筛选条件"
+// @Param data body workflow.ProcPageReceiver true "page  pageSize  filter 筛选条件"
 // @Tags proc
 // @Success 200 {object}  response.Response
 // @Router /v1/workflow/proc/list [post]

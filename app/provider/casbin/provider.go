@@ -2,7 +2,7 @@ package casbin
 
 import (
 	"devops-http/app/contract"
-	"github.com/ddh-open/gin/framework"
+	"devops-http/framework"
 )
 
 // ProviderCabin 提供tencent的具体实现方法

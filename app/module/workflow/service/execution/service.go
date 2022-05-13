@@ -2,8 +2,8 @@ package execution
 
 import (
 	"devops-http/app/module/base"
-	"github.com/ddh-open/gin/framework"
-	contract2 "github.com/ddh-open/gin/framework/contract"
+	"devops-http/framework"
+	contract2 "devops-http/framework/contract"
 	"go.uber.org/zap"
 )
 

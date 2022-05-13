@@ -5,7 +5,7 @@ import (
 	"devops-http/app/module/workflow/api/proc"
 	"devops-http/app/module/workflow/api/process"
 	"devops-http/app/module/workflow/api/task"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 )
 
 func Register(r *gin.Engine) error {

@@ -2,8 +2,8 @@ package apm
 
 import (
 	"devops-http/app/module/third/service/apm"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type ApiApm struct {

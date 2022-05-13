@@ -3,8 +3,8 @@ package identity
 import (
 	"devops-http/app/module/base"
 	identityModel "devops-http/app/module/workflow/model/identity"
-	"github.com/ddh-open/gin/framework"
-	contract2 "github.com/ddh-open/gin/framework/contract"
+	"devops-http/framework"
+	contract2 "devops-http/framework/contract"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )

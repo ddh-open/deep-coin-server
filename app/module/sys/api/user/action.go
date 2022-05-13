@@ -7,7 +7,7 @@ import (
 	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
 	"devops-http/app/module/sys/model/user"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework/gin"
 )
 
 // Login godoc

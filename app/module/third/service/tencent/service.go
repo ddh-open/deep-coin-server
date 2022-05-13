@@ -6,10 +6,10 @@ import (
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/base/third"
+	"devops-http/framework"
+	contract2 "devops-http/framework/contract"
 	"devops-http/resources/proto/thirdGrpc"
 	"encoding/json"
-	"github.com/ddh-open/gin/framework"
-	contract2 "github.com/ddh-open/gin/framework/contract"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )

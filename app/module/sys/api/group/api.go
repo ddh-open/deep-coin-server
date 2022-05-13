@@ -2,8 +2,8 @@ package group
 
 import (
 	"devops-http/app/module/sys/service/group"
-	"github.com/ddh-open/gin/framework"
-	"github.com/ddh-open/gin/framework/gin"
+	"devops-http/framework"
+	"devops-http/framework/gin"
 )
 
 type ApiGroup struct {

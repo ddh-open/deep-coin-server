@@ -4,8 +4,8 @@ import (
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/workflow/model/task"
-	"github.com/ddh-open/gin/framework"
-	contract2 "github.com/ddh-open/gin/framework/contract"
+	"devops-http/framework"
+	contract2 "devops-http/framework/contract"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
