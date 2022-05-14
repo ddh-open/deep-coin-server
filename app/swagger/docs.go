@@ -1570,49 +1570,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/role.DevopsSysRole"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/sys/roles/add/resources": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "给角色新增权限接口",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Role"
-                ],
-                "summary": "给角色新增权限接口",
-                "parameters": [
-                    {
-                        "description": "新增api权限Ptype为p； 新增菜单权限Ptype为p3 , source 是角色的id，resource 是资源",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/request.CabinInReceive"
-                            }
+                            "$ref": "#/definitions/role.DevopsSysRoleEntity"
                         }
                     }
                 ],
@@ -1729,7 +1687,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.PageRequest"
+                            "$ref": "#/definitions/request.SearchRoleParams"
                         }
                     }
                 ],
@@ -1744,7 +1702,7 @@ const docTemplate = `{
             }
         },
         "/sys/roles/modify": {
-            "post": {
+            "put": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -1768,7 +1726,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/role.DevopsSysRole"
+                            "$ref": "#/definitions/role.DevopsSysRoleEntity"
                         }
                     }
                 ],
@@ -1799,7 +1757,7 @@ const docTemplate = `{
                 "tags": [
                     "Role"
                 ],
-                "summary": "获得角色接口",
+                "summary": "获得单个角色接口",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3832,6 +3790,69 @@ const docTemplate = `{
                 }
             }
         },
+        "request.SearchRoleParams": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "domain": {
+                    "description": "域",
+                    "type": "integer"
+                },
+                "enable": {
+                    "description": "是否启用//radio/1,启用,2,禁用",
+                    "type": "integer"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "parentId": {
+                    "description": "角色",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "说明//textarea",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "状态//radio/2,隐藏,1,显示",
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
         "response.PageResult": {
             "type": "object",
             "properties": {
@@ -3860,7 +3881,7 @@ const docTemplate = `{
                 }
             }
         },
-        "role.DevopsSysRole": {
+        "role.DevopsSysRoleEntity": {
             "type": "object",
             "properties": {
                 "created_at": {
@@ -4222,8 +4243,11 @@ const docTemplate = `{
                         "type": "string"
                     }
                 },
-                "roleName": {
-                    "type": "string"
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "salt": {
                     "description": "密码盐",

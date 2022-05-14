@@ -1,18 +1,16 @@
 package sys
 
-import "devops-http/resources/proto/userGrpc"
-
 type LoginRequest struct {
 	Username string
 	Password string
-	Type     userGrpc.UserLoginType
+	Type     int
 }
 
 type ChangePasswordRequest struct {
 	Username    string
 	Password    string
 	OldPassword string
-	Type        userGrpc.UserLoginType
+	Type        int
 }
 
 type RelativeUserRequest struct {

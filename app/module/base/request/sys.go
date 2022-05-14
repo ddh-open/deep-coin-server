@@ -8,6 +8,14 @@ import (
 	"devops-http/app/module/sys/model/role"
 )
 
+// SearchRoleParams 角色分页条件查询及排序结构体
+type SearchRoleParams struct {
+	role.DevopsSysRole
+	PageRequest
+	OrderKey string `json:"orderKey"` // 排序
+	Desc     bool   `json:"desc"`     // 排序方式:升序false(默认)|降序true
+}
+
 // SearchApiParams api分页条件查询及排序结构体
 type SearchApiParams struct {
 	path.DevopsSysApi

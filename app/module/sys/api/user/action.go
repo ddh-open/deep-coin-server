@@ -22,8 +22,8 @@ import (
 // @Router /user/login [post]
 func (api *ApiUser) Login(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var request sys.LoginRequest
-	err := c.ShouldBindJSON(&request)
+	var req sys.LoginRequest
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
 		Msg:  "",
@@ -34,8 +34,8 @@ func (api *ApiUser) Login(c *gin.Context) {
 		res.Code = -1
 		res.Msg = err.Error()
 	}
-	grpc := c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc)
-	data, err := api.service.Login(request, grpc)
+	jwt := c.MustMake(contract.JWT).(contract.JWTService)
+	data, err := api.service.Login(req, jwt)
 	if err != nil {
 		logger.Error(err.Error())
 		res.Code = -1
@@ -69,9 +69,8 @@ func (api *ApiUser) Modify(c *gin.Context) {
 		res.Code = -1
 		res.Msg = err.Error()
 	}
-	ldap := c.MustMake(contract.KeyLdap).(contract.Ldap)
 	cabin := c.MustMake(contract.KeyCaBin).(contract.Cabin)
-	data, err := api.service.Modify(request, ldap, cabin)
+	data, err := api.service.Modify(request, cabin)
 	if err != nil {
 		logger.Error(err.Error())
 		res.Code = -1
@@ -137,9 +136,8 @@ func (api *ApiUser) Delete(c *gin.Context) {
 		c.DJson(res)
 		return
 	}
-	ldap := c.MustMake(contract.KeyLdap).(contract.Ldap)
 	cabin := c.MustMake(contract.KeyCaBin).(contract.Cabin)
-	err = api.service.Delete(req.Ids, ldap, cabin)
+	err = api.service.Delete(req.Ids, cabin)
 	if err != nil {
 		logger.Error(err.Error())
 		res.Code = -1
@@ -204,8 +202,8 @@ func (api *ApiUser) Register(c *gin.Context) {
 		res.Code = -1
 		res.Msg = err.Error()
 	}
-	grpc := c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc)
-	data, err := api.service.Login(request, grpc)
+	jwt := c.MustMake(contract.JWT).(contract.JWTService)
+	data, err := api.service.Login(request, jwt)
 	if err != nil {
 		logger.Error(err.Error())
 		res.Code = -1
@@ -225,8 +223,8 @@ func (api *ApiUser) Register(c *gin.Context) {
 // @Router /user/logout [post]
 func (api *ApiUser) Logout(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var request sys.LoginRequest
-	err := c.ShouldBindJSON(&request)
+	var req sys.LoginRequest
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
 		Msg:  "",
@@ -237,8 +235,8 @@ func (api *ApiUser) Logout(c *gin.Context) {
 		res.Code = -1
 		res.Msg = err.Error()
 	}
-	grpc := c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc)
-	data, err := api.service.Login(request, grpc)
+	jwt := c.MustMake(contract.JWT).(contract.JWTService)
+	data, err := api.service.Login(req, jwt)
 	if err != nil {
 		logger.Error(err.Error())
 		res.Code = -1

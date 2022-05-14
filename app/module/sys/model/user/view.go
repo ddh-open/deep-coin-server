@@ -5,8 +5,8 @@ import "devops-http/app/module/base"
 // DevopsSysUserView 用户
 type DevopsSysUserView struct {
 	DevopsSysUser
-	RoleIds  []string `json:"roleIds"`
-	RoleName string   `json:"roleName"`
+	RoleIds []string `json:"roleIds"`
+	Roles   []string `json:"roles"`
 }
 
 // SysUserViewColumns get sql column name.获取数据库列名
