@@ -5,6 +5,7 @@ import (
 	"devops-http/app/module/sys/api/config"
 	"devops-http/app/module/sys/api/domain"
 	"devops-http/app/module/sys/api/group"
+	"devops-http/app/module/sys/api/icon"
 	"devops-http/app/module/sys/api/menu"
 	"devops-http/app/module/sys/api/operation"
 	"devops-http/app/module/sys/api/path"
@@ -46,6 +47,7 @@ func Routes(r *gin.Engine) {
 	role.Register(r)
 	operation.Register(r)
 	config.Register(r)
+	icon.Register(r)
 	// 用户模块注册路由
 	user.Register(r)
 

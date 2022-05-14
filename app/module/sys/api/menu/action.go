@@ -54,7 +54,13 @@ func (a *ApiMenu) DeleteBaseMenu(c *gin.Context) {
 	logger := c.MustMakeLog()
 	res := response.Response{Code: 1, Msg: "删除成功"}
 	var param sys.DeleteById
-	_ = c.ShouldBindJSON(&param)
+	err := c.ShouldBindJSON(&param)
+	if err != nil {
+		res.Msg = "删除失败: " + err.Error()
+		res.Code = -1
+		logger.Error(res.Msg)
+		c.DJson(res)
+	}
 	if err := a.service.DeleteBaseMenu(param); err != nil {
 		res.Msg = "删除失败: " + err.Error()
 		res.Code = -1
@@ -144,7 +150,7 @@ func (a *ApiMenu) ListMenu(c *gin.Context) {
 // @Produce  application/json
 // @Success 200 {object} []menu.DevopsSysMenu
 // @Tags Menu
-// @Router /sys/menu/get/tree [post]
+// @Router /sys/menu/get/tree [get]
 func (a *ApiMenu) GetBaseMenuTree(c *gin.Context) {
 	res := response.Response{Code: 1, Msg: "获取成功"}
 	logger := c.MustMakeLog()
@@ -155,7 +161,7 @@ func (a *ApiMenu) GetBaseMenuTree(c *gin.Context) {
 		c.DJson(res)
 		return
 	} else {
-		res.Data = menus
+		res.Data = map[string]interface{}{"list": menus}
 		c.DJson(res)
 	}
 }

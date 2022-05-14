@@ -1079,6 +1079,45 @@ const docTemplate = `{
                 }
             }
         },
+        "/sys/icon/list": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获得图标接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "获得图标接口",
+                "parameters": [
+                    {
+                        "description": "页数，页大小，筛选条件",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.SearchIconParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/sys/menu/add": {
             "post": {
                 "security": [
@@ -1219,7 +1258,7 @@ const docTemplate = `{
             }
         },
         "/sys/menu/get/tree": {
-            "post": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -2875,15 +2914,15 @@ const docTemplate = `{
         "menu.DevopsSysMenu": {
             "type": "object",
             "properties": {
+                "badge": {
+                    "description": "badge",
+                    "type": "string"
+                },
                 "children": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/menu.DevopsSysMenu"
                     }
-                },
-                "closeTab": {
-                    "description": "自动关闭tab",
-                    "type": "integer"
                 },
                 "component": {
                     "description": "对应前端文件路径",
@@ -2894,11 +2933,15 @@ const docTemplate = `{
                 },
                 "defaultMenu": {
                     "description": "是否是基础路由（开发中）",
-                    "type": "integer"
+                    "type": "boolean"
+                },
+                "dot": {
+                    "description": "是否dot",
+                    "type": "boolean"
                 },
                 "hidden": {
-                    "description": "是否在列表隐藏",
-                    "type": "integer"
+                    "description": "是否隐藏",
+                    "type": "boolean"
                 },
                 "icon": {
                     "description": "菜单图标",
@@ -2908,25 +2951,21 @@ const docTemplate = `{
                     "description": "主键",
                     "type": "integer"
                 },
-                "keepAlive": {
-                    "description": "是否缓存",
-                    "type": "integer"
-                },
-                "menuBtn": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/menu.DevopsSysMenuBtn"
-                    }
+                "levelHidden": {
+                    "description": "始终显示当前节点",
+                    "type": "boolean"
                 },
                 "name": {
                     "description": "路由name",
                     "type": "string"
                 },
-                "parameters": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/menu.DevopsSysMenuParameter"
-                    }
+                "noClosable": {
+                    "description": "是否固定",
+                    "type": "boolean"
+                },
+                "noKeepAlive": {
+                    "description": "是否缓存",
+                    "type": "boolean"
                 },
                 "parentId": {
                     "description": "父菜单ID",
@@ -2936,6 +2975,10 @@ const docTemplate = `{
                     "description": "路由path",
                     "type": "string"
                 },
+                "redirect": {
+                    "description": "排序标记",
+                    "type": "string"
+                },
                 "sort": {
                     "description": "排序标记",
                     "type": "integer"
@@ -2943,30 +2986,6 @@ const docTemplate = `{
                 "title": {
                     "description": "菜单名",
                     "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "menu.DevopsSysMenuBtn": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "desc": {
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "sysBaseMenuID": {
-                    "type": "integer"
                 },
                 "updated_at": {
                     "type": "string"
@@ -2976,15 +2995,15 @@ const docTemplate = `{
         "menu.DevopsSysMenuEntity": {
             "type": "object",
             "properties": {
+                "badge": {
+                    "description": "badge",
+                    "type": "string"
+                },
                 "children": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/menu.DevopsSysMenu"
                     }
-                },
-                "closeTab": {
-                    "description": "自动关闭tab",
-                    "type": "integer"
                 },
                 "component": {
                     "description": "对应前端文件路径",
@@ -2995,11 +3014,15 @@ const docTemplate = `{
                 },
                 "defaultMenu": {
                     "description": "是否是基础路由（开发中）",
-                    "type": "integer"
+                    "type": "boolean"
+                },
+                "dot": {
+                    "description": "是否dot",
+                    "type": "boolean"
                 },
                 "hidden": {
-                    "description": "是否在列表隐藏",
-                    "type": "integer"
+                    "description": "是否隐藏",
+                    "type": "boolean"
                 },
                 "icon": {
                     "description": "菜单图标",
@@ -3009,25 +3032,21 @@ const docTemplate = `{
                     "description": "主键",
                     "type": "integer"
                 },
-                "keepAlive": {
-                    "description": "是否缓存",
-                    "type": "integer"
-                },
-                "menuBtn": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/menu.DevopsSysMenuBtn"
-                    }
+                "levelHidden": {
+                    "description": "始终显示当前节点",
+                    "type": "boolean"
                 },
                 "name": {
                     "description": "路由name",
                     "type": "string"
                 },
-                "parameters": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/menu.DevopsSysMenuParameter"
-                    }
+                "noClosable": {
+                    "description": "是否固定",
+                    "type": "boolean"
+                },
+                "noKeepAlive": {
+                    "description": "是否缓存",
+                    "type": "boolean"
                 },
                 "parentId": {
                     "description": "父菜单ID",
@@ -3035,6 +3054,10 @@ const docTemplate = `{
                 },
                 "path": {
                     "description": "路由path",
+                    "type": "string"
+                },
+                "redirect": {
+                    "description": "排序标记",
                     "type": "string"
                 },
                 "sort": {
@@ -3046,36 +3069,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "menu.DevopsSysMenuParameter": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "devopsSysMenuID": {
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "key": {
-                    "description": "地址栏携带参数的key",
-                    "type": "string"
-                },
-                "type": {
-                    "description": "地址栏携带参数为params还是query",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                },
-                "value": {
-                    "description": "地址栏携带参数的值",
                     "type": "string"
                 }
             }
@@ -3612,6 +3605,45 @@ const docTemplate = `{
                 }
             }
         },
+        "request.SearchIconParams": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "系统图标名称",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
         "request.SearchLogsParams": {
             "type": "object",
             "properties": {
@@ -3696,15 +3728,15 @@ const docTemplate = `{
         "request.SearchMenusParams": {
             "type": "object",
             "properties": {
+                "badge": {
+                    "description": "badge",
+                    "type": "string"
+                },
                 "children": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/menu.DevopsSysMenu"
                     }
-                },
-                "closeTab": {
-                    "description": "自动关闭tab",
-                    "type": "integer"
                 },
                 "component": {
                     "description": "对应前端文件路径",
@@ -3715,10 +3747,14 @@ const docTemplate = `{
                 },
                 "defaultMenu": {
                     "description": "是否是基础路由（开发中）",
-                    "type": "integer"
+                    "type": "boolean"
                 },
                 "desc": {
                     "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "dot": {
+                    "description": "是否dot",
                     "type": "boolean"
                 },
                 "filter": {
@@ -3728,8 +3764,8 @@ const docTemplate = `{
                     }
                 },
                 "hidden": {
-                    "description": "是否在列表隐藏",
-                    "type": "integer"
+                    "description": "是否隐藏",
+                    "type": "boolean"
                 },
                 "icon": {
                     "description": "菜单图标",
@@ -3739,19 +3775,21 @@ const docTemplate = `{
                     "description": "主键",
                     "type": "integer"
                 },
-                "keepAlive": {
-                    "description": "是否缓存",
-                    "type": "integer"
-                },
-                "menuBtn": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/menu.DevopsSysMenuBtn"
-                    }
+                "levelHidden": {
+                    "description": "始终显示当前节点",
+                    "type": "boolean"
                 },
                 "name": {
                     "description": "路由name",
                     "type": "string"
+                },
+                "noClosable": {
+                    "description": "是否固定",
+                    "type": "boolean"
+                },
+                "noKeepAlive": {
+                    "description": "是否缓存",
+                    "type": "boolean"
                 },
                 "orderKey": {
                     "description": "排序",
@@ -3763,18 +3801,16 @@ const docTemplate = `{
                 "pageSize": {
                     "type": "integer"
                 },
-                "parameters": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/menu.DevopsSysMenuParameter"
-                    }
-                },
                 "parentId": {
                     "description": "父菜单ID",
                     "type": "string"
                 },
                 "path": {
                     "description": "路由path",
+                    "type": "string"
+                },
+                "redirect": {
+                    "description": "排序标记",
                     "type": "string"
                 },
                 "sort": {
@@ -3946,7 +3982,7 @@ const docTemplate = `{
             "properties": {
                 "ids": {
                     "description": "角色ID",
-                    "type": "string"
+                    "type": "integer"
                 }
             }
         },

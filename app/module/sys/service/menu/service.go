@@ -29,7 +29,7 @@ func NewService(c framework.Container) *Service {
 	if err != nil {
 		logger.Error("service 获取db出错： err", zap.Error(err))
 	}
-	db.AutoMigrate(&menu.DevopsSysMenu{}, &menu.DevopsSysMenuParameter{}, &menu.DevopsSysMenuBtn{}, &operation.DevopsSysOperationRecord{})
+	db.AutoMigrate(&menu.DevopsSysMenu{}, &operation.DevopsSysOperationRecord{})
 	return &Service{base.NewRepository(db)}
 }
 
@@ -43,22 +43,10 @@ func (s *Service) SetRepository(model interface{}) *base.Repository {
 
 func (s *Service) getMenuTreeMap(roleId string) (err error, treeMap map[string][]menu.DevopsSysMenu) {
 	var allMenus []menu.DevopsSysMenu
-	var btns []menu.DevopsSysMenuBtn
 	treeMap = make(map[string][]menu.DevopsSysMenu)
-	err = s.repository.GetDB().Where("authority_id = ?", roleId).Order("sort").Preload("Parameters").Find(&allMenus).Error
+	err = s.repository.GetDB().Where("authority_id = ?", roleId).Order("sort").Find(&allMenus).Error
 	if err != nil {
 		return
-	}
-	err = s.repository.GetDB().Where("authority_id = ?", roleId).Preload("SysBaseMenuBtn").Find(&btns).Error
-	if err != nil {
-		return
-	}
-	var btnMap = make(map[uint]map[string]string)
-	for _, v := range btns {
-		if btnMap[v.DevopsSysMenuID] == nil {
-			btnMap[v.DevopsSysMenuID] = make(map[string]string)
-		}
-		btnMap[v.DevopsSysMenuID][v.Name] = roleId
 	}
 	for _, v := range allMenus {
 		treeMap[v.ParentId] = append(treeMap[v.ParentId], v)
@@ -161,7 +149,7 @@ func (s *Service) AddBaseMenu(menuData menu.DevopsSysMenuEntity) error {
 func (s *Service) getBaseMenuTreeMap() (err error, treeMap map[string][]menu.DevopsSysMenu) {
 	var allMenus []menu.DevopsSysMenu
 	treeMap = make(map[string][]menu.DevopsSysMenu)
-	err = s.repository.GetDB().Order("sort").Preload("MenuBtn").Preload("Parameters").Preload("Parameters").Find(&allMenus).Error
+	err = s.repository.GetDB().Order("sort").Find(&allMenus).Error
 	for _, v := range allMenus {
 		treeMap[v.ParentId] = append(treeMap[v.ParentId], v)
 	}
@@ -238,17 +226,15 @@ func (s *Service) GetMenuByUser(tokenUser *base.TokenUser, cabin contract.Cabin)
 }
 
 func (s *Service) DeleteBaseMenu(id sys.DeleteById) (err error) {
-	err = s.repository.GetDB().Preload("MenuBtn").Preload("Parameters").Where("parent_id in (?)", id).First(&menu.DevopsSysMenu{}).Error
+	err = s.repository.GetDB().Where("parent_id in (?)", id).First(&menu.DevopsSysMenu{}).Error
 	if err != nil {
 		var menuData []menu.DevopsSysMenu
-		err = s.repository.GetDB().Where("id in (?)", id.Ids).Find(&menuData).Error
+		err = s.repository.GetDB().Where("id = ?", id.Id).Find(&menuData).Error
 		if err != nil {
 			return err
 		}
 		for _, v := range menuData {
 			err = s.repository.GetDB().Delete(&menu.DevopsSysMenu{}, "id = ?", v.ID).Error
-			err = s.repository.GetDB().Delete(&menu.DevopsSysMenuParameter{}, "devops_sys_menu_id = ?", v.ID).Error
-			err = s.repository.GetDB().Delete(&menu.DevopsSysMenuBtn{}, "devops_sys_menu_id = ?", v.ID).Error
 			// 删除相关的权限 此处预留
 			if err != nil {
 				return err
@@ -264,8 +250,8 @@ func (s *Service) DeleteBaseMenu(id sys.DeleteById) (err error) {
 func (s *Service) UpdateBaseMenu(menuData menu.DevopsSysMenuEntity) (err error) {
 	var oldMenu menu.DevopsSysMenu
 	upDateMap := make(map[string]interface{})
-	upDateMap["keep_alive"] = menuData.KeepAlive
-	upDateMap["close_tab"] = menuData.CloseTab
+	upDateMap["no_keep_alive"] = menuData.NoKeepAlive
+	upDateMap["no_closable"] = menuData.NoClosable
 	upDateMap["default_menu"] = menuData.DefaultMenu
 	upDateMap["parent_id"] = menuData.ParentId
 	upDateMap["path"] = menuData.Path
@@ -283,35 +269,7 @@ func (s *Service) UpdateBaseMenu(menuData menu.DevopsSysMenuEntity) (err error) 
 				return errors.New("存在相同name修改失败")
 			}
 		}
-		txErr := tx.Unscoped().Delete(&menu.DevopsSysMenuParameter{}, "devops_sys_menu_id = ?", menuData.ID).Error
-		if txErr != nil {
-			return txErr
-		}
-		txErr = tx.Unscoped().Delete(&menu.DevopsSysMenuBtn{}, "devops_sys_menu_id = ?", menuData.ID).Error
-		if txErr != nil {
-			return txErr
-		}
-		if len(menuData.Parameters) > 0 {
-			for k := range menuData.Parameters {
-				menuData.Parameters[k].DevopsSysMenuID = menuData.ID
-			}
-			txErr = tx.Create(&menuData.Parameters).Error
-			if txErr != nil {
-				return txErr
-			}
-		}
-
-		if len(menuData.MenuBtn) > 0 {
-			for k := range menuData.MenuBtn {
-				menuData.MenuBtn[k].DevopsSysMenuID = menuData.ID
-			}
-			txErr = tx.Create(&menuData.MenuBtn).Error
-			if txErr != nil {
-				return txErr
-			}
-		}
-
-		txErr = db.Updates(upDateMap).Error
+		txErr := db.Updates(upDateMap).Error
 		if txErr != nil {
 			return txErr
 		}

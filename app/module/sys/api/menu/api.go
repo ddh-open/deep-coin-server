@@ -20,7 +20,7 @@ func Register(r *gin.Engine) error {
 	sysGroup.GET("menu/role/:id", api.GetMenuByRole)
 	sysGroup.GET("menu/user", api.GetMenuByUser)
 	sysGroup.POST("menu/add/role", api.AddMenuToRole)
-	sysGroup.POST("menu/get/tree", api.GetBaseMenuTree)
+	sysGroup.GET("menu/get/tree", api.GetBaseMenuTree)
 	sysGroup.POST("menu/list", api.ListMenu)
 	sysGroup.POST("menu/add", api.AddMenu)
 	sysGroup.PUT("menu/modify", api.UpdateBaseMenu)

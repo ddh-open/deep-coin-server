@@ -34,7 +34,7 @@ type GetByRoleId struct {
 }
 
 type DeleteById struct {
-	Ids string `json:"ids"` // 角色ID
+	Id int `json:"ids"` // 角色ID
 }
 
 type RequestById struct {

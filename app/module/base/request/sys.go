@@ -2,11 +2,20 @@ package request
 
 import (
 	"devops-http/app/module/sys/model/config"
+	"devops-http/app/module/sys/model/icon"
 	"devops-http/app/module/sys/model/menu"
 	"devops-http/app/module/sys/model/operation"
 	"devops-http/app/module/sys/model/path"
 	"devops-http/app/module/sys/model/role"
 )
+
+// SearchIconParams 图标分页条件查询及排序结构体
+type SearchIconParams struct {
+	icon.DevopsSysIcon
+	PageRequest
+	OrderKey string `json:"orderKey"` // 排序
+	Desc     bool   `json:"desc"`     // 排序方式:升序false(默认)|降序true
+}
 
 // SearchRoleParams 角色分页条件查询及排序结构体
 type SearchRoleParams struct {
