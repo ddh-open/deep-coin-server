@@ -130,56 +130,6 @@ const docTemplate = `{
                 "tags": [
                     "Apis"
                 ],
-                "summary": "删除api",
-                "parameters": [
-                    {
-                        "description": "ID",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/path.DevopsSysApi"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "删除api",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/sys/api/deletes": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Apis"
-                ],
                 "summary": "删除选中Api",
                 "parameters": [
                     {

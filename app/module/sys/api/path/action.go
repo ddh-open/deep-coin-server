@@ -37,33 +37,6 @@ func (a *ApiPath) CreateApi(c *gin.Context) {
 	}
 }
 
-// DeleteApi
-// @Tags Apis
-// @Summary 删除api
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body path.DevopsSysApi true "ID"
-// @Success 200 {object} response.Response{msg=string} "删除api"
-// @Router /sys/api/delete [delete]
-func (a *ApiPath) DeleteApi(c *gin.Context) {
-	logGet := c.MustMakeLog()
-	var api path.DevopsSysApi
-	err := c.ShouldBindJSON(&api)
-	if err != nil {
-		logGet.Error("参数解析错误!", zap.Error(err))
-		response.FailWithMessage("参数解析错误!", c)
-		return
-	}
-	cabin := c.MustMake(contract.KeyCaBin).(contract.Cabin)
-	if err := a.service.DeleteApi(api, cabin); err != nil {
-		logGet.Error("删除失败!", zap.Error(err))
-		response.FailWithMessage("删除失败", c)
-	} else {
-		response.OkWithMessage("删除成功", c)
-	}
-}
-
 // GetApiList
 // @Tags Apis
 // @Summary 分页获取API列表
@@ -209,7 +182,7 @@ func (a *ApiPath) GetAllApis(c *gin.Context) {
 // @Produce application/json
 // @Param data body sys.RequestById true "ID"
 // @Success 200 {object} response.Response{msg=string} "删除选中Api"
-// @Router /sys/api/deletes [delete]
+// @Router /sys/api/delete [delete]
 func (a *ApiPath) DeleteApisByIds(c *gin.Context) {
 	logGet := c.MustMakeLog()
 	var ids sys.RequestById

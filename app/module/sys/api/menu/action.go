@@ -255,7 +255,7 @@ func (a *ApiMenu) GetMenuByUser(c *gin.Context) {
 		res.Code = -1
 		logger.Error(res.Msg)
 	} else {
-		res.Data = menus
+		res.Data = map[string]interface{}{"list": menus}
 	}
 	c.DJson(res)
 }

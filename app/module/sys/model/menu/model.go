@@ -11,12 +11,12 @@ type DevopsSysMenu struct {
 	Component string                            `json:"component" gorm:"comment:对应前端文件路径"` // 对应前端文件路径
 	Redirect  string                            `json:"redirect" gorm:"comment:重定向"`       // 排序标记
 	Sort      int                               `json:"sort" gorm:"comment:排序标记"`          // 排序标记
-	Title     string                            `json:"title" gorm:"comment:菜单名"`          // 菜单名
 	Meta      `json:"meta" gorm:"comment:附加属性"` // 附加属性
 	Children  []DevopsSysMenu                   `json:"children" gorm:"-"`
 }
 
 type Meta struct {
+	Title       string `json:"title" gorm:"comment:菜单名"`                // 菜单名
 	NoKeepAlive bool   `json:"noKeepAlive" gorm:"comment:是否缓存"`         // 是否缓存
 	DefaultMenu bool   `json:"defaultMenu" gorm:"comment:是否是基础路由（开发中）"` // 是否是基础路由（开发中）
 	Icon        string `json:"icon" gorm:"comment:菜单图标"`                // 菜单图标

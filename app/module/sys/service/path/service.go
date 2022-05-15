@@ -159,13 +159,13 @@ func (s *Service) UpdateApi(api path.DevopsSysApi, c contract.Cabin) (err error)
 		if err != nil {
 			return err
 		} else {
-			err = s.repository.GetDB().Save(&api).Error
+			err = s.repository.GetDB().Where("id = ?", api.ID).Save(&api).Error
 		}
 	}
 	return err
 }
 
 func (s *Service) DeleteApisByIds(ids sys.RequestById) (err error) {
-	err = s.repository.GetDB().Delete(&[]path.DevopsSysApi{}, "id in ?", ids.Ids).Error
+	err = s.repository.GetDB().Delete(&[]path.DevopsSysApi{}, "id in (?)", ids.Ids).Error
 	return err
 }

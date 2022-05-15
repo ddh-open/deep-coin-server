@@ -17,13 +17,12 @@ func Register(r *gin.Engine) error {
 
 	// 用户组相关接口
 	sysGroup.GET("group/:id", api.GetGroups)
-	sysGroup.GET("group/resource/:name", api.GetGroupsResource)
 	sysGroup.POST("group/list", api.ListGroups)
 	sysGroup.POST("group/add", api.AddGroup)
-	sysGroup.POST("group/add/resources", api.AddResourcesToGroup)
 	sysGroup.POST("group/modify", api.ModifyGroup)
 	sysGroup.DELETE("group/delete", api.DeleteGroup)
-
+	sysGroup.POST("group/relative/add", api.AddResourcesToGroup)
+	sysGroup.GET("group/relative/:id", api.AddResourcesToGroup)
 	return nil
 }
 

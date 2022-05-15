@@ -210,7 +210,7 @@ func (s *Service) GetMenuByUser(tokenUser *base.TokenUser, cabin contract.Cabin)
 		}
 	}
 	var allMenus []menu.DevopsSysMenu
-	err = s.repository.SetRepository(&menu.DevopsSysMenu{}).GetDB().Order("sort").Preload("MenuBtn").Preload("Parameters").Preload("Parameters").Find(&allMenus, menusIdStr).Error
+	err = s.repository.SetRepository(&menu.DevopsSysMenu{}).GetDB().Order("sort").Find(&allMenus).Error
 	if err != nil {
 		return
 	}
