@@ -2,8 +2,8 @@ package apm
 
 import (
 	"devops-http/app/contract"
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/third"
 	"devops-http/framework/gin"
 )
 
@@ -13,12 +13,12 @@ import (
 // @Description 新增商户apm
 // @accept application/json
 // @Produce application/json
-// @Param data body third.AddMerchantApmRequest true "商户名称，商户id，名称空间"
+// @Param data body request.AddMerchantApmRequest true "商户名称，商户id，名称空间"
 // @Tags ThirdTencent
 // @Success 200 {object}  response.Response
 // @Router /third/tencent/apm/addMerchantApm [post]
 func (t *ApiApm) AddMerchantApm(c *gin.Context) {
-	var param third.AddMerchantApmRequest
+	var param request.AddMerchantApmRequest
 	err := c.ShouldBindJSON(&param)
 	res := response.Response{Code: 1, Msg: "创建apm成功", Data: nil}
 	if err != nil {

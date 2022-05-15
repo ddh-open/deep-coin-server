@@ -101,7 +101,7 @@ type DeleteById struct {
 	Id int `json:"ids"` // 角色ID
 }
 
-type RequestById struct {
+type ReqById struct {
 	Ids string `json:"ids"` // 角色ID
 }
 

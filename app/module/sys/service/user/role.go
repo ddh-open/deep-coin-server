@@ -3,7 +3,7 @@ package user
 import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base"
-	"devops-http/app/module/base/sys"
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/sys/model/path"
 	"devops-http/app/module/sys/model/role"
 	"devops-http/app/module/sys/model/user"
@@ -47,7 +47,7 @@ func (s *Service) GetUserApis(userToken *base.TokenUser, c contract.Cabin) (resu
 	return result, err
 }
 
-func (s *Service) RelativeRolesToUser(request sys.RelativeUserRequest, domain string, c contract.Cabin) error {
+func (s *Service) RelativeRolesToUser(request request.RelativeUserRequest, domain string, c contract.Cabin) error {
 	userData := user.DevopsSysUser{}
 	s.repository.GetDB().First(&userData, "id = ?", request.UserId)
 	if userData.ID <= 0 {
@@ -64,7 +64,7 @@ func (s *Service) RelativeRolesToUser(request sys.RelativeUserRequest, domain st
 	return err
 }
 
-func (s *Service) DeleteRelativeRolesToUser(request sys.RelativeUserRequest, domain string, c contract.Cabin) error {
+func (s *Service) DeleteRelativeRolesToUser(request request.RelativeUserRequest, domain string, c contract.Cabin) error {
 	userData := user.DevopsSysUser{}
 	s.repository.GetDB().First(&userData, "id = ?", request.UserId)
 	if userData.ID <= 0 {

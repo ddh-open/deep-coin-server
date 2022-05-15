@@ -2,8 +2,8 @@ package user
 
 import (
 	"devops-http/app/contract"
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
 	"devops-http/framework/gin"
 )
@@ -72,13 +72,13 @@ func (api *ApiUser) UserGetApis(c *gin.Context) {
 // @Description 用户关联角色接口
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.RelativeUserRequest true "关联参数"
+// @Param data body request.RelativeUserRequest true "关联参数"
 // @Tags User
 // @Success 200 {object}  response.Response
 // @Router /user/relative/roles/add [post]
 func (api *ApiUser) UserRelativeRoleAdd(c *gin.Context) {
 	logger := c.MustMakeLog()
-	param := sys.RelativeUserRequest{}
+	param := request.RelativeUserRequest{}
 	err := c.ShouldBindJSON(&param)
 	res := response.Response{Code: 1, Msg: "新增成功"}
 	if err != nil {
@@ -106,13 +106,13 @@ func (api *ApiUser) UserRelativeRoleAdd(c *gin.Context) {
 // @Description 删除用户角色接口
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.RelativeUserRequest true "关联参数"
+// @Param data body request.RelativeUserRequest true "关联参数"
 // @Tags User
 // @Success 200 {object}  response.Response
 // @Router /user/relative/roles/delete [delete]
 func (api *ApiUser) UserRelativeRoleDelete(c *gin.Context) {
 	logger := c.MustMakeLog()
-	param := sys.RelativeUserRequest{}
+	param := request.RelativeUserRequest{}
 	err := c.ShouldBindJSON(&param)
 	res := response.Response{Code: 1, Msg: "删除成功"}
 	if err != nil {

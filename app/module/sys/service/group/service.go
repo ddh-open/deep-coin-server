@@ -14,11 +14,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/spf13/cast"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"strconv"
-	"strings"
 )
 
 type Service struct {
@@ -152,31 +150,25 @@ func (s *Service) ModifyGroup(req group.DevopsSysGroup) (err error) {
 	return err
 }
 
-func (s *Service) DeleteGroup(ids string, grpcService contract.ServiceGrpc, param ...interface{}) error {
-	var idsInt []int64
-	if strings.Contains(ids, ",") {
-		for _, s2 := range strings.Split(ids, ",") {
-			idsInt = append(idsInt, cast.ToInt64(s2))
+func (s *Service) DeleteGroup(req request.ReqById) (err error) {
+	err = s.repository.GetDB().Where("parent_id in (?)", req.Ids).First(&menu.DevopsSysMenu{}).Error
+	if err != nil {
+		var groupData []group.DevopsSysGroup
+		err = s.repository.GetDB().Where("id in (?)", req.Ids).Find(&groupData).Error
+		if err != nil {
+			return err
+		}
+		for _, v := range groupData {
+			err = s.repository.GetDB().Delete(&group.DevopsSysGroup{}, "id = ?", v.ID).Error
+			// 删除相关的权限 此处预留
+			if err != nil {
+				return err
+			}
 		}
 	} else {
-		idsInt = append(idsInt, cast.ToInt64(ids))
+		return errors.New("此菜单存在子菜单不可删除")
 	}
-	conn, err := grpcService.GetGrpc("grpc.user")
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-	client := userGrpc.NewServiceGroupClient(conn)
-	resp, err := client.GroupDelete(context.Background(), &userGrpc.IdsRequest{
-		Ids: idsInt,
-	})
-	if err != nil {
-		return err
-	}
-	if resp.GetCode() != 200 {
-		err = errors.Wrap(err, resp.GetMsg())
-	}
-	return err
+	return
 }
 
 func (s *Service) AddResourcesToGroup(request []request.CabinInReceive, grpcService contract.ServiceGrpc, param ...interface{}) error {

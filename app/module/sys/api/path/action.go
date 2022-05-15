@@ -4,7 +4,6 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
 	"devops-http/app/module/sys/model/path"
 	"devops-http/framework/gin"
@@ -72,12 +71,12 @@ func (a *ApiPath) GetApiList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.RequestById true "根据id获取api"
+// @Param data body request.ReqById true "根据id获取api"
 // @Success 200 {object} response.Response{data=path.DevopsSysApi} "根据id获取api,返回包括api详情"
 // @Router /sys/api/get [post]
 func (a *ApiPath) GetApiById(c *gin.Context) {
 	logGet := c.MustMakeLog()
-	var req sys.RequestById
+	var req request.ReqById
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		logGet.Error("获取失败!", zap.Error(err))
@@ -100,12 +99,12 @@ func (a *ApiPath) GetApiById(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.RelativeRoleApisRequest true "给角色关联api 权限"
+// @Param data body request.RelativeRoleApisRequest true "给角色关联api 权限"
 // @Success 200 {object} response.Response{} "给角色关联api权限"
 // @Router /sys/api/role [post]
 func (a *ApiPath) RelativeToRole(c *gin.Context) {
 	logGet := c.MustMakeLog()
-	var req sys.RelativeRoleApisRequest
+	var req request.RelativeRoleApisRequest
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		logGet.Error("参数获取失败!", zap.Error(err))
@@ -180,12 +179,12 @@ func (a *ApiPath) GetAllApis(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.RequestById true "ID"
+// @Param data body request.ReqById true "ID"
 // @Success 200 {object} response.Response{msg=string} "删除选中Api"
 // @Router /sys/api/delete [delete]
 func (a *ApiPath) DeleteApisByIds(c *gin.Context) {
 	logGet := c.MustMakeLog()
-	var ids sys.RequestById
+	var ids request.ReqById
 	err := c.ShouldBindJSON(&ids)
 	if err != nil {
 		logGet.Error("删除失败!", zap.Error(err))

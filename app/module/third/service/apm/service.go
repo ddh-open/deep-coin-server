@@ -4,8 +4,8 @@ import (
 	"context"
 	"devops-http/app/contract"
 	"devops-http/app/module/base"
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/third"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
 	"devops-http/resources/proto/thirdGrpc"
@@ -33,7 +33,7 @@ func (s *Service) SetRepository(model interface{}) *base.Repository {
 	return s.repository.SetRepository(model)
 }
 
-func (s *Service) AddMerchantApm(request third.AddMerchantApmRequest, grpcService contract.ServiceGrpc, param ...interface{}) (result response.Response, err error) {
+func (s *Service) AddMerchantApm(request request.AddMerchantApmRequest, grpcService contract.ServiceGrpc, param ...interface{}) (result response.Response, err error) {
 	conn, err := grpcService.GetGrpc("grpc.third")
 	if err != nil {
 		return result, err

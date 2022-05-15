@@ -4,8 +4,8 @@ import (
 	"context"
 	"devops-http/app/contract"
 	"devops-http/app/module/base"
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/third"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
 	"devops-http/resources/proto/thirdGrpc"
@@ -35,7 +35,7 @@ func (s *Service) SetRepository(model interface{}) *base.Repository {
 	return s.repository.SetRepository(model)
 }
 
-func (s *Service) GetTencentResourceList(request third.TencentResourceListRequest, grpcService contract.ServiceGrpc, param ...interface{}) (response.PageResult, error) {
+func (s *Service) GetTencentResourceList(request request.TencentResourceListRequest, grpcService contract.ServiceGrpc, param ...interface{}) (response.PageResult, error) {
 	conn, err := grpcService.GetGrpc("grpc.third")
 	var result response.PageResult
 	var list []map[string]interface{}

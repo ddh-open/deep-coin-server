@@ -8,32 +8,32 @@ import (
 	"devops-http/framework/gin"
 )
 
-// GetGroupsResource godoc
-// @Summary 获得分组资源接口
-// @Security ApiKeyAuth
-// @Description 获得分组资源接口
-// @accept application/json
-// @Produce application/json
-// @Param name path string true "分组name"
-// @Param domain query string false "域"
-// @Tags Group
-// @Success 200 {object}  response.Response
-// @Router /sys/group/resource/{name} [get]
-func (a *ApiGroup) GetGroupsResource(c *gin.Context) {
-	name := c.Param("name")
-	domain := c.Query("domain")
-	// 从cookie中获取domain
-	if d, err := c.Cookie("domain"); err == nil {
-		domain = d
-	}
-	result, err := a.service.GetGroupsResource(name, domain, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
-	res := response.Response{Code: 1, Msg: "查询成功", Data: result}
-	if err != nil {
-		res.Code = -1
-		res.Msg = err.Error()
-	}
-	c.DJson(res)
-}
+//// GetGroupsResource godoc
+//// @Summary 获得分组资源接口
+//// @Security ApiKeyAuth
+//// @Description 获得分组资源接口
+//// @accept application/json
+//// @Produce application/json
+//// @Param name path string true "分组name"
+//// @Param domain query string false "域"
+//// @Tags Group
+//// @Success 200 {object}  response.Response
+//// @Router /sys/group/resource/{name} [get]
+//func (a *ApiGroup) GetGroupsResource(c *gin.Context) {
+//	name := c.Param("name")
+//	domain := c.Query("domain")
+//	// 从cookie中获取domain
+//	if d, err := c.Cookie("domain"); err == nil {
+//		domain = d
+//	}
+//	result, err := a.service.GetGroupsResource(name, domain, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
+//	res := response.Response{Code: 1, Msg: "查询成功", Data: result}
+//	if err != nil {
+//		res.Code = -1
+//		res.Msg = err.Error()
+//	}
+//	c.DJson(res)
+//}
 
 // GetGroups godoc
 // @Summary 获得分组接口
@@ -145,20 +145,20 @@ func (a *ApiGroup) ModifyGroup(c *gin.Context) {
 // @Description 删除分组接口
 // @accept application/json
 // @Produce application/json
-// @Param ids body string true "分组ids"
+// @Param data body request.ReqById true "分组"
 // @Tags Group
 // @Success 200 {object}  response.Response
 // @Router /sys/group/delete [delete]
 func (a *ApiGroup) DeleteGroup(c *gin.Context) {
-	var ids string
-	err := c.ShouldBindJSON(&ids)
+	var req request.ReqById
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "删除成功"}
 	if err != nil {
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
 	}
-	err = a.service.DeleteGroup(ids, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
+	err = a.service.DeleteGroup(req)
 	if err != nil {
 		res.Msg = err.Error()
 	}

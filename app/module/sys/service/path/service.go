@@ -4,7 +4,6 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/sys/model/path"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
@@ -120,7 +119,7 @@ func (s *Service) GetApiById(id string) (err error, api path.DevopsSysApi) {
 	return
 }
 
-func (s *Service) RelativeApiToRole(req sys.RelativeRoleApisRequest, userToken *base.TokenUser, cabin contract.Cabin) (err error) {
+func (s *Service) RelativeApiToRole(req request.RelativeRoleApisRequest, userToken *base.TokenUser, cabin contract.Cabin) (err error) {
 	if len(req.ApiIds) <= 0 {
 		return errors.New("api id为空！")
 	}
@@ -165,7 +164,7 @@ func (s *Service) UpdateApi(api path.DevopsSysApi, c contract.Cabin) (err error)
 	return err
 }
 
-func (s *Service) DeleteApisByIds(ids sys.RequestById) (err error) {
+func (s *Service) DeleteApisByIds(ids request.ReqById) (err error) {
 	err = s.repository.GetDB().Delete(&[]path.DevopsSysApi{}, "id in (?)", ids.Ids).Error
 	return err
 }

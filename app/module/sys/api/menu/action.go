@@ -4,7 +4,6 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
 	"devops-http/app/module/sys/model/menu"
 	"devops-http/framework/gin"
@@ -46,14 +45,14 @@ func (a *ApiMenu) AddMenu(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.DeleteById true "菜单id"
+// @Param data body request.DeleteById true "菜单id"
 // @Tags Menu
 // @Success 200 {object} response.Response{msg=string} "删除菜单"
 // @Router /sys/menu/delete [delete]
 func (a *ApiMenu) DeleteBaseMenu(c *gin.Context) {
 	logger := c.MustMakeLog()
 	res := response.Response{Code: 1, Msg: "删除成功"}
-	var param sys.DeleteById
+	var param request.DeleteById
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
 		res.Msg = "删除失败: " + err.Error()

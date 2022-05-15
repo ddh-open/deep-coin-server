@@ -3,7 +3,6 @@ package config
 import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/sys"
 	configModel "devops-http/app/module/sys/model/config"
 	"devops-http/app/module/sys/service/config"
 	"devops-http/framework"
@@ -63,12 +62,12 @@ func (a *ApiConfig) Create(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.RequestById true "ID"
+// @Param data body request.ReqById true "ID"
 // @Success 200 {object} response.Response{msg=string} "删除api"
 // @Router /sys/config/delete [delete]
 func (a *ApiConfig) Delete(c *gin.Context) {
 	logGet := c.MustMakeLog()
-	var ids sys.RequestById
+	var ids request.ReqById
 	err := c.ShouldBindJSON(&ids)
 	if err != nil {
 		logGet.Error("参数解析错误!", zap.Error(err))

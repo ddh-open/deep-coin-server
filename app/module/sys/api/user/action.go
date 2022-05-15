@@ -4,7 +4,6 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
 	"devops-http/app/module/sys/model/user"
 	"devops-http/framework/gin"
@@ -16,13 +15,13 @@ import (
 // @Description 用户登录接口
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.LoginRequest true "用户名，密码，账户类型"
+// @Param data body request.LoginRequest true "用户名，密码，账户类型"
 // @Tags User
 // @Success 200 {object}  response.Response
 // @Router /user/login [post]
 func (api *ApiUser) Login(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req sys.LoginRequest
+	var req request.LoginRequest
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
@@ -57,8 +56,8 @@ func (api *ApiUser) Login(c *gin.Context) {
 // @Router /user/modify [put]
 func (api *ApiUser) Modify(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var request user.DevopsSysUserEntity
-	err := c.ShouldBindJSON(&request)
+	var req user.DevopsSysUserEntity
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
 		Msg:  "",
@@ -70,7 +69,7 @@ func (api *ApiUser) Modify(c *gin.Context) {
 		res.Msg = err.Error()
 	}
 	cabin := c.MustMake(contract.KeyCaBin).(contract.Cabin)
-	data, err := api.service.Modify(request, cabin)
+	data, err := api.service.Modify(req, cabin)
 	if err != nil {
 		logger.Error(err.Error())
 		res.Code = -1
@@ -152,13 +151,13 @@ func (api *ApiUser) Delete(c *gin.Context) {
 // @Description 用户修改密码接口
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.ChangePasswordRequest true "用户名，原密码， 新密码，账户类型"
+// @Param data body request.ChangePasswordRequest true "用户名，原密码， 新密码，账户类型"
 // @Tags User
 // @Success 200 {object}  response.Response
 // @Router /user/changePassword [post]
 func (api *ApiUser) ChangePassword(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req sys.ChangePasswordRequest
+	var req request.ChangePasswordRequest
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
@@ -190,8 +189,8 @@ func (api *ApiUser) ChangePassword(c *gin.Context) {
 // @Router /user/register [post]
 func (api *ApiUser) Register(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var request sys.LoginRequest
-	err := c.ShouldBindJSON(&request)
+	var req request.LoginRequest
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
 		Msg:  "",
@@ -203,7 +202,7 @@ func (api *ApiUser) Register(c *gin.Context) {
 		res.Msg = err.Error()
 	}
 	jwt := c.MustMake(contract.JWT).(contract.JWTService)
-	data, err := api.service.Login(request, jwt)
+	data, err := api.service.Login(req, jwt)
 	if err != nil {
 		logger.Error(err.Error())
 		res.Code = -1
@@ -223,7 +222,7 @@ func (api *ApiUser) Register(c *gin.Context) {
 // @Router /user/logout [post]
 func (api *ApiUser) Logout(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req sys.LoginRequest
+	var req request.LoginRequest
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,

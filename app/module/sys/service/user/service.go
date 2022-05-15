@@ -5,7 +5,6 @@ import (
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/base/utils"
 	"devops-http/app/module/sys/model/config"
 	"devops-http/app/module/sys/model/role"
@@ -42,7 +41,7 @@ func (s *Service) GetUsers() {
 
 }
 
-func (s *Service) Login(req sys.LoginRequest, jwt contract.JWTService) (interface{}, error) {
+func (s *Service) Login(req request.LoginRequest, jwt contract.JWTService) (interface{}, error) {
 	result := make(map[string]string, 1)
 	passwd, err := base64.StdEncoding.DecodeString(req.Password)
 	password := string(passwd)
@@ -161,7 +160,7 @@ func (s *Service) Delete(ids string, c contract.Cabin) error {
 	return err
 }
 
-func (s *Service) ChangePassword(req sys.ChangePasswordRequest, l contract.Ldap) (err error) {
+func (s *Service) ChangePassword(req request.ChangePasswordRequest, l contract.Ldap) (err error) {
 	if req.Type == 1 {
 		_, err = l.Login(req.Username, req.OldPassword)
 		if err != nil {

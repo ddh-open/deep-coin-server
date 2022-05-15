@@ -4,8 +4,8 @@ import (
 	"context"
 	"devops-http/app/contract"
 	"devops-http/app/module/base"
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/third"
 	"devops-http/app/module/third/model/cls"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
@@ -35,7 +35,7 @@ func (s *Service) SetRepository(model interface{}) *base.Repository {
 	return s.repository.SetRepository(model)
 }
 
-func (s *Service) DeleteMerchantLog(request third.DeleteMerchantLog, grpcService contract.ServiceGrpc, param ...interface{}) (result response.Response, err error) {
+func (s *Service) DeleteMerchantLog(request request.DeleteMerchantLog, grpcService contract.ServiceGrpc, param ...interface{}) (result response.Response, err error) {
 	// 1. 创建日志集，得到日志集id
 	conn, err := grpcService.GetGrpc("grpc.third")
 	defer conn.Close()
@@ -61,7 +61,7 @@ func (s *Service) DeleteMerchantLog(request third.DeleteMerchantLog, grpcService
 
 }
 
-func (s *Service) AddMerchantClsLogTopic(request third.AddMerchantClsLogTopicRequest, grpcService contract.ServiceGrpc, param ...interface{}) (result response.Response, err error) {
+func (s *Service) AddMerchantClsLogTopic(request request.AddMerchantApmRequest, grpcService contract.ServiceGrpc, param ...interface{}) (result response.Response, err error) {
 	// 1. 创建日志集，得到日志集id
 	conn, err := grpcService.GetGrpc("grpc.third")
 	defer conn.Close()
@@ -104,10 +104,9 @@ func (s *Service) AddMerchantClsLogTopic(request third.AddMerchantClsLogTopicReq
 		})
 	}
 	result.Msg = resp.Result.GetMsg()
-	result.Data = third.AddMerchantClsLogTopicResponse{
+	result.Data = response.AddMerchantClsLogTopicRequest{
 		MerchantName: request.MerchantName,
 		MerchantId:   request.MerchantId,
-		Topics:       topics,
 	}
 
 	return result, nil

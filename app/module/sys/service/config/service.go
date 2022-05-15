@@ -3,7 +3,6 @@ package config
 import (
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/sys/model/config"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
@@ -34,7 +33,7 @@ func (s *Service) Create(req config.DevopsSysConfig) (err error) {
 	return s.repository.GetDB().Create(&req).Error
 }
 
-func (s *Service) Delete(req sys.RequestById) (err error) {
+func (s *Service) Delete(req request.ReqById) (err error) {
 	err = s.repository.GetDB().Where("id in (?)", req.Ids).Delete(&config.DevopsSysConfig{}).Error
 	return err
 }
