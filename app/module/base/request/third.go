@@ -1,4 +1,4 @@
-package third
+package request
 
 import "devops-http/resources/proto/thirdGrpc"
 

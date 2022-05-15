@@ -3,7 +3,6 @@ package proc
 import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/workflow/service/node"
 	"devops-http/app/module/workflow/service/proc"
 	"devops-http/framework"
@@ -97,7 +96,7 @@ func (api *defProc) Delete(c *gin.Context) {
 func (api *defProc) List(c *gin.Context) {
 	//c.GetUser()
 	logger := c.MustMakeLog()
-	var req workflow.ProcPageReceiver
+	var req request.ProcPageReceiver
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,

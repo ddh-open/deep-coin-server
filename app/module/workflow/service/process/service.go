@@ -5,7 +5,6 @@ import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/base/utils"
-	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/base/workflow/flow"
 	"devops-http/app/module/workflow/model/execution"
 	"devops-http/app/module/workflow/model/identity"
@@ -194,7 +193,7 @@ func (s *Service) saveTaskByTx(taskInst *task.WorkflowTask, tx *gorm.DB) (uint, 
 	return taskInst.ID, err
 }
 
-func (s *Service) FindProcList(req *workflow.ProcessPageReceiver) (result response.PageResult, err error) {
+func (s *Service) FindProcList(req *request.ProcessPageReceiver) (result response.PageResult, err error) {
 	var data []*process.WorkflowInstProc
 	db := s.repository.GetDB().Model(&process.WorkflowInstProc{})
 	// 流程的标题
@@ -232,7 +231,7 @@ func (s *Service) FindProcList(req *workflow.ProcessPageReceiver) (result respon
 }
 
 // FindProcNotify 查询抄送我的流程
-func (s *Service) FindProcNotify(req *workflow.ProcessPageReceiver) (result response.PageResult, err error) {
+func (s *Service) FindProcNotify(req *request.ProcessPageReceiver) (result response.PageResult, err error) {
 	var data []*process.WorkflowInstProc
 	var ids []string
 	db := s.repository.GetDB().Model(&identity.WorkflowIdentityLink{})
@@ -267,7 +266,7 @@ func (s *Service) FindProcNotify(req *workflow.ProcessPageReceiver) (result resp
 }
 
 // FindProcNotifyList 查找抄送我的流程实例
-func (s *Service) FindProcNotifyList(req *workflow.ProcessPageReceiver) (result response.PageResult, err error) {
+func (s *Service) FindProcNotifyList(req *request.ProcessPageReceiver) (result response.PageResult, err error) {
 	var data []*process.WorkflowInstProc
 	db := s.repository.GetDB().Model(&process.WorkflowInstProc{})
 	// 流程的标题

@@ -2,7 +2,7 @@ package task
 
 import (
 	"devops-http/app/module/base"
-	"devops-http/app/module/base/workflow"
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/workflow/model/task"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
@@ -30,11 +30,11 @@ func SaveTaskByTx(task *task.WorkflowTask, tx *gorm.DB) (uint, error) {
 }
 
 // CompleteTask 审批
-func (s *Service) CompleteTask(req *workflow.TaskReceiver) (bool, error) {
+func (s *Service) CompleteTask(req *request.TaskReceiver) (bool, error) {
 	return true, nil
 }
 
 // WithDrawTask 撤回任务
-func (s *Service) WithDrawTask(req *workflow.TaskReceiver) (bool, error) {
+func (s *Service) WithDrawTask(req *request.TaskReceiver) (bool, error) {
 	return true, nil
 }

@@ -1,4 +1,4 @@
-package third
+package response
 
 import "devops-http/app/module/third/model/cls"
 

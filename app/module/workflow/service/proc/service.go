@@ -4,7 +4,6 @@ import (
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/workflow/model/node"
 	"devops-http/app/module/workflow/model/proc"
 	nodeSvc "devops-http/app/module/workflow/service/node"
@@ -171,7 +170,7 @@ func (s *Service) CheckProcessConfig(node *node.Node, nodeTypes ...node.Workflow
 }
 
 // ListProc 查询proc 列表
-func (s *Service) ListProc(request *workflow.ProcPageReceiver) (result response.PageResult, err error) {
+func (s *Service) ListProc(request *request.ProcPageReceiver) (result response.PageResult, err error) {
 	var list []proc.WorkflowProc
 	var filter []interface{}
 	for _, s2 := range request.Filter {

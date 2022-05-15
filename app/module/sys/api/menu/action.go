@@ -130,12 +130,14 @@ func (a *ApiMenu) ListMenu(c *gin.Context) {
 	err := c.ShouldBindJSON(&param)
 	res := response.Response{Code: 1, Msg: "查询成功", Data: nil}
 	if err != nil {
+		res.Code = -1
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
 	}
 	result, err := a.service.GetList(param)
 	if err != nil {
+		res.Code = -1
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
@@ -171,14 +173,14 @@ func (a *ApiMenu) GetBaseMenuTree(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body sys.RelativeRoleMenuRequest true "角色ID"
+// @Param data body request.RelativeRoleMenuRequest true "角色ID"
 // @Tags Menu
 // @Success 200 {object} response.Response{msg=string} "增加menu和角色关联关系"
 // @Router /sys/menu/add/role [post]
 func (a *ApiMenu) AddMenuToRole(c *gin.Context) {
 	logger := c.MustMakeLog()
 	res := response.Response{Code: -1, Msg: "添加成功"}
-	var req sys.RelativeRoleMenuRequest
+	var req request.RelativeRoleMenuRequest
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		res.Msg = errors.Errorf("参数解析错误：%s", err).Error()

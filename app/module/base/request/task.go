@@ -1,4 +1,4 @@
-package workflow
+package request
 
 // TaskReceiver 任务
 type TaskReceiver struct {

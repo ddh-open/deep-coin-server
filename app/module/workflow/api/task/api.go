@@ -1,8 +1,8 @@
 package task
 
 import (
+	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/workflow/service/task"
 	"devops-http/framework"
 	"devops-http/framework/gin"
@@ -28,7 +28,7 @@ func NewTaskApi(c framework.Container) *taskApi {
 // @Router /v1/workflow/task/complete [post]
 func (api *taskApi) CompleteTask(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req workflow.TaskReceiver
+	var req request.TaskReceiver
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
@@ -63,7 +63,7 @@ func (api *taskApi) CompleteTask(c *gin.Context) {
 // @Router /v1/workflow/task/complete [post]
 func (api *taskApi) WithDrawTask(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req workflow.TaskReceiver
+	var req request.TaskReceiver
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,

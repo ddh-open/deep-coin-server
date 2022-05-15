@@ -4,6 +4,7 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
+	"devops-http/app/module/sys/model/group"
 	"devops-http/framework/gin"
 )
 
@@ -46,7 +47,7 @@ func (a *ApiGroup) GetGroupsResource(c *gin.Context) {
 // @Router /sys/group/{id} [get]
 func (a *ApiGroup) GetGroups(c *gin.Context) {
 	id := c.Param("id")
-	result, err := a.service.GetGroupById(id, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
+	result, err := a.service.GetGroupById(id)
 	res := response.Response{Code: 1, Msg: "查询成功", Data: result}
 	if err != nil {
 		res.Code = -1
@@ -61,21 +62,23 @@ func (a *ApiGroup) GetGroups(c *gin.Context) {
 // @Description 获得分组列表接口
 // @accept application/json
 // @Produce application/json
-// @Param data body request.PageRequest true "页数，页大小，筛选条件"
+// @Param data body request.SearchGroupParams true "页数，页大小，筛选条件"
 // @Tags Group
 // @Success 200 {object}  response.Response
 // @Router /sys/group/list [post]
 func (a *ApiGroup) ListGroups(c *gin.Context) {
-	var param request.PageRequest
+	var param request.SearchGroupParams
 	err := c.ShouldBindJSON(&param)
 	res := response.Response{Code: 1, Msg: "查询成功", Data: nil}
 	if err != nil {
+		res.Code = -1
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
 	}
-	result, err := a.service.GetGroupList(param, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
+	result, err := a.service.GetGroupList(param)
 	if err != nil {
+		res.Code = -1
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
@@ -95,15 +98,15 @@ func (a *ApiGroup) ListGroups(c *gin.Context) {
 // @Success 200 {object}  response.Response
 // @Router /sys/group/add [post]
 func (a *ApiGroup) AddGroup(c *gin.Context) {
-	var param map[string]interface{}
-	err := c.ShouldBindJSON(&param)
+	var req group.DevopsSysGroup
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "新增成功"}
 	if err != nil {
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
 	}
-	err = a.service.AddGroup(param, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
+	err = a.service.AddGroup(req)
 	if err != nil {
 		res.Msg = err.Error()
 	}
@@ -116,20 +119,20 @@ func (a *ApiGroup) AddGroup(c *gin.Context) {
 // @Description 修改分组接口
 // @accept application/json
 // @Produce application/json
-// @Param data body DevopsSysGroup true "分组"
+// @Param data body group.DevopsSysGroup true "分组"
 // @Tags Group
 // @Success 200 {object}  response.Response
 // @Router /sys/group/modify [post]
 func (a *ApiGroup) ModifyGroup(c *gin.Context) {
-	var param map[string]interface{}
-	err := c.ShouldBindJSON(&param)
+	var req group.DevopsSysGroup
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "修改成功"}
 	if err != nil {
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
 	}
-	err = a.service.ModifyGroup(param, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
+	err = a.service.ModifyGroup(req)
 	if err != nil {
 		res.Msg = err.Error()
 	}

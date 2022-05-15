@@ -5,7 +5,6 @@ import (
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/sys"
 	"devops-http/app/module/sys/model/menu"
 	"devops-http/app/module/sys/model/operation"
 	"devops-http/app/module/sys/model/role"
@@ -165,7 +164,7 @@ func (s *Service) GetBaseMenuTree() (err error, menus []menu.DevopsSysMenu) {
 	return err, menus
 }
 
-func (s *Service) AddMenuToRole(userToken *base.TokenUser, req sys.RelativeRoleMenuRequest, cabin contract.Cabin) (err error) {
+func (s *Service) AddMenuToRole(userToken *base.TokenUser, req request.RelativeRoleMenuRequest, cabin contract.Cabin) (err error) {
 	if len(req.MenuIds) <= 0 {
 		return errors.New("菜单id为空！")
 	}
@@ -225,7 +224,7 @@ func (s *Service) GetMenuByUser(tokenUser *base.TokenUser, cabin contract.Cabin)
 	return err, menus
 }
 
-func (s *Service) DeleteBaseMenu(id sys.DeleteById) (err error) {
+func (s *Service) DeleteBaseMenu(id request.DeleteById) (err error) {
 	err = s.repository.GetDB().Where("parent_id in (?)", id).First(&menu.DevopsSysMenu{}).Error
 	if err != nil {
 		var menuData []menu.DevopsSysMenu
@@ -280,7 +279,7 @@ func (s *Service) UpdateBaseMenu(menuData menu.DevopsSysMenuEntity) (err error) 
 
 // GetBaseMenuById 根据id 查询菜单
 func (s *Service) GetBaseMenuById(id string) (err error, menuData menu.DevopsSysMenu) {
-	err = s.repository.GetDB().Preload("MenuBtn").Preload("Parameters").Where("id = ?", id).First(&menuData).Error
+	err = s.repository.GetDB().Where("id = ?", id).First(&menuData).Error
 	if err != nil {
 		return
 	}

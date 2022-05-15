@@ -3,7 +3,6 @@ package process
 import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/base/workflow"
 	"devops-http/app/module/workflow/service/process"
 	"devops-http/framework"
 	"devops-http/framework/gin"
@@ -64,7 +63,7 @@ func (api *instProcess) Start(c *gin.Context) {
 // @Router /v1/workflow/process/inst [post]
 func (api *instProcess) FindProcInst(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req workflow.ProcessPageReceiver
+	var req request.ProcessPageReceiver
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
@@ -99,7 +98,7 @@ func (api *instProcess) FindProcInst(c *gin.Context) {
 // @Router /v1/workflow/process/inst/myself [post]
 func (api *instProcess) FindProcInstMyself(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req workflow.ProcessPageReceiver
+	var req request.ProcessPageReceiver
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
@@ -134,7 +133,7 @@ func (api *instProcess) FindProcInstMyself(c *gin.Context) {
 // @Router /v1/workflow/process/inst/notify [post]
 func (api *instProcess) FindProcNotifyInst(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req workflow.ProcessPageReceiver
+	var req request.ProcessPageReceiver
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
