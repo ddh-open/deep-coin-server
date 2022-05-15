@@ -57,7 +57,7 @@ func (api *instProcess) Start(c *gin.Context) {
 // @Description 查询到我审批的流程实例
 // @accept application/json
 // @Produce application/json
-// @Param data body workflow.ProcessPageReceiver true "查询轮到自己审批的流程"
+// @Param data body request.ProcessPageReceiver true "查询轮到自己审批的流程"
 // @Tags process
 // @Success 200 {object}  response.Response
 // @Router /v1/workflow/process/inst [post]
@@ -92,7 +92,7 @@ func (api *instProcess) FindProcInst(c *gin.Context) {
 // @Description 查询到我发起的流程实例
 // @accept application/json
 // @Produce application/json
-// @Param data body workflow.ProcessPageReceiver true "查询到我发起的流程实例"
+// @Param data body request.ProcessPageReceiver true "查询到我发起的流程实例"
 // @Tags process
 // @Success 200 {object}  response.Response
 // @Router /v1/workflow/process/inst/myself [post]
@@ -127,7 +127,7 @@ func (api *instProcess) FindProcInstMyself(c *gin.Context) {
 // @Description 查询到我发起的流程实例
 // @accept application/json
 // @Produce application/json
-// @Param data body workflow.ProcessPageReceiver true "查询到我发起的流程实例"
+// @Param data body request.ProcessPageReceiver true "查询到我发起的流程实例"
 // @Tags process
 // @Success 200 {object}  response.Response
 // @Router /v1/workflow/process/inst/notify [post]

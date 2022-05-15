@@ -22,7 +22,7 @@ func NewTaskApi(c framework.Container) *taskApi {
 // @Description 审批
 // @accept application/json
 // @Produce application/json
-// @Param data body workflow.TaskReceiver true "完成审批所需的参数"
+// @Param data body request.TaskReceiver true "完成审批所需的参数"
 // @Tags process
 // @Success 200 {object}  response.Response
 // @Router /v1/workflow/task/complete [post]
@@ -57,7 +57,7 @@ func (api *taskApi) CompleteTask(c *gin.Context) {
 // @Description 撤回
 // @accept application/json
 // @Produce application/json
-// @Param data body workflow.TaskReceiver true "撤回所需参数"
+// @Param data body request.TaskReceiver true "撤回所需参数"
 // @Tags process
 // @Success 200 {object}  response.Response
 // @Router /v1/workflow/task/complete [post]

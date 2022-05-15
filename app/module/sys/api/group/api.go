@@ -19,10 +19,9 @@ func Register(r *gin.Engine) error {
 	sysGroup.GET("group/:id", api.GetGroups)
 	sysGroup.POST("group/list", api.ListGroups)
 	sysGroup.POST("group/add", api.AddGroup)
-	sysGroup.POST("group/modify", api.ModifyGroup)
+	sysGroup.PUT("group/modify", api.ModifyGroup)
 	sysGroup.DELETE("group/delete", api.DeleteGroup)
-	sysGroup.POST("group/relative/add", api.AddResourcesToGroup)
-	sysGroup.GET("group/relative/:id", api.AddResourcesToGroup)
+	sysGroup.POST("group/add/user", api.AddUserToGroup)
 	return nil
 }
 

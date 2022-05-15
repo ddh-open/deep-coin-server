@@ -77,9 +77,14 @@ type ChangePasswordRequest struct {
 	Type        int
 }
 
-type RelativeUserRequest struct {
+type UserRelativeRoleRequest struct {
 	UserId  string   `json:"userId"`
 	RoleIds []string `json:"roleIds"`
+}
+
+type GroupRelativeUserRequest struct {
+	GroupId string   `json:"groupId"`
+	UserIds []string `json:"userIds"`
 }
 
 type RelativeRoleMenuRequest struct {

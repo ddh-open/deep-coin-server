@@ -2,7 +2,7 @@ package group
 
 import "devops-http/app/module/base"
 
-// DevopsSysGroup 域表
+// DevopsSysGroup 分组表（组织架构）
 type DevopsSysGroup struct {
 	base.DevopsModel
 	ParentID  int              `gorm:"column:parent_id;type:int;default:null;default:0" json:"parentId"`   // 上级机构

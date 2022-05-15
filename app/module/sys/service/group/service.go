@@ -1,8 +1,6 @@
 package group
 
 import (
-	"context"
-	"devops-http/app/contract"
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
@@ -10,8 +8,6 @@ import (
 	"devops-http/app/module/sys/model/menu"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
-	"devops-http/resources/proto/userGrpc"
-	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -171,25 +167,7 @@ func (s *Service) DeleteGroup(req request.ReqById) (err error) {
 	return
 }
 
-func (s *Service) AddResourcesToGroup(request []request.CabinInReceive, grpcService contract.ServiceGrpc, param ...interface{}) error {
-	conn, err := grpcService.GetGrpc("grpc.user")
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-	requestBytes, err := json.Marshal(&request)
-	if err != nil {
-		return err
-	}
-	client := userGrpc.NewServiceCabinClient(conn)
-	resp, err := client.CabinRuleAdd(context.Background(), &userGrpc.BytesRequest{
-		Data: requestBytes,
-	})
-	if err != nil {
-		return err
-	}
-	if resp.GetCode() != 200 {
-		err = errors.Wrap(err, resp.GetMsg())
-	}
-	return err
+func (s *Service) AddUserToGroup(req request.GroupRelativeUserRequest) (err error) {
+
+	return
 }

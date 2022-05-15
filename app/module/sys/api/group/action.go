@@ -1,39 +1,11 @@
 package group
 
 import (
-	"devops-http/app/contract"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/sys/model/group"
 	"devops-http/framework/gin"
 )
-
-//// GetGroupsResource godoc
-//// @Summary 获得分组资源接口
-//// @Security ApiKeyAuth
-//// @Description 获得分组资源接口
-//// @accept application/json
-//// @Produce application/json
-//// @Param name path string true "分组name"
-//// @Param domain query string false "域"
-//// @Tags Group
-//// @Success 200 {object}  response.Response
-//// @Router /sys/group/resource/{name} [get]
-//func (a *ApiGroup) GetGroupsResource(c *gin.Context) {
-//	name := c.Param("name")
-//	domain := c.Query("domain")
-//	// 从cookie中获取domain
-//	if d, err := c.Cookie("domain"); err == nil {
-//		domain = d
-//	}
-//	result, err := a.service.GetGroupsResource(name, domain, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
-//	res := response.Response{Code: 1, Msg: "查询成功", Data: result}
-//	if err != nil {
-//		res.Code = -1
-//		res.Msg = err.Error()
-//	}
-//	c.DJson(res)
-//}
 
 // GetGroups godoc
 // @Summary 获得分组接口
@@ -165,26 +137,26 @@ func (a *ApiGroup) DeleteGroup(c *gin.Context) {
 	c.DJson(res)
 }
 
-// AddResourcesToGroup godoc
-// @Summary 给分组新增资源接口
+// AddUserToGroup godoc
+// @Summary 给分组新增用户
 // @Security ApiKeyAuth
-// @Description 给分组新增资源接口
+// @Description 给分组新增用户
 // @accept application/json
 // @Produce application/json
-// @Param data body []request.CabinInReceive true "Ptype为p2 , source 是分组的id，resource 是资源， method 为write或者read,或者owner"
+// @Param data body request.GroupRelativeUserRequest true "给分组新增用户"
 // @Tags Role
 // @Success 200 {object}  response.Response
-// @Router /sys/group/add/resources [post]
-func (a *ApiGroup) AddResourcesToGroup(c *gin.Context) {
-	param := make([]request.CabinInReceive, 0)
-	err := c.ShouldBindJSON(&param)
+// @Router /sys/group/add/user [post]
+func (a *ApiGroup) AddUserToGroup(c *gin.Context) {
+	var req request.GroupRelativeUserRequest
+	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "新增成功"}
 	if err != nil {
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
 	}
-	err = a.service.AddResourcesToGroup(param, c.MustMake(contract.KeyGrpc).(contract.ServiceGrpc))
+	err = a.service.AddUserToGroup(req)
 	if err != nil {
 		res.Msg = err.Error()
 	}

@@ -47,7 +47,7 @@ func (s *Service) GetUserApis(userToken *base.TokenUser, c contract.Cabin) (resu
 	return result, err
 }
 
-func (s *Service) RelativeRolesToUser(request request.RelativeUserRequest, domain string, c contract.Cabin) error {
+func (s *Service) RelativeRolesToUser(request request.UserRelativeRoleRequest, domain string, c contract.Cabin) error {
 	userData := user.DevopsSysUser{}
 	s.repository.GetDB().First(&userData, "id = ?", request.UserId)
 	if userData.ID <= 0 {
@@ -64,7 +64,7 @@ func (s *Service) RelativeRolesToUser(request request.RelativeUserRequest, domai
 	return err
 }
 
-func (s *Service) DeleteRelativeRolesToUser(request request.RelativeUserRequest, domain string, c contract.Cabin) error {
+func (s *Service) DeleteRelativeRolesToUser(request request.UserRelativeRoleRequest, domain string, c contract.Cabin) error {
 	userData := user.DevopsSysUser{}
 	s.repository.GetDB().First(&userData, "id = ?", request.UserId)
 	if userData.ID <= 0 {

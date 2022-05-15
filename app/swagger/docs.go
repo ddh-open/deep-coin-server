@@ -138,7 +138,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RequestById"
+                            "$ref": "#/definitions/request.ReqById"
                         }
                     }
                 ],
@@ -188,7 +188,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RequestById"
+                            "$ref": "#/definitions/request.ReqById"
                         }
                     }
                 ],
@@ -341,7 +341,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeRoleApisRequest"
+                            "$ref": "#/definitions/request.RelativeRoleApisRequest"
                         }
                     }
                 ],
@@ -429,7 +429,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RequestById"
+                            "$ref": "#/definitions/request.ReqById"
                         }
                     }
                 ],
@@ -790,7 +790,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/sys/group/add/resources": {
+        "/sys/group/add/user": {
             "post": {
                 "security": [
                     {
@@ -852,12 +852,12 @@ const docTemplate = `{
                 "summary": "删除分组接口",
                 "parameters": [
                     {
-                        "description": "分组ids",
-                        "name": "ids",
+                        "description": "分组",
+                        "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/request.ReqById"
                         }
                     }
                 ],
@@ -896,7 +896,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.PageRequest"
+                            "$ref": "#/definitions/request.SearchGroupParams"
                         }
                     }
                 ],
@@ -937,49 +937,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/group.DevopsSysGroup"
                         }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/sys/group/resource/{name}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "获得分组资源接口",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Group"
-                ],
-                "summary": "获得分组资源接口",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "分组name",
-                        "name": "name",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "域",
-                        "name": "domain",
-                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1131,7 +1088,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeRoleMenuRequest"
+                            "$ref": "#/definitions/request.RelativeRoleMenuRequest"
                         }
                     }
                 ],
@@ -1181,7 +1138,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.DeleteById"
+                            "$ref": "#/definitions/request.DeleteById"
                         }
                     }
                 ],
@@ -1791,7 +1748,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.AddMerchantApmRequest"
+                            "$ref": "#/definitions/request.AddMerchantApmRequest"
                         }
                     }
                 ],
@@ -1830,7 +1787,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.AddMerchantClsLogTopicRequest"
+                            "$ref": "#/definitions/request.AddMerchantApmRequest"
                         }
                     }
                 ],
@@ -1869,7 +1826,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.DeleteMerchantLog"
+                            "$ref": "#/definitions/request.DeleteMerchantLog"
                         }
                     }
                 ],
@@ -1908,7 +1865,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.TencentResourceListRequest"
+                            "$ref": "#/definitions/request.TencentResourceListRequest"
                         }
                     }
                 ],
@@ -1986,7 +1943,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.ChangePasswordRequest"
+                            "$ref": "#/definitions/request.ChangePasswordRequest"
                         }
                     }
                 ],
@@ -2125,7 +2082,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.LoginRequest"
+                            "$ref": "#/definitions/request.LoginRequest"
                         }
                     }
                 ],
@@ -2281,7 +2238,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeUserRequest"
+                            "$ref": "#/definitions/request.UserRelativeRoleRequest"
                         }
                     }
                 ],
@@ -2320,7 +2277,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeUserRequest"
+                            "$ref": "#/definitions/request.UserRelativeRoleRequest"
                         }
                     }
                 ],
@@ -2470,7 +2427,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcPageReceiver"
+                            "$ref": "#/definitions/request.ProcPageReceiver"
                         }
                     }
                 ],
@@ -2548,7 +2505,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcessPageReceiver"
+                            "$ref": "#/definitions/request.ProcessPageReceiver"
                         }
                     }
                 ],
@@ -2587,7 +2544,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcessPageReceiver"
+                            "$ref": "#/definitions/request.ProcessPageReceiver"
                         }
                     }
                 ],
@@ -2626,7 +2583,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcessPageReceiver"
+                            "$ref": "#/definitions/request.ProcessPageReceiver"
                         }
                     }
                 ],
@@ -2704,7 +2661,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.TaskReceiver"
+                            "$ref": "#/definitions/request.TaskReceiver"
                         }
                     }
                 ],
@@ -2808,6 +2765,12 @@ const docTemplate = `{
                 "alias": {
                     "description": "别名",
                     "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/group.DevopsSysGroup"
+                    }
                 },
                 "code": {
                     "description": "机构编码",
@@ -3290,6 +3253,26 @@ const docTemplate = `{
                 }
             }
         },
+        "request.AddMerchantApmRequest": {
+            "type": "object",
+            "properties": {
+                "merchant_id": {
+                    "description": "商户id",
+                    "type": "string"
+                },
+                "merchant_name": {
+                    "description": "商户名称",
+                    "type": "string"
+                },
+                "namespaces": {
+                    "description": "商户环境",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
         "request.CabinInReceive": {
             "type": "object",
             "properties": {
@@ -3307,6 +3290,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "source": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.ChangePasswordRequest": {
+            "type": "object",
+            "properties": {
+                "oldPassword": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "username": {
                     "type": "string"
                 }
             }
@@ -3365,6 +3365,42 @@ const docTemplate = `{
                 }
             }
         },
+        "request.DeleteById": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "description": "角色ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteMerchantLog": {
+            "type": "object",
+            "properties": {
+                "merchant_id": {
+                    "description": "商户id",
+                    "type": "string"
+                },
+                "merchant_name": {
+                    "description": "商户名称",
+                    "type": "string"
+                }
+            }
+        },
+        "request.LoginRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "request.PageRequest": {
             "type": "object",
             "properties": {
@@ -3378,6 +3414,62 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ProcPageReceiver": {
+            "type": "object",
+            "properties": {
+                "company": {
+                    "description": "用户所在公司",
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "resource": {
+                    "description": "流程定义json字符串",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户id",
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "version": {
                     "type": "integer"
                 }
             }
@@ -3401,6 +3493,87 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.ProcessPageReceiver": {
+            "type": "object",
+            "properties": {
+                "candidate": {
+                    "description": "审批人",
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "department": {
+                    "description": "用户部门",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "isFinished": {
+                    "type": "boolean"
+                },
+                "nodeID": {
+                    "description": "当前节点",
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "procDefId": {
+                    "description": "流程定义ID",
+                    "type": "integer"
+                },
+                "procDefName": {
+                    "description": "流程定义名",
+                    "type": "string"
+                },
+                "startUserId": {
+                    "type": "string"
+                },
+                "startUserName": {
+                    "type": "string"
+                },
+                "taskID": {
+                    "description": "当前任务",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "title 标题",
+                    "type": "string"
+                },
+                "updated_at": {
                     "type": "string"
                 }
             }
@@ -3434,6 +3607,43 @@ const docTemplate = `{
                     "additionalProperties": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "request.RelativeRoleApisRequest": {
+            "type": "object",
+            "properties": {
+                "apiIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "roleId": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.RelativeRoleMenuRequest": {
+            "type": "object",
+            "properties": {
+                "menuIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "roleId": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.ReqById": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "description": "角色ID",
+                    "type": "string"
                 }
             }
         },
@@ -3551,6 +3761,91 @@ const docTemplate = `{
                 },
                 "value": {
                     "description": "配置的value",
+                    "type": "string"
+                }
+            }
+        },
+        "request.SearchGroupParams": {
+            "type": "object",
+            "properties": {
+                "alias": {
+                    "description": "别名",
+                    "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/group.DevopsSysGroup"
+                    }
+                },
+                "code": {
+                    "description": "机构编码",
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "domain": {
+                    "description": "域",
+                    "type": "integer"
+                },
+                "enable": {
+                    "description": "是否启用",
+                    "type": "integer"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "linkman": {
+                    "description": "联系人",
+                    "type": "string"
+                },
+                "linkmanNo": {
+                    "description": "联系人电话",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "部门/11111",
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "parentId": {
+                    "description": "上级机构",
+                    "type": "integer"
+                },
+                "remark": {
+                    "description": "组描述",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "序号",
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "wechat": {
+                    "description": "wechat",
                     "type": "string"
                 }
             }
@@ -3839,6 +4134,75 @@ const docTemplate = `{
                 }
             }
         },
+        "request.TaskReceiver": {
+            "type": "object",
+            "properties": {
+                "candidate": {
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "pass": {
+                    "type": "string"
+                },
+                "procInstID": {
+                    "type": "integer"
+                },
+                "taskID": {
+                    "type": "integer"
+                },
+                "userID": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.TencentResourceListRequest": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "names": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.UserRelativeRoleRequest": {
+            "type": "object",
+            "properties": {
+                "roleIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
         "response.PageResult": {
             "type": "object",
             "properties": {
@@ -3907,176 +4271,6 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string"
-                }
-            }
-        },
-        "sys.ChangePasswordRequest": {
-            "type": "object",
-            "properties": {
-                "oldPassword": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "integer"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.DeleteById": {
-            "type": "object",
-            "properties": {
-                "ids": {
-                    "description": "角色ID",
-                    "type": "integer"
-                }
-            }
-        },
-        "sys.LoginRequest": {
-            "type": "object",
-            "properties": {
-                "password": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "integer"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RelativeRoleApisRequest": {
-            "type": "object",
-            "properties": {
-                "apiIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "roleId": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RelativeRoleMenuRequest": {
-            "type": "object",
-            "properties": {
-                "menuIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "roleId": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RelativeUserRequest": {
-            "type": "object",
-            "properties": {
-                "roleIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "userId": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RequestById": {
-            "type": "object",
-            "properties": {
-                "ids": {
-                    "description": "角色ID",
-                    "type": "string"
-                }
-            }
-        },
-        "third.AddMerchantApmRequest": {
-            "type": "object",
-            "properties": {
-                "merchant_id": {
-                    "description": "商户id",
-                    "type": "string"
-                },
-                "merchant_name": {
-                    "description": "商户名称",
-                    "type": "string"
-                },
-                "namespaces": {
-                    "description": "商户环境",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "third.AddMerchantClsLogTopicRequest": {
-            "type": "object",
-            "properties": {
-                "merchant_id": {
-                    "description": "商户id",
-                    "type": "string"
-                },
-                "merchant_name": {
-                    "description": "商户名称",
-                    "type": "string"
-                },
-                "namespaces": {
-                    "description": "商户环境",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "third.DeleteMerchantLog": {
-            "type": "object",
-            "properties": {
-                "merchant_id": {
-                    "description": "商户id",
-                    "type": "string"
-                },
-                "merchant_name": {
-                    "description": "商户名称",
-                    "type": "string"
-                }
-            }
-        },
-        "third.TencentResourceListRequest": {
-            "type": "object",
-            "properties": {
-                "ids": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "limit": {
-                    "type": "integer"
-                },
-                "names": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "offset": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "integer"
                 }
             }
         },
@@ -4276,172 +4470,6 @@ const docTemplate = `{
                 },
                 "workNum": {
                     "description": "工号",
-                    "type": "string"
-                }
-            }
-        },
-        "workflow.ProcPageReceiver": {
-            "type": "object",
-            "properties": {
-                "company": {
-                    "description": "用户所在公司",
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "desc": {
-                    "description": "排序方式:升序false(默认)|降序true",
-                    "type": "boolean"
-                },
-                "filter": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "orderKey": {
-                    "description": "排序",
-                    "type": "string"
-                },
-                "page": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                },
-                "resource": {
-                    "description": "流程定义json字符串",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户id",
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                },
-                "version": {
-                    "type": "integer"
-                }
-            }
-        },
-        "workflow.ProcessPageReceiver": {
-            "type": "object",
-            "properties": {
-                "candidate": {
-                    "description": "审批人",
-                    "type": "string"
-                },
-                "company": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "department": {
-                    "description": "用户部门",
-                    "type": "string"
-                },
-                "desc": {
-                    "description": "排序方式:升序false(默认)|降序true",
-                    "type": "boolean"
-                },
-                "duration": {
-                    "type": "integer"
-                },
-                "endTime": {
-                    "type": "string"
-                },
-                "filter": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "isFinished": {
-                    "type": "boolean"
-                },
-                "nodeID": {
-                    "description": "当前节点",
-                    "type": "string"
-                },
-                "orderKey": {
-                    "description": "排序",
-                    "type": "string"
-                },
-                "page": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                },
-                "procDefId": {
-                    "description": "流程定义ID",
-                    "type": "integer"
-                },
-                "procDefName": {
-                    "description": "流程定义名",
-                    "type": "string"
-                },
-                "startUserId": {
-                    "type": "string"
-                },
-                "startUserName": {
-                    "type": "string"
-                },
-                "taskID": {
-                    "description": "当前任务",
-                    "type": "integer"
-                },
-                "title": {
-                    "description": "title 标题",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "workflow.TaskReceiver": {
-            "type": "object",
-            "properties": {
-                "candidate": {
-                    "type": "string"
-                },
-                "comment": {
-                    "type": "string"
-                },
-                "company": {
-                    "type": "string"
-                },
-                "pass": {
-                    "type": "string"
-                },
-                "procInstID": {
-                    "type": "integer"
-                },
-                "taskID": {
-                    "type": "integer"
-                },
-                "userID": {
-                    "type": "string"
-                },
-                "username": {
                     "type": "string"
                 }
             }
