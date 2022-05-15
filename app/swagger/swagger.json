@@ -122,56 +122,6 @@
                 "tags": [
                     "Apis"
                 ],
-                "summary": "删除api",
-                "parameters": [
-                    {
-                        "description": "ID",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/path.DevopsSysApi"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "删除api",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/sys/api/deletes": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Apis"
-                ],
                 "summary": "删除选中Api",
                 "parameters": [
                     {
@@ -180,7 +130,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RequestById"
+                            "$ref": "#/definitions/request.ReqById"
                         }
                     }
                 ],
@@ -230,7 +180,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RequestById"
+                            "$ref": "#/definitions/request.ReqById"
                         }
                     }
                 ],
@@ -383,7 +333,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeRoleApisRequest"
+                            "$ref": "#/definitions/request.RelativeRoleApisRequest"
                         }
                     }
                 ],
@@ -471,7 +421,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RequestById"
+                            "$ref": "#/definitions/request.ReqById"
                         }
                     }
                 ],
@@ -832,14 +782,14 @@
                 }
             }
         },
-        "/sys/group/add/resources": {
+        "/sys/group/add/user": {
             "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "给分组新增资源接口",
+                "description": "给分组新增用户",
                 "consumes": [
                     "application/json"
                 ],
@@ -849,18 +799,15 @@
                 "tags": [
                     "Role"
                 ],
-                "summary": "给分组新增资源接口",
+                "summary": "给分组新增用户",
                 "parameters": [
                     {
-                        "description": "Ptype为p2 , source 是分组的id，resource 是资源， method 为write或者read,或者owner",
+                        "description": "给分组新增用户",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/request.CabinInReceive"
-                            }
+                            "$ref": "#/definitions/request.GroupRelativeUserRequest"
                         }
                     }
                 ],
@@ -894,12 +841,51 @@
                 "summary": "删除分组接口",
                 "parameters": [
                     {
-                        "description": "分组ids",
-                        "name": "ids",
+                        "description": "分组",
+                        "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/request.ReqById"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sys/group/delete/user": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "给分组删除用户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "给分组删除用户",
+                "parameters": [
+                    {
+                        "description": "给分组新增用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.GroupRelativeUserRequest"
                         }
                     }
                 ],
@@ -938,7 +924,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.PageRequest"
+                            "$ref": "#/definitions/request.SearchGroupParams"
                         }
                     }
                 ],
@@ -979,49 +965,6 @@
                         "schema": {
                             "$ref": "#/definitions/group.DevopsSysGroup"
                         }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/sys/group/resource/{name}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "获得分组资源接口",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Group"
-                ],
-                "summary": "获得分组资源接口",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "分组name",
-                        "name": "name",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "域",
-                        "name": "domain",
-                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1173,7 +1116,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeRoleMenuRequest"
+                            "$ref": "#/definitions/request.RelativeRoleMenuRequest"
                         }
                     }
                 ],
@@ -1223,7 +1166,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.DeleteById"
+                            "$ref": "#/definitions/request.DeleteById"
                         }
                     }
                 ],
@@ -1833,7 +1776,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.AddMerchantApmRequest"
+                            "$ref": "#/definitions/request.AddMerchantApmRequest"
                         }
                     }
                 ],
@@ -1872,7 +1815,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.AddMerchantClsLogTopicRequest"
+                            "$ref": "#/definitions/request.AddMerchantApmRequest"
                         }
                     }
                 ],
@@ -1911,7 +1854,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.DeleteMerchantLog"
+                            "$ref": "#/definitions/request.DeleteMerchantLog"
                         }
                     }
                 ],
@@ -1950,7 +1893,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/third.TencentResourceListRequest"
+                            "$ref": "#/definitions/request.TencentResourceListRequest"
                         }
                     }
                 ],
@@ -2028,7 +1971,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.ChangePasswordRequest"
+                            "$ref": "#/definitions/request.ChangePasswordRequest"
                         }
                     }
                 ],
@@ -2167,7 +2110,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.LoginRequest"
+                            "$ref": "#/definitions/request.LoginRequest"
                         }
                     }
                 ],
@@ -2323,7 +2266,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeUserRequest"
+                            "$ref": "#/definitions/request.UserRelativeRoleRequest"
                         }
                     }
                 ],
@@ -2362,7 +2305,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/sys.RelativeUserRequest"
+                            "$ref": "#/definitions/request.UserRelativeRoleRequest"
                         }
                     }
                 ],
@@ -2512,7 +2455,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcPageReceiver"
+                            "$ref": "#/definitions/request.ProcPageReceiver"
                         }
                     }
                 ],
@@ -2590,7 +2533,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcessPageReceiver"
+                            "$ref": "#/definitions/request.ProcessPageReceiver"
                         }
                     }
                 ],
@@ -2629,7 +2572,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcessPageReceiver"
+                            "$ref": "#/definitions/request.ProcessPageReceiver"
                         }
                     }
                 ],
@@ -2668,7 +2611,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.ProcessPageReceiver"
+                            "$ref": "#/definitions/request.ProcessPageReceiver"
                         }
                     }
                 ],
@@ -2746,7 +2689,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/workflow.TaskReceiver"
+                            "$ref": "#/definitions/request.TaskReceiver"
                         }
                     }
                 ],
@@ -2769,7 +2712,7 @@
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "id": {
@@ -2792,7 +2735,7 @@
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "value": {
@@ -2808,7 +2751,7 @@
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domainNum": {
@@ -2839,7 +2782,7 @@
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -2851,11 +2794,17 @@
                     "description": "别名",
                     "type": "string"
                 },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/group.DevopsSysGroup"
+                    }
+                },
                 "code": {
                     "description": "机构编码",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domain": {
@@ -2894,8 +2843,14 @@
                     "description": "序号",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user.DevopsSysUser"
+                    }
                 },
                 "wechat": {
                     "description": "wechat",
@@ -2920,7 +2875,7 @@
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "defaultMenu": {
@@ -2979,7 +2934,7 @@
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3001,7 +2956,7 @@
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "defaultMenu": {
@@ -3060,7 +3015,7 @@
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3249,7 +3204,7 @@
                     "description": "请求Body",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "error_message": {
@@ -3284,7 +3239,7 @@
                     "description": "请求状态",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "username": {
@@ -3304,7 +3259,7 @@
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "description": {
@@ -3327,28 +3282,44 @@
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
         },
-        "request.CabinInReceive": {
+        "request.AddMerchantApmRequest": {
             "type": "object",
             "properties": {
-                "domain": {
+                "merchant_id": {
+                    "description": "商户id",
                     "type": "string"
                 },
-                "method": {
+                "merchant_name": {
+                    "description": "商户名称",
                     "type": "string"
                 },
-                "pType": {
+                "namespaces": {
+                    "description": "商户环境",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "request.ChangePasswordRequest": {
+            "type": "object",
+            "properties": {
+                "oldPassword": {
                     "type": "string"
                 },
-                "resource": {
-                    "description": "路径",
+                "password": {
                     "type": "string"
                 },
-                "source": {
+                "type": {
+                    "type": "integer"
+                },
+                "username": {
                     "type": "string"
                 }
             }
@@ -3359,7 +3330,7 @@
                 "copyId": {
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domain": {
@@ -3394,7 +3365,7 @@
                     "description": "状态//radio/2,隐藏,1,显示",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3403,6 +3374,56 @@
             "type": "object",
             "properties": {
                 "ids": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.DeleteById": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "description": "角色ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteMerchantLog": {
+            "type": "object",
+            "properties": {
+                "merchant_id": {
+                    "description": "商户id",
+                    "type": "string"
+                },
+                "merchant_name": {
+                    "description": "商户名称",
+                    "type": "string"
+                }
+            }
+        },
+        "request.GroupRelativeUserRequest": {
+            "type": "object",
+            "properties": {
+                "groupId": {
+                    "type": "integer"
+                },
+                "userIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "request.LoginRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "username": {
                     "type": "string"
                 }
             }
@@ -3420,6 +3441,62 @@
                     "type": "integer"
                 },
                 "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ProcPageReceiver": {
+            "type": "object",
+            "properties": {
+                "company": {
+                    "description": "用户所在公司",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "resource": {
+                    "description": "流程定义json字符串",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户id",
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "version": {
                     "type": "integer"
                 }
             }
@@ -3443,6 +3520,87 @@
                     "type": "string"
                 },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.ProcessPageReceiver": {
+            "type": "object",
+            "properties": {
+                "candidate": {
+                    "description": "审批人",
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "department": {
+                    "description": "用户部门",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "isFinished": {
+                    "type": "boolean"
+                },
+                "nodeID": {
+                    "description": "当前节点",
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "procDefId": {
+                    "description": "流程定义ID",
+                    "type": "integer"
+                },
+                "procDefName": {
+                    "description": "流程定义名",
+                    "type": "string"
+                },
+                "startUserId": {
+                    "type": "string"
+                },
+                "startUserName": {
+                    "type": "string"
+                },
+                "taskID": {
+                    "description": "当前任务",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "title 标题",
+                    "type": "string"
+                },
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3479,6 +3637,43 @@
                 }
             }
         },
+        "request.RelativeRoleApisRequest": {
+            "type": "object",
+            "properties": {
+                "apiIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "roleId": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.RelativeRoleMenuRequest": {
+            "type": "object",
+            "properties": {
+                "menuIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "roleId": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.ReqById": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "description": "角色ID",
+                    "type": "string"
+                }
+            }
+        },
         "request.SearchApiParams": {
             "type": "object",
             "properties": {
@@ -3490,7 +3685,7 @@
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3533,7 +3728,7 @@
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3545,7 +3740,7 @@
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3588,7 +3783,7 @@
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "value": {
@@ -3597,10 +3792,101 @@
                 }
             }
         },
+        "request.SearchGroupParams": {
+            "type": "object",
+            "properties": {
+                "alias": {
+                    "description": "别名",
+                    "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/group.DevopsSysGroup"
+                    }
+                },
+                "code": {
+                    "description": "机构编码",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "domain": {
+                    "description": "域",
+                    "type": "integer"
+                },
+                "enable": {
+                    "description": "是否启用",
+                    "type": "integer"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "linkman": {
+                    "description": "联系人",
+                    "type": "string"
+                },
+                "linkmanNo": {
+                    "description": "联系人电话",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "部门/11111",
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "parentId": {
+                    "description": "上级机构",
+                    "type": "integer"
+                },
+                "remark": {
+                    "description": "组描述",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "序号",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user.DevopsSysUser"
+                    }
+                },
+                "wechat": {
+                    "description": "wechat",
+                    "type": "string"
+                }
+            }
+        },
         "request.SearchIconParams": {
             "type": "object",
             "properties": {
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3631,7 +3917,7 @@
                     "description": "系统图标名称",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3647,7 +3933,7 @@
                     "description": "请求Body",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3708,7 +3994,7 @@
                         "type": "string"
                     }
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "username": {
@@ -3734,7 +4020,7 @@
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "defaultMenu": {
@@ -3813,7 +4099,7 @@
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3821,7 +4107,7 @@
         "request.SearchRoleParams": {
             "type": "object",
             "properties": {
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3876,7 +4162,76 @@
                     "description": "状态//radio/2,隐藏,1,显示",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.TaskReceiver": {
+            "type": "object",
+            "properties": {
+                "candidate": {
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "pass": {
+                    "type": "string"
+                },
+                "procInstID": {
+                    "type": "integer"
+                },
+                "taskID": {
+                    "type": "integer"
+                },
+                "userID": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.TencentResourceListRequest": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "names": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.UserRelativeRoleRequest": {
+            "type": "object",
+            "properties": {
+                "roleIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "userId": {
                     "type": "string"
                 }
             }
@@ -3912,7 +4267,7 @@
         "role.DevopsSysRoleEntity": {
             "type": "object",
             "properties": {
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domain": {
@@ -3947,178 +4302,99 @@
                     "description": "状态//radio/2,隐藏,1,显示",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
         },
-        "sys.ChangePasswordRequest": {
+        "user.DevopsSysUser": {
             "type": "object",
             "properties": {
-                "oldPassword": {
+                "address": {
+                    "description": "地址",
+                    "type": "string"
+                },
+                "createID": {
+                    "description": "创建者",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "enable": {
+                    "description": "是否启用//radio/1,启用,2,禁用",
+                    "type": "integer"
+                },
+                "endTime": {
+                    "description": "结束时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "merchants": {
+                    "description": "所属商户",
                     "type": "string"
                 },
                 "password": {
+                    "description": "密码",
                     "type": "string"
                 },
-                "type": {
+                "realName": {
+                    "description": "真实姓名",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "salt": {
+                    "description": "密码盐",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态",
+                    "type": "integer"
+                },
+                "tel": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "theme": {
+                    "description": "主题",
+                    "type": "string"
+                },
+                "titleURL": {
+                    "description": "头像地址",
+                    "type": "string"
+                },
+                "updateID": {
+                    "description": "更新人",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userType": {
+                    "description": "用户类型",
                     "type": "integer"
                 },
                 "username": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.DeleteById": {
-            "type": "object",
-            "properties": {
-                "ids": {
-                    "description": "角色ID",
-                    "type": "integer"
-                }
-            }
-        },
-        "sys.LoginRequest": {
-            "type": "object",
-            "properties": {
-                "password": {
+                    "description": "登录名/11111",
                     "type": "string"
                 },
-                "type": {
-                    "type": "integer"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RelativeRoleApisRequest": {
-            "type": "object",
-            "properties": {
-                "apiIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "roleId": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RelativeRoleMenuRequest": {
-            "type": "object",
-            "properties": {
-                "menuIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "roleId": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RelativeUserRequest": {
-            "type": "object",
-            "properties": {
-                "roleIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "userId": {
-                    "type": "string"
-                }
-            }
-        },
-        "sys.RequestById": {
-            "type": "object",
-            "properties": {
-                "ids": {
-                    "description": "角色ID",
-                    "type": "string"
-                }
-            }
-        },
-        "third.AddMerchantApmRequest": {
-            "type": "object",
-            "properties": {
-                "merchant_id": {
-                    "description": "商户id",
+                "uuid": {
+                    "description": "UUID",
                     "type": "string"
                 },
-                "merchant_name": {
-                    "description": "商户名称",
+                "workNum": {
+                    "description": "工号",
                     "type": "string"
-                },
-                "namespaces": {
-                    "description": "商户环境",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "third.AddMerchantClsLogTopicRequest": {
-            "type": "object",
-            "properties": {
-                "merchant_id": {
-                    "description": "商户id",
-                    "type": "string"
-                },
-                "merchant_name": {
-                    "description": "商户名称",
-                    "type": "string"
-                },
-                "namespaces": {
-                    "description": "商户环境",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "third.DeleteMerchantLog": {
-            "type": "object",
-            "properties": {
-                "merchant_id": {
-                    "description": "商户id",
-                    "type": "string"
-                },
-                "merchant_name": {
-                    "description": "商户名称",
-                    "type": "string"
-                }
-            }
-        },
-        "third.TencentResourceListRequest": {
-            "type": "object",
-            "properties": {
-                "ids": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "limit": {
-                    "type": "integer"
-                },
-                "names": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "offset": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "integer"
                 }
             }
         },
@@ -4133,7 +4409,7 @@
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "email": {
@@ -4198,7 +4474,7 @@
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "userType": {
@@ -4230,7 +4506,7 @@
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "email": {
@@ -4301,7 +4577,7 @@
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "userType": {
@@ -4318,172 +4594,6 @@
                 },
                 "workNum": {
                     "description": "工号",
-                    "type": "string"
-                }
-            }
-        },
-        "workflow.ProcPageReceiver": {
-            "type": "object",
-            "properties": {
-                "company": {
-                    "description": "用户所在公司",
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "desc": {
-                    "description": "排序方式:升序false(默认)|降序true",
-                    "type": "boolean"
-                },
-                "filter": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "orderKey": {
-                    "description": "排序",
-                    "type": "string"
-                },
-                "page": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                },
-                "resource": {
-                    "description": "流程定义json字符串",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户id",
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                },
-                "version": {
-                    "type": "integer"
-                }
-            }
-        },
-        "workflow.ProcessPageReceiver": {
-            "type": "object",
-            "properties": {
-                "candidate": {
-                    "description": "审批人",
-                    "type": "string"
-                },
-                "company": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "department": {
-                    "description": "用户部门",
-                    "type": "string"
-                },
-                "desc": {
-                    "description": "排序方式:升序false(默认)|降序true",
-                    "type": "boolean"
-                },
-                "duration": {
-                    "type": "integer"
-                },
-                "endTime": {
-                    "type": "string"
-                },
-                "filter": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "isFinished": {
-                    "type": "boolean"
-                },
-                "nodeID": {
-                    "description": "当前节点",
-                    "type": "string"
-                },
-                "orderKey": {
-                    "description": "排序",
-                    "type": "string"
-                },
-                "page": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                },
-                "procDefId": {
-                    "description": "流程定义ID",
-                    "type": "integer"
-                },
-                "procDefName": {
-                    "description": "流程定义名",
-                    "type": "string"
-                },
-                "startUserId": {
-                    "type": "string"
-                },
-                "startUserName": {
-                    "type": "string"
-                },
-                "taskID": {
-                    "description": "当前任务",
-                    "type": "integer"
-                },
-                "title": {
-                    "description": "title 标题",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "workflow.TaskReceiver": {
-            "type": "object",
-            "properties": {
-                "candidate": {
-                    "type": "string"
-                },
-                "comment": {
-                    "type": "string"
-                },
-                "company": {
-                    "type": "string"
-                },
-                "pass": {
-                    "type": "string"
-                },
-                "procInstID": {
-                    "type": "integer"
-                },
-                "taskID": {
-                    "type": "integer"
-                },
-                "userID": {
-                    "type": "string"
-                },
-                "username": {
                     "type": "string"
                 }
             }

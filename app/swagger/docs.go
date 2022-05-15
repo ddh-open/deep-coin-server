@@ -797,7 +797,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "给分组新增资源接口",
+                "description": "给分组新增用户",
                 "consumes": [
                     "application/json"
                 ],
@@ -807,18 +807,15 @@ const docTemplate = `{
                 "tags": [
                     "Role"
                 ],
-                "summary": "给分组新增资源接口",
+                "summary": "给分组新增用户",
                 "parameters": [
                     {
-                        "description": "Ptype为p2 , source 是分组的id，resource 是资源， method 为write或者read,或者owner",
+                        "description": "给分组新增用户",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/request.CabinInReceive"
-                            }
+                            "$ref": "#/definitions/request.GroupRelativeUserRequest"
                         }
                     }
                 ],
@@ -858,6 +855,45 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.ReqById"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sys/group/delete/user": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "给分组删除用户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "给分组删除用户",
+                "parameters": [
+                    {
+                        "description": "给分组新增用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.GroupRelativeUserRequest"
                         }
                     }
                 ],
@@ -2684,7 +2720,7 @@ const docTemplate = `{
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "id": {
@@ -2707,7 +2743,7 @@ const docTemplate = `{
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "value": {
@@ -2723,7 +2759,7 @@ const docTemplate = `{
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domainNum": {
@@ -2754,7 +2790,7 @@ const docTemplate = `{
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -2776,7 +2812,7 @@ const docTemplate = `{
                     "description": "机构编码",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domain": {
@@ -2815,8 +2851,14 @@ const docTemplate = `{
                     "description": "序号",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user.DevopsSysUser"
+                    }
                 },
                 "wechat": {
                     "description": "wechat",
@@ -2841,7 +2883,7 @@ const docTemplate = `{
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "defaultMenu": {
@@ -2900,7 +2942,7 @@ const docTemplate = `{
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -2922,7 +2964,7 @@ const docTemplate = `{
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "defaultMenu": {
@@ -2981,7 +3023,7 @@ const docTemplate = `{
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3170,7 +3212,7 @@ const docTemplate = `{
                     "description": "请求Body",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "error_message": {
@@ -3205,7 +3247,7 @@ const docTemplate = `{
                     "description": "请求状态",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "username": {
@@ -3225,7 +3267,7 @@ const docTemplate = `{
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "description": {
@@ -3248,7 +3290,7 @@ const docTemplate = `{
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3270,27 +3312,6 @@ const docTemplate = `{
                     "items": {
                         "type": "string"
                     }
-                }
-            }
-        },
-        "request.CabinInReceive": {
-            "type": "object",
-            "properties": {
-                "domain": {
-                    "type": "string"
-                },
-                "method": {
-                    "type": "string"
-                },
-                "pType": {
-                    "type": "string"
-                },
-                "resource": {
-                    "description": "路径",
-                    "type": "string"
-                },
-                "source": {
-                    "type": "string"
                 }
             }
         },
@@ -3317,7 +3338,7 @@ const docTemplate = `{
                 "copyId": {
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domain": {
@@ -3352,7 +3373,7 @@ const docTemplate = `{
                     "description": "状态//radio/2,隐藏,1,显示",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3384,6 +3405,20 @@ const docTemplate = `{
                 "merchant_name": {
                     "description": "商户名称",
                     "type": "string"
+                }
+            }
+        },
+        "request.GroupRelativeUserRequest": {
+            "type": "object",
+            "properties": {
+                "groupId": {
+                    "type": "integer"
+                },
+                "userIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             }
         },
@@ -3425,7 +3460,7 @@ const docTemplate = `{
                     "description": "用户所在公司",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3459,7 +3494,7 @@ const docTemplate = `{
                     "description": "流程定义json字符串",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "userId": {
@@ -3507,7 +3542,7 @@ const docTemplate = `{
                 "company": {
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "department": {
@@ -3573,7 +3608,7 @@ const docTemplate = `{
                     "description": "title 标题",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3658,7 +3693,7 @@ const docTemplate = `{
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3701,7 +3736,7 @@ const docTemplate = `{
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3713,7 +3748,7 @@ const docTemplate = `{
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3756,7 +3791,7 @@ const docTemplate = `{
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "value": {
@@ -3782,7 +3817,7 @@ const docTemplate = `{
                     "description": "机构编码",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3841,8 +3876,14 @@ const docTemplate = `{
                     "description": "序号",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user.DevopsSysUser"
+                    }
                 },
                 "wechat": {
                     "description": "wechat",
@@ -3853,7 +3894,7 @@ const docTemplate = `{
         "request.SearchIconParams": {
             "type": "object",
             "properties": {
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3884,7 +3925,7 @@ const docTemplate = `{
                     "description": "系统图标名称",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -3900,7 +3941,7 @@ const docTemplate = `{
                     "description": "请求Body",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -3961,7 +4002,7 @@ const docTemplate = `{
                         "type": "string"
                     }
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "username": {
@@ -3987,7 +4028,7 @@ const docTemplate = `{
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "defaultMenu": {
@@ -4066,7 +4107,7 @@ const docTemplate = `{
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -4074,7 +4115,7 @@ const docTemplate = `{
         "request.SearchRoleParams": {
             "type": "object",
             "properties": {
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "desc": {
@@ -4129,7 +4170,7 @@ const docTemplate = `{
                     "description": "状态//radio/2,隐藏,1,显示",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -4234,7 +4275,7 @@ const docTemplate = `{
         "role.DevopsSysRoleEntity": {
             "type": "object",
             "properties": {
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "domain": {
@@ -4269,7 +4310,98 @@ const docTemplate = `{
                     "description": "状态//radio/2,隐藏,1,显示",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.DevopsSysUser": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "地址",
+                    "type": "string"
+                },
+                "createID": {
+                    "description": "创建者",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "enable": {
+                    "description": "是否启用//radio/1,启用,2,禁用",
+                    "type": "integer"
+                },
+                "endTime": {
+                    "description": "结束时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "merchants": {
+                    "description": "所属商户",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "realName": {
+                    "description": "真实姓名",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "salt": {
+                    "description": "密码盐",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态",
+                    "type": "integer"
+                },
+                "tel": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "theme": {
+                    "description": "主题",
+                    "type": "string"
+                },
+                "titleURL": {
+                    "description": "头像地址",
+                    "type": "string"
+                },
+                "updateID": {
+                    "description": "更新人",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userType": {
+                    "description": "用户类型",
+                    "type": "integer"
+                },
+                "username": {
+                    "description": "登录名/11111",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "UUID",
+                    "type": "string"
+                },
+                "workNum": {
+                    "description": "工号",
                     "type": "string"
                 }
             }
@@ -4285,7 +4417,7 @@ const docTemplate = `{
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "email": {
@@ -4350,7 +4482,7 @@ const docTemplate = `{
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "userType": {
@@ -4382,7 +4514,7 @@ const docTemplate = `{
                     "description": "创建者",
                     "type": "integer"
                 },
-                "created_at": {
+                "createdAt": {
                     "type": "string"
                 },
                 "email": {
@@ -4453,7 +4585,7 @@ const docTemplate = `{
                     "description": "更新人",
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "userType": {

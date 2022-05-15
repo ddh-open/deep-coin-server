@@ -1,6 +1,8 @@
 package menu
 
-import "devops-http/app/module/base"
+import (
+	"devops-http/app/module/base"
+)
 
 // DevopsSysMenu 菜单表
 type DevopsSysMenu struct {

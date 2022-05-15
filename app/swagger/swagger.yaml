@@ -5,7 +5,7 @@ definitions:
       createId:
         description: 创建者
         type: integer
-      created_at:
+      createdAt:
         type: string
       id:
         description: 主键
@@ -22,7 +22,7 @@ definitions:
       updateId:
         description: 更新人
         type: integer
-      updated_at:
+      updatedAt:
         type: string
       value:
         description: 配置的value
@@ -33,7 +33,7 @@ definitions:
       createId:
         description: 创建者
         type: integer
-      created_at:
+      createdAt:
         type: string
       domainNum:
         description: 商户号
@@ -56,7 +56,7 @@ definitions:
       updateId:
         description: 更新人
         type: integer
-      updated_at:
+      updatedAt:
         type: string
     type: object
   group.DevopsSysGroup:
@@ -64,10 +64,14 @@ definitions:
       alias:
         description: 别名
         type: string
+      children:
+        items:
+          $ref: '#/definitions/group.DevopsSysGroup'
+        type: array
       code:
         description: 机构编码
         type: string
-      created_at:
+      createdAt:
         type: string
       domain:
         description: 域
@@ -96,8 +100,12 @@ definitions:
       sort:
         description: 序号
         type: integer
-      updated_at:
+      updatedAt:
         type: string
+      users:
+        items:
+          $ref: '#/definitions/user.DevopsSysUser'
+        type: array
       wechat:
         description: wechat
         type: string
@@ -114,7 +122,7 @@ definitions:
       component:
         description: 对应前端文件路径
         type: string
-      created_at:
+      createdAt:
         type: string
       defaultMenu:
         description: 是否是基础路由（开发中）
@@ -158,7 +166,7 @@ definitions:
       title:
         description: 菜单名
         type: string
-      updated_at:
+      updatedAt:
         type: string
     type: object
   menu.DevopsSysMenuEntity:
@@ -173,7 +181,7 @@ definitions:
       component:
         description: 对应前端文件路径
         type: string
-      created_at:
+      createdAt:
         type: string
       defaultMenu:
         description: 是否是基础路由（开发中）
@@ -217,7 +225,7 @@ definitions:
       title:
         description: 菜单名
         type: string
-      updated_at:
+      updatedAt:
         type: string
     type: object
   node.ActionRule:
@@ -343,7 +351,7 @@ definitions:
       body:
         description: 请求Body
         type: string
-      created_at:
+      createdAt:
         type: string
       error_message:
         description: 错误信息
@@ -369,7 +377,7 @@ definitions:
       status:
         description: 请求状态
         type: integer
-      updated_at:
+      updatedAt:
         type: string
       username:
         description: 用户名
@@ -383,7 +391,7 @@ definitions:
       createId:
         description: 创建者
         type: integer
-      created_at:
+      createdAt:
         type: string
       description:
         description: api中文描述
@@ -400,28 +408,39 @@ definitions:
       updateId:
         description: 更新人
         type: integer
-      updated_at:
+      updatedAt:
         type: string
     type: object
-  request.CabinInReceive:
+  request.AddMerchantApmRequest:
     properties:
-      domain:
+      merchant_id:
+        description: 商户id
         type: string
-      method:
+      merchant_name:
+        description: 商户名称
         type: string
-      pType:
+      namespaces:
+        description: 商户环境
+        items:
+          type: string
+        type: array
+    type: object
+  request.ChangePasswordRequest:
+    properties:
+      oldPassword:
         type: string
-      resource:
-        description: 路径
+      password:
         type: string
-      source:
+      type:
+        type: integer
+      username:
         type: string
     type: object
   request.CopyRoleParams:
     properties:
       copyId:
         type: string
-      created_at:
+      createdAt:
         type: string
       domain:
         description: 域
@@ -447,12 +466,45 @@ definitions:
       status:
         description: 状态//radio/2,隐藏,1,显示
         type: integer
-      updated_at:
+      updatedAt:
         type: string
     type: object
   request.DataDelete:
     properties:
       ids:
+        type: string
+    type: object
+  request.DeleteById:
+    properties:
+      ids:
+        description: 角色ID
+        type: integer
+    type: object
+  request.DeleteMerchantLog:
+    properties:
+      merchant_id:
+        description: 商户id
+        type: string
+      merchant_name:
+        description: 商户名称
+        type: string
+    type: object
+  request.GroupRelativeUserRequest:
+    properties:
+      groupId:
+        type: integer
+      userIds:
+        items:
+          type: integer
+        type: array
+    type: object
+  request.LoginRequest:
+    properties:
+      password:
+        type: string
+      type:
+        type: integer
+      username:
         type: string
     type: object
   request.PageRequest:
@@ -464,6 +516,45 @@ definitions:
       page:
         type: integer
       pageSize:
+        type: integer
+    type: object
+  request.ProcPageReceiver:
+    properties:
+      company:
+        description: 用户所在公司
+        type: string
+      createdAt:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      name:
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      resource:
+        description: 流程定义json字符串
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        description: 用户id
+        type: string
+      username:
+        type: string
+      version:
         type: integer
     type: object
   request.ProcRequest:
@@ -480,6 +571,63 @@ definitions:
         description: 用户id
         type: string
       username:
+        type: string
+    type: object
+  request.ProcessPageReceiver:
+    properties:
+      candidate:
+        description: 审批人
+        type: string
+      company:
+        type: string
+      createdAt:
+        type: string
+      department:
+        description: 用户部门
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      duration:
+        type: integer
+      endTime:
+        type: string
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      isFinished:
+        type: boolean
+      nodeID:
+        description: 当前节点
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      procDefId:
+        description: 流程定义ID
+        type: integer
+      procDefName:
+        description: 流程定义名
+        type: string
+      startUserId:
+        type: string
+      startUserName:
+        type: string
+      taskID:
+        description: 当前任务
+        type: integer
+      title:
+        description: title 标题
+        type: string
+      updatedAt:
         type: string
     type: object
   request.ReceiverProcess:
@@ -503,6 +651,30 @@ definitions:
           type: string
         type: object
     type: object
+  request.RelativeRoleApisRequest:
+    properties:
+      apiIds:
+        items:
+          type: string
+        type: array
+      roleId:
+        type: string
+    type: object
+  request.RelativeRoleMenuRequest:
+    properties:
+      menuIds:
+        items:
+          type: string
+        type: array
+      roleId:
+        type: string
+    type: object
+  request.ReqById:
+    properties:
+      ids:
+        description: 角色ID
+        type: string
+    type: object
   request.SearchApiParams:
     properties:
       apiGroup:
@@ -511,7 +683,7 @@ definitions:
       createId:
         description: 创建者
         type: integer
-      created_at:
+      createdAt:
         type: string
       desc:
         description: 排序方式:升序false(默认)|降序true
@@ -542,7 +714,7 @@ definitions:
       updateId:
         description: 更新人
         type: integer
-      updated_at:
+      updatedAt:
         type: string
     type: object
   request.SearchConfigParams:
@@ -550,7 +722,7 @@ definitions:
       createId:
         description: 创建者
         type: integer
-      created_at:
+      createdAt:
         type: string
       desc:
         description: 排序方式:升序false(默认)|降序true
@@ -581,15 +753,80 @@ definitions:
       updateId:
         description: 更新人
         type: integer
-      updated_at:
+      updatedAt:
         type: string
       value:
         description: 配置的value
         type: string
     type: object
+  request.SearchGroupParams:
+    properties:
+      alias:
+        description: 别名
+        type: string
+      children:
+        items:
+          $ref: '#/definitions/group.DevopsSysGroup'
+        type: array
+      code:
+        description: 机构编码
+        type: string
+      createdAt:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      domain:
+        description: 域
+        type: integer
+      enable:
+        description: 是否启用
+        type: integer
+      filter:
+        items:
+          type: string
+        type: array
+      id:
+        description: 主键
+        type: integer
+      linkman:
+        description: 联系人
+        type: string
+      linkmanNo:
+        description: 联系人电话
+        type: string
+      name:
+        description: 部门/11111
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      parentId:
+        description: 上级机构
+        type: integer
+      remark:
+        description: 组描述
+        type: string
+      sort:
+        description: 序号
+        type: integer
+      updatedAt:
+        type: string
+      users:
+        items:
+          $ref: '#/definitions/user.DevopsSysUser'
+        type: array
+      wechat:
+        description: wechat
+        type: string
+    type: object
   request.SearchIconParams:
     properties:
-      created_at:
+      createdAt:
         type: string
       desc:
         description: 排序方式:升序false(默认)|降序true
@@ -611,7 +848,7 @@ definitions:
       title:
         description: 系统图标名称
         type: string
-      updated_at:
+      updatedAt:
         type: string
     type: object
   request.SearchLogsParams:
@@ -622,7 +859,7 @@ definitions:
       body:
         description: 请求Body
         type: string
-      created_at:
+      createdAt:
         type: string
       desc:
         description: 排序方式:升序false(默认)|降序true
@@ -666,7 +903,7 @@ definitions:
         items:
           type: string
         type: array
-      updated_at:
+      updatedAt:
         type: string
       username:
         description: 用户名
@@ -684,7 +921,7 @@ definitions:
       component:
         description: 对应前端文件路径
         type: string
-      created_at:
+      createdAt:
         type: string
       defaultMenu:
         description: 是否是基础路由（开发中）
@@ -742,12 +979,12 @@ definitions:
       title:
         description: 菜单名
         type: string
-      updated_at:
+      updatedAt:
         type: string
     type: object
   request.SearchRoleParams:
     properties:
-      created_at:
+      createdAt:
         type: string
       desc:
         description: 排序方式:升序false(默认)|降序true
@@ -787,7 +1024,52 @@ definitions:
       status:
         description: 状态//radio/2,隐藏,1,显示
         type: integer
-      updated_at:
+      updatedAt:
+        type: string
+    type: object
+  request.TaskReceiver:
+    properties:
+      candidate:
+        type: string
+      comment:
+        type: string
+      company:
+        type: string
+      pass:
+        type: string
+      procInstID:
+        type: integer
+      taskID:
+        type: integer
+      userID:
+        type: string
+      username:
+        type: string
+    type: object
+  request.TencentResourceListRequest:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+      limit:
+        type: integer
+      names:
+        items:
+          type: string
+        type: array
+      offset:
+        type: integer
+      type:
+        type: integer
+    type: object
+  request.UserRelativeRoleRequest:
+    properties:
+      roleIds:
+        items:
+          type: string
+        type: array
+      userId:
         type: string
     type: object
   response.PageResult:
@@ -811,7 +1093,7 @@ definitions:
     type: object
   role.DevopsSysRoleEntity:
     properties:
-      created_at:
+      createdAt:
         type: string
       domain:
         description: 域
@@ -837,121 +1119,75 @@ definitions:
       status:
         description: 状态//radio/2,隐藏,1,显示
         type: integer
-      updated_at:
+      updatedAt:
         type: string
     type: object
-  sys.ChangePasswordRequest:
+  user.DevopsSysUser:
     properties:
-      oldPassword:
+      address:
+        description: 地址
+        type: string
+      createID:
+        description: 创建者
+        type: integer
+      createdAt:
+        type: string
+      email:
+        description: email
+        type: string
+      enable:
+        description: 是否启用//radio/1,启用,2,禁用
+        type: integer
+      endTime:
+        description: 结束时间
+        type: string
+      id:
+        description: 主键
+        type: integer
+      merchants:
+        description: 所属商户
         type: string
       password:
+        description: 密码
         type: string
-      type:
+      realName:
+        description: 真实姓名
+        type: string
+      remark:
+        description: 说明
+        type: string
+      salt:
+        description: 密码盐
+        type: string
+      status:
+        description: 状态
+        type: integer
+      tel:
+        description: 手机号
+        type: string
+      theme:
+        description: 主题
+        type: string
+      titleURL:
+        description: 头像地址
+        type: string
+      updateID:
+        description: 更新人
+        type: integer
+      updatedAt:
+        type: string
+      userType:
+        description: 用户类型
         type: integer
       username:
+        description: 登录名/11111
         type: string
-    type: object
-  sys.DeleteById:
-    properties:
-      ids:
-        description: 角色ID
-        type: integer
-    type: object
-  sys.LoginRequest:
-    properties:
-      password:
+      uuid:
+        description: UUID
         type: string
-      type:
-        type: integer
-      username:
+      workNum:
+        description: 工号
         type: string
-    type: object
-  sys.RelativeRoleApisRequest:
-    properties:
-      apiIds:
-        items:
-          type: string
-        type: array
-      roleId:
-        type: string
-    type: object
-  sys.RelativeRoleMenuRequest:
-    properties:
-      menuIds:
-        items:
-          type: string
-        type: array
-      roleId:
-        type: string
-    type: object
-  sys.RelativeUserRequest:
-    properties:
-      roleIds:
-        items:
-          type: string
-        type: array
-      userId:
-        type: string
-    type: object
-  sys.RequestById:
-    properties:
-      ids:
-        description: 角色ID
-        type: string
-    type: object
-  third.AddMerchantApmRequest:
-    properties:
-      merchant_id:
-        description: 商户id
-        type: string
-      merchant_name:
-        description: 商户名称
-        type: string
-      namespaces:
-        description: 商户环境
-        items:
-          type: string
-        type: array
-    type: object
-  third.AddMerchantClsLogTopicRequest:
-    properties:
-      merchant_id:
-        description: 商户id
-        type: string
-      merchant_name:
-        description: 商户名称
-        type: string
-      namespaces:
-        description: 商户环境
-        items:
-          type: string
-        type: array
-    type: object
-  third.DeleteMerchantLog:
-    properties:
-      merchant_id:
-        description: 商户id
-        type: string
-      merchant_name:
-        description: 商户名称
-        type: string
-    type: object
-  third.TencentResourceListRequest:
-    properties:
-      ids:
-        items:
-          type: string
-        type: array
-      limit:
-        type: integer
-      names:
-        items:
-          type: string
-        type: array
-      offset:
-        type: integer
-      type:
-        type: integer
     type: object
   user.DevopsSysUserEntity:
     properties:
@@ -961,7 +1197,7 @@ definitions:
       createID:
         description: 创建者
         type: integer
-      created_at:
+      createdAt:
         type: string
       email:
         description: email
@@ -1009,7 +1245,7 @@ definitions:
       updateID:
         description: 更新人
         type: integer
-      updated_at:
+      updatedAt:
         type: string
       userType:
         description: 用户类型
@@ -1032,7 +1268,7 @@ definitions:
       createID:
         description: 创建者
         type: integer
-      created_at:
+      createdAt:
         type: string
       email:
         description: email
@@ -1084,7 +1320,7 @@ definitions:
       updateID:
         description: 更新人
         type: integer
-      updated_at:
+      updatedAt:
         type: string
       userType:
         description: 用户类型
@@ -1097,121 +1333,6 @@ definitions:
         type: string
       workNum:
         description: 工号
-        type: string
-    type: object
-  workflow.ProcPageReceiver:
-    properties:
-      company:
-        description: 用户所在公司
-        type: string
-      created_at:
-        type: string
-      desc:
-        description: 排序方式:升序false(默认)|降序true
-        type: boolean
-      filter:
-        items:
-          type: string
-        type: array
-      id:
-        description: 主键
-        type: integer
-      name:
-        type: string
-      orderKey:
-        description: 排序
-        type: string
-      page:
-        type: integer
-      pageSize:
-        type: integer
-      resource:
-        description: 流程定义json字符串
-        type: string
-      updated_at:
-        type: string
-      userId:
-        description: 用户id
-        type: string
-      username:
-        type: string
-      version:
-        type: integer
-    type: object
-  workflow.ProcessPageReceiver:
-    properties:
-      candidate:
-        description: 审批人
-        type: string
-      company:
-        type: string
-      created_at:
-        type: string
-      department:
-        description: 用户部门
-        type: string
-      desc:
-        description: 排序方式:升序false(默认)|降序true
-        type: boolean
-      duration:
-        type: integer
-      endTime:
-        type: string
-      filter:
-        items:
-          type: string
-        type: array
-      id:
-        description: 主键
-        type: integer
-      isFinished:
-        type: boolean
-      nodeID:
-        description: 当前节点
-        type: string
-      orderKey:
-        description: 排序
-        type: string
-      page:
-        type: integer
-      pageSize:
-        type: integer
-      procDefId:
-        description: 流程定义ID
-        type: integer
-      procDefName:
-        description: 流程定义名
-        type: string
-      startUserId:
-        type: string
-      startUserName:
-        type: string
-      taskID:
-        description: 当前任务
-        type: integer
-      title:
-        description: title 标题
-        type: string
-      updated_at:
-        type: string
-    type: object
-  workflow.TaskReceiver:
-    properties:
-      candidate:
-        type: string
-      comment:
-        type: string
-      company:
-        type: string
-      pass:
-        type: string
-      procInstID:
-        type: integer
-      taskID:
-        type: integer
-      userID:
-        type: string
-      username:
         type: string
     type: object
 info:
@@ -1285,35 +1406,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/path.DevopsSysApi'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 删除api
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 删除api
-      tags:
-      - Apis
-  /sys/api/deletes:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: ID
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/sys.RequestById'
+          $ref: '#/definitions/request.ReqById'
       produces:
       - application/json
       responses:
@@ -1341,7 +1434,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.RequestById'
+          $ref: '#/definitions/request.ReqById'
       produces:
       - application/json
       responses:
@@ -1427,7 +1520,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.RelativeRoleApisRequest'
+          $ref: '#/definitions/request.RelativeRoleApisRequest'
       produces:
       - application/json
       responses:
@@ -1478,7 +1571,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.RequestById'
+          $ref: '#/definitions/request.ReqById'
       produces:
       - application/json
       responses:
@@ -1720,20 +1813,18 @@ paths:
       summary: 新增分组接口
       tags:
       - Group
-  /sys/group/add/resources:
+  /sys/group/add/user:
     post:
       consumes:
       - application/json
-      description: 给分组新增资源接口
+      description: 给分组新增用户
       parameters:
-      - description: Ptype为p2 , source 是分组的id，resource 是资源， method 为write或者read,或者owner
+      - description: 给分组新增用户
         in: body
         name: data
         required: true
         schema:
-          items:
-            $ref: '#/definitions/request.CabinInReceive'
-          type: array
+          $ref: '#/definitions/request.GroupRelativeUserRequest'
       produces:
       - application/json
       responses:
@@ -1743,7 +1834,7 @@ paths:
             $ref: '#/definitions/response.Response'
       security:
       - ApiKeyAuth: []
-      summary: 给分组新增资源接口
+      summary: 给分组新增用户
       tags:
       - Role
   /sys/group/delete:
@@ -1752,12 +1843,12 @@ paths:
       - application/json
       description: 删除分组接口
       parameters:
-      - description: 分组ids
+      - description: 分组
         in: body
-        name: ids
+        name: data
         required: true
         schema:
-          type: string
+          $ref: '#/definitions/request.ReqById'
       produces:
       - application/json
       responses:
@@ -1770,6 +1861,30 @@ paths:
       summary: 删除分组接口
       tags:
       - Group
+  /sys/group/delete/user:
+    post:
+      consumes:
+      - application/json
+      description: 给分组删除用户
+      parameters:
+      - description: 给分组新增用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GroupRelativeUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 给分组删除用户
+      tags:
+      - Role
   /sys/group/list:
     post:
       consumes:
@@ -1781,7 +1896,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.PageRequest'
+          $ref: '#/definitions/request.SearchGroupParams'
       produces:
       - application/json
       responses:
@@ -1816,33 +1931,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 修改分组接口
-      tags:
-      - Group
-  /sys/group/resource/{name}:
-    get:
-      consumes:
-      - application/json
-      description: 获得分组资源接口
-      parameters:
-      - description: 分组name
-        in: path
-        name: name
-        required: true
-        type: string
-      - description: 域
-        in: query
-        name: domain
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - ApiKeyAuth: []
-      summary: 获得分组资源接口
       tags:
       - Group
   /sys/icon/list:
@@ -1926,7 +2014,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.RelativeRoleMenuRequest'
+          $ref: '#/definitions/request.RelativeRoleMenuRequest'
       produces:
       - application/json
       responses:
@@ -1954,7 +2042,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.DeleteById'
+          $ref: '#/definitions/request.DeleteById'
       produces:
       - application/json
       responses:
@@ -2297,7 +2385,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/third.AddMerchantApmRequest'
+          $ref: '#/definitions/request.AddMerchantApmRequest'
       produces:
       - application/json
       responses:
@@ -2321,7 +2409,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/third.AddMerchantClsLogTopicRequest'
+          $ref: '#/definitions/request.AddMerchantApmRequest'
       produces:
       - application/json
       responses:
@@ -2345,7 +2433,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/third.DeleteMerchantLog'
+          $ref: '#/definitions/request.DeleteMerchantLog'
       produces:
       - application/json
       responses:
@@ -2369,7 +2457,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/third.TencentResourceListRequest'
+          $ref: '#/definitions/request.TencentResourceListRequest'
       produces:
       - application/json
       responses:
@@ -2417,7 +2505,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.ChangePasswordRequest'
+          $ref: '#/definitions/request.ChangePasswordRequest'
       produces:
       - application/json
       responses:
@@ -2502,7 +2590,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.LoginRequest'
+          $ref: '#/definitions/request.LoginRequest'
       produces:
       - application/json
       responses:
@@ -2620,7 +2708,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.RelativeUserRequest'
+          $ref: '#/definitions/request.UserRelativeRoleRequest'
       produces:
       - application/json
       responses:
@@ -2644,7 +2732,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/sys.RelativeUserRequest'
+          $ref: '#/definitions/request.UserRelativeRoleRequest'
       produces:
       - application/json
       responses:
@@ -2714,7 +2802,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/workflow.ProcPageReceiver'
+          $ref: '#/definitions/request.ProcPageReceiver'
       produces:
       - application/json
       responses:
@@ -2762,7 +2850,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/workflow.ProcessPageReceiver'
+          $ref: '#/definitions/request.ProcessPageReceiver'
       produces:
       - application/json
       responses:
@@ -2786,7 +2874,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/workflow.ProcessPageReceiver'
+          $ref: '#/definitions/request.ProcessPageReceiver'
       produces:
       - application/json
       responses:
@@ -2810,7 +2898,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/workflow.ProcessPageReceiver'
+          $ref: '#/definitions/request.ProcessPageReceiver'
       produces:
       - application/json
       responses:
@@ -2858,7 +2946,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/workflow.TaskReceiver'
+          $ref: '#/definitions/request.TaskReceiver'
       produces:
       - application/json
       responses:

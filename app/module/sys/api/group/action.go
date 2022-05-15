@@ -152,11 +152,39 @@ func (a *ApiGroup) AddUserToGroup(c *gin.Context) {
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "新增成功"}
 	if err != nil {
+		res.Code = -1
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
 	}
 	err = a.service.AddUserToGroup(req)
+	if err != nil {
+		res.Msg = err.Error()
+	}
+	c.DJson(res)
+}
+
+// DeleteUserToGroup godoc
+// @Summary 给分组删除用户
+// @Security ApiKeyAuth
+// @Description 给分组删除用户
+// @accept application/json
+// @Produce application/json
+// @Param data body request.GroupRelativeUserRequest true "给分组新增用户"
+// @Tags Role
+// @Success 200 {object}  response.Response
+// @Router /sys/group/delete/user [post]
+func (a *ApiGroup) DeleteUserToGroup(c *gin.Context) {
+	var req request.GroupRelativeUserRequest
+	err := c.ShouldBindJSON(&req)
+	res := response.Response{Code: 1, Msg: "删除成功"}
+	if err != nil {
+		res.Code = -1
+		res.Msg = err.Error()
+		c.DJson(res)
+		return
+	}
+	err = a.service.DeleteUserToGroup(req)
 	if err != nil {
 		res.Msg = err.Error()
 	}

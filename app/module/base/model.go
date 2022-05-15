@@ -23,7 +23,7 @@ type DevopsColumns struct {
 
 type DevopsModel struct {
 	ID        uint           `gorm:"primaryKey;autoIncrement;autoIncrementIncrement;column:id;type:bigint;not null" json:"id"` // 主键
-	CreatedAt dtime.Time     `json:"created_at"`
-	UpdatedAt dtime.Time     `json:"updated_at"`
+	CreatedAt dtime.Time     `json:"createdAt"`
+	UpdatedAt dtime.Time     `json:"updatedAt"`
 	DeletedAt gorm.DeletedAt `json:"-"`
 }

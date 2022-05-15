@@ -6,6 +6,7 @@ import (
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/sys/model/group"
 	"devops-http/app/module/sys/model/menu"
+	"devops-http/app/module/sys/model/user"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
 	"fmt"
@@ -25,7 +26,9 @@ func NewService(c framework.Container) *Service {
 	if err != nil {
 		logger.Error("service 获取db出错： err", zap.Error(err))
 	}
-	db.AutoMigrate(&group.DevopsSysGroup{})
+	err = db.AutoMigrate(&group.DevopsSysGroup{}, &group.DevopsSysGroupRelativeUser{})
+	// 建立多对多的关系表
+	//err = db.SetupJoinTable(&group.DevopsSysGroup{}, "Users", &group.DevopsSysGroupRelativeUser{})
 	return &Service{base.NewRepository(db)}
 }
 
@@ -38,18 +41,23 @@ func (s *Service) GetGroupById(id string) (menuData *group.DevopsSysGroup, err e
 	return
 }
 
-func (s *Service) getChildrenList(menuData *group.DevopsSysGroup, treeMap map[string][]group.DevopsSysGroup) (err error) {
-	menuData.Children = treeMap[strconv.Itoa(int(menuData.ID))]
-	for i := 0; i < len(menuData.Children); i++ {
-		err = s.getChildrenList(&menuData.Children[i], treeMap)
+func (s *Service) getChildrenList(groupData *group.DevopsSysGroup, treeMap map[string][]group.DevopsSysGroup) (err error) {
+	var users []user.DevopsSysUser
+	s.repository.GetDB().Model(groupData).Association("Users").Find(&users)
+	groupData.Children = treeMap[strconv.Itoa(int(groupData.ID))]
+	for i := 0; i < len(groupData.Children); i++ {
+		err = s.getChildrenList(&groupData.Children[i], treeMap)
 	}
 	return err
 }
 
 func (s *Service) getBaseChildrenList(groupData *group.DevopsSysGroup) (err error) {
 	var children []group.DevopsSysGroup
+	var users []user.DevopsSysUser
 	s.repository.SetRepository(&menu.DevopsSysMenu{}).GetDB().Where("parent_id = ?", groupData.ID).Find(&children)
 	groupData.Children = children
+	s.repository.GetDB().Model(groupData).Association("Users").Find(&users)
+	groupData.Users = users
 	for i := 0; i < len(groupData.Children); i++ {
 		err = s.getBaseChildrenList(&groupData.Children[i])
 	}
@@ -168,6 +176,29 @@ func (s *Service) DeleteGroup(req request.ReqById) (err error) {
 }
 
 func (s *Service) AddUserToGroup(req request.GroupRelativeUserRequest) (err error) {
+	var groupData group.DevopsSysGroup
+	err = s.repository.GetDB().Model(&group.DevopsSysGroup{}).Where("id = ?", req.GroupId).First(&groupData).Error
+	if err != nil {
+		return
+	}
+	var users []user.DevopsSysUser
+	err = s.repository.GetDB().Model(&user.DevopsSysUser{}).Where("id in (?)", req.UserIds).Find(&users).Error
+	if err != nil {
+		return
+	}
+	return s.repository.GetDB().Model(&groupData).Association("Users").Append(users)
+}
 
-	return
+func (s *Service) DeleteUserToGroup(req request.GroupRelativeUserRequest) (err error) {
+	var groupData group.DevopsSysGroup
+	err = s.repository.GetDB().Model(&group.DevopsSysGroup{}).Where("id = ?", req.GroupId).First(&groupData).Error
+	if err != nil {
+		return
+	}
+	var users []user.DevopsSysUser
+	err = s.repository.GetDB().Model(&user.DevopsSysUser{}).Where("id in (?)", req.UserIds).Find(&users).Error
+	if err != nil {
+		return
+	}
+	return s.repository.GetDB().Model(&groupData).Association("Users").Delete(users)
 }

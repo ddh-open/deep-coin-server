@@ -1,9 +1,12 @@
 package group
 
-import "devops-http/app/module/base"
-
 // DevopsSysGroupRelativeUser 用户和应用分组关系表
 type DevopsSysGroupRelativeUser struct {
-	base.DevopsModel
-	group
+	DevopsSysGroupId uint `json:"group_id" gorm:"primaryKey"`
+	DevopsSysUserId  uint `json:"user_id" gorm:"primaryKey"`
+}
+
+// TableName 表名
+func (s *DevopsSysGroupRelativeUser) TableName() string {
+	return "devops_sys_group_relative_user"
 }

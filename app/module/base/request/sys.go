@@ -83,8 +83,8 @@ type UserRelativeRoleRequest struct {
 }
 
 type GroupRelativeUserRequest struct {
-	GroupId string   `json:"groupId"`
-	UserIds []string `json:"userIds"`
+	GroupId int   `json:"groupId"`
+	UserIds []int `json:"userIds"`
 }
 
 type RelativeRoleMenuRequest struct {

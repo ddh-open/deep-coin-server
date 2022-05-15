@@ -22,6 +22,7 @@ func Register(r *gin.Engine) error {
 	sysGroup.PUT("group/modify", api.ModifyGroup)
 	sysGroup.DELETE("group/delete", api.DeleteGroup)
 	sysGroup.POST("group/add/user", api.AddUserToGroup)
+	sysGroup.POST("group/delete/user", api.DeleteUserToGroup)
 	return nil
 }
 
