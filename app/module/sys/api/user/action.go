@@ -60,7 +60,7 @@ func (api *ApiUser) Modify(c *gin.Context) {
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
-		Msg:  "",
+		Msg:  "修改成功",
 		Data: nil,
 	}
 	if err != nil {
@@ -280,13 +280,13 @@ func (api *ApiUser) GetUserInfo(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Description 根据参数获取用户列表
 // @Produce  json
-// @Param data body request.PageRequest true "分页查询"
+// @Param data body request.SearchUserParams true "分页查询"
 // @Tags User
 // @Success 200 {object} response.PageResult
 // @Router /user/list [post]
 func (api *ApiUser) UserList(c *gin.Context) {
 	logger := c.MustMakeLog()
-	var req request.PageRequest
+	var req request.SearchUserParams
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{
 		Code: 1,
@@ -303,7 +303,6 @@ func (api *ApiUser) UserList(c *gin.Context) {
 		logger.Error(err.Error())
 		res.Code = -1
 		res.Msg = err.Error()
-		return
 	}
 	res.Data = data
 	c.DJson(res)

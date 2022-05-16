@@ -8,5 +8,5 @@ type DevopsSysGroupRelativeUser struct {
 
 // TableName 表名
 func (s *DevopsSysGroupRelativeUser) TableName() string {
-	return "devops_sys_group_relative_user"
+	return "devops_sys_group_relative_users"
 }

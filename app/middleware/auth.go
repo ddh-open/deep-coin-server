@@ -51,7 +51,7 @@ func Auth() gin.HandlerFunc {
 
 func parseUser(data *contract.CustomClaims, domain string) *base.TokenUser {
 	if domain == "" {
-		domain = "deep-coin"
+		domain = "default"
 	}
 	return &base.TokenUser{
 		Id:            int(data.ID),

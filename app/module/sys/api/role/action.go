@@ -59,6 +59,27 @@ func (a *ApiRole) ListRoles(c *gin.Context) {
 	c.DJson(res)
 }
 
+// TreeRoles godoc
+// @Summary 获得角色树接口
+// @Security ApiKeyAuth
+// @Description 获得角色树接口
+// @accept application/json
+// @Produce application/json
+// @Tags Role
+// @Success 200 {object}  response.Response
+// @Router /sys/roles/tree [get]
+func (a *ApiRole) TreeRoles(c *gin.Context) {
+	res := response.Response{Code: 1, Msg: "查询成功", Data: nil}
+	result, err := a.service.GetRoleTree()
+	if err != nil {
+		res.Msg = err.Error()
+		res.Code = -1
+		return
+	}
+	res.Data = result
+	c.DJson(res)
+}
+
 // AddRole godoc
 // @Summary 新增角色接口
 // @Security ApiKeyAuth

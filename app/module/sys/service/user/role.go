@@ -6,14 +6,13 @@ import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/sys/model/path"
 	"devops-http/app/module/sys/model/role"
-	"devops-http/app/module/sys/model/user"
 	"github.com/pkg/errors"
 )
 
 func (s *Service) GetRolesByUserId(id string, domain string, c contract.Cabin) ([]role.DevopsSysRole, error) {
 	result := make([]role.DevopsSysRole, 0)
-	var userData user.DevopsSysUser
-	s.repository.SetRepository(&user.DevopsSysUser{}).First(&userData, "id = "+id)
+	var userData base.DevopsSysUser
+	s.repository.SetRepository(&base.DevopsSysUser{}).First(&userData, "id = "+id)
 	if userData.ID <= 0 {
 		err := errors.New("未找到该用户！")
 		return result, err
@@ -48,7 +47,7 @@ func (s *Service) GetUserApis(userToken *base.TokenUser, c contract.Cabin) (resu
 }
 
 func (s *Service) RelativeRolesToUser(request request.UserRelativeRoleRequest, domain string, c contract.Cabin) error {
-	userData := user.DevopsSysUser{}
+	userData := base.DevopsSysUser{}
 	s.repository.GetDB().First(&userData, "id = ?", request.UserId)
 	if userData.ID <= 0 {
 		return errors.New("未找到该用户！")
@@ -65,7 +64,7 @@ func (s *Service) RelativeRolesToUser(request request.UserRelativeRoleRequest, d
 }
 
 func (s *Service) DeleteRelativeRolesToUser(request request.UserRelativeRoleRequest, domain string, c contract.Cabin) error {
-	userData := user.DevopsSysUser{}
+	userData := base.DevopsSysUser{}
 	s.repository.GetDB().First(&userData, "id = ?", request.UserId)
 	if userData.ID <= 0 {
 		return errors.New("未找到该用户！")

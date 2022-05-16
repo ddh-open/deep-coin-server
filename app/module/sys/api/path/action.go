@@ -65,6 +65,26 @@ func (a *ApiPath) GetApiList(c *gin.Context) {
 	}
 }
 
+// GetApiTree
+// @Tags Apis
+// @Summary 获取API树状列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object} response.Response{data=response.PageResult,msg=string} "分页获取API列表,返回包括列表,总数,页码,每页数量"
+// @Router /sys/api/tree [get]
+func (a *ApiPath) GetApiTree(c *gin.Context) {
+	logGet := c.MustMakeLog()
+	if list, err := a.service.GetApiTree(); err != nil {
+		logGet.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List: list,
+		}, "获取成功", c)
+	}
+}
+
 // GetApiById
 // @Tags Apis
 // @Summary 根据id获取api

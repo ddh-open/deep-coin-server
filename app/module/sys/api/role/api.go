@@ -18,6 +18,7 @@ func Register(r *gin.Engine) error {
 	// 用户角色相关接口
 	sysGroup.GET("roles/:id", api.GetRole)
 	sysGroup.POST("roles/list", api.ListRoles)
+	sysGroup.GET("roles/tree", api.TreeRoles)
 	sysGroup.POST("roles/add", api.AddRole)
 	sysGroup.PUT("roles/modify", api.ModifyRole)
 	sysGroup.POST("roles/copy", api.CopyRole)

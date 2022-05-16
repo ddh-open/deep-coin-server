@@ -1,5 +1,123 @@
 basePath: /
 definitions:
+  base.DevopsSysGroup:
+    properties:
+      alias:
+        description: 别名
+        type: string
+      children:
+        items:
+          $ref: '#/definitions/base.DevopsSysGroup'
+        type: array
+      code:
+        description: 机构编码
+        type: string
+      createdAt:
+        type: string
+      domain:
+        description: 域
+        type: integer
+      enable:
+        description: 是否启用
+        type: integer
+      id:
+        description: 主键
+        type: integer
+      linkman:
+        description: 联系人
+        type: string
+      linkmanNo:
+        description: 联系人电话
+        type: string
+      name:
+        description: 部门/11111
+        type: string
+      parentId:
+        description: 上级机构
+        type: integer
+      parentName:
+        type: string
+      remark:
+        description: 组描述
+        type: string
+      sort:
+        description: 序号
+        type: integer
+      updatedAt:
+        type: string
+      users:
+        items:
+          $ref: '#/definitions/base.DevopsSysUser'
+        type: array
+      wechat:
+        description: wechat
+        type: string
+    type: object
+  base.DevopsSysUser:
+    properties:
+      address:
+        description: 地址
+        type: string
+      createdAt:
+        type: string
+      email:
+        description: email
+        type: string
+      enable:
+        description: 是否启用//radio/1,启用,2,禁用
+        type: boolean
+      endTime:
+        description: 结束时间
+        type: string
+      groups:
+        items:
+          $ref: '#/definitions/base.DevopsSysGroup'
+        type: array
+      id:
+        description: 主键
+        type: integer
+      merchants:
+        description: 所属域
+        type: string
+      password:
+        description: 密码
+        type: string
+      realName:
+        description: 真实姓名
+        type: string
+      remark:
+        description: 说明
+        type: string
+      salt:
+        description: 密码盐
+        type: string
+      status:
+        description: 状态
+        type: integer
+      tel:
+        description: 手机号
+        type: string
+      theme:
+        description: 主题
+        type: string
+      titleURL:
+        description: 头像地址
+        type: string
+      updatedAt:
+        type: string
+      userType:
+        description: 用户类型
+        type: integer
+      username:
+        description: 登录名/11111
+        type: string
+      uuid:
+        description: UUID
+        type: string
+      workNum:
+        description: 工号
+        type: string
+    type: object
   config.DevopsSysConfig:
     properties:
       createId:
@@ -57,57 +175,6 @@ definitions:
         description: 更新人
         type: integer
       updatedAt:
-        type: string
-    type: object
-  group.DevopsSysGroup:
-    properties:
-      alias:
-        description: 别名
-        type: string
-      children:
-        items:
-          $ref: '#/definitions/group.DevopsSysGroup'
-        type: array
-      code:
-        description: 机构编码
-        type: string
-      createdAt:
-        type: string
-      domain:
-        description: 域
-        type: integer
-      enable:
-        description: 是否启用
-        type: integer
-      id:
-        description: 主键
-        type: integer
-      linkman:
-        description: 联系人
-        type: string
-      linkmanNo:
-        description: 联系人电话
-        type: string
-      name:
-        description: 部门/11111
-        type: string
-      parentId:
-        description: 上级机构
-        type: integer
-      remark:
-        description: 组描述
-        type: string
-      sort:
-        description: 序号
-        type: integer
-      updatedAt:
-        type: string
-      users:
-        items:
-          $ref: '#/definitions/user.DevopsSysUser'
-        type: array
-      wechat:
-        description: wechat
         type: string
     type: object
   menu.DevopsSysMenu:
@@ -388,6 +455,10 @@ definitions:
       apiGroup:
         description: api组
         type: string
+      children:
+        items:
+          $ref: '#/definitions/path.DevopsSysApi'
+        type: array
       createId:
         description: 创建者
         type: integer
@@ -680,6 +751,10 @@ definitions:
       apiGroup:
         description: api组
         type: string
+      children:
+        items:
+          $ref: '#/definitions/path.DevopsSysApi'
+        type: array
       createId:
         description: 创建者
         type: integer
@@ -766,7 +841,7 @@ definitions:
         type: string
       children:
         items:
-          $ref: '#/definitions/group.DevopsSysGroup'
+          $ref: '#/definitions/base.DevopsSysGroup'
         type: array
       code:
         description: 机构编码
@@ -808,6 +883,8 @@ definitions:
       parentId:
         description: 上级机构
         type: integer
+      parentName:
+        type: string
       remark:
         description: 组描述
         type: string
@@ -818,7 +895,7 @@ definitions:
         type: string
       users:
         items:
-          $ref: '#/definitions/user.DevopsSysUser'
+          $ref: '#/definitions/base.DevopsSysUser'
         type: array
       wechat:
         description: wechat
@@ -1027,6 +1104,85 @@ definitions:
       updatedAt:
         type: string
     type: object
+  request.SearchUserParams:
+    properties:
+      address:
+        description: 地址
+        type: string
+      createdAt:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      email:
+        description: email
+        type: string
+      enable:
+        description: 是否启用//radio/1,启用,2,禁用
+        type: boolean
+      endTime:
+        description: 结束时间
+        type: string
+      filter:
+        items:
+          type: string
+        type: array
+      groups:
+        items:
+          $ref: '#/definitions/base.DevopsSysGroup'
+        type: array
+      id:
+        description: 主键
+        type: integer
+      merchants:
+        description: 所属域
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      password:
+        description: 密码
+        type: string
+      realName:
+        description: 真实姓名
+        type: string
+      remark:
+        description: 说明
+        type: string
+      salt:
+        description: 密码盐
+        type: string
+      status:
+        description: 状态
+        type: integer
+      tel:
+        description: 手机号
+        type: string
+      theme:
+        description: 主题
+        type: string
+      titleURL:
+        description: 头像地址
+        type: string
+      updatedAt:
+        type: string
+      userType:
+        description: 用户类型
+        type: integer
+      username:
+        description: 登录名/11111
+        type: string
+      uuid:
+        description: UUID
+        type: string
+      workNum:
+        description: 工号
+        type: string
+    type: object
   request.TaskReceiver:
     properties:
       candidate:
@@ -1122,81 +1278,11 @@ definitions:
       updatedAt:
         type: string
     type: object
-  user.DevopsSysUser:
-    properties:
-      address:
-        description: 地址
-        type: string
-      createID:
-        description: 创建者
-        type: integer
-      createdAt:
-        type: string
-      email:
-        description: email
-        type: string
-      enable:
-        description: 是否启用//radio/1,启用,2,禁用
-        type: integer
-      endTime:
-        description: 结束时间
-        type: string
-      id:
-        description: 主键
-        type: integer
-      merchants:
-        description: 所属商户
-        type: string
-      password:
-        description: 密码
-        type: string
-      realName:
-        description: 真实姓名
-        type: string
-      remark:
-        description: 说明
-        type: string
-      salt:
-        description: 密码盐
-        type: string
-      status:
-        description: 状态
-        type: integer
-      tel:
-        description: 手机号
-        type: string
-      theme:
-        description: 主题
-        type: string
-      titleURL:
-        description: 头像地址
-        type: string
-      updateID:
-        description: 更新人
-        type: integer
-      updatedAt:
-        type: string
-      userType:
-        description: 用户类型
-        type: integer
-      username:
-        description: 登录名/11111
-        type: string
-      uuid:
-        description: UUID
-        type: string
-      workNum:
-        description: 工号
-        type: string
-    type: object
   user.DevopsSysUserEntity:
     properties:
       address:
         description: 地址
         type: string
-      createID:
-        description: 创建者
-        type: integer
       createdAt:
         type: string
       email:
@@ -1204,15 +1290,19 @@ definitions:
         type: string
       enable:
         description: 是否启用//radio/1,启用,2,禁用
-        type: integer
+        type: boolean
       endTime:
         description: 结束时间
         type: string
+      groups:
+        items:
+          $ref: '#/definitions/base.DevopsSysGroup'
+        type: array
       id:
         description: 主键
         type: integer
       merchants:
-        description: 所属商户
+        description: 所属域
         type: string
       password:
         description: 密码
@@ -1242,9 +1332,6 @@ definitions:
       titleURL:
         description: 头像地址
         type: string
-      updateID:
-        description: 更新人
-        type: integer
       updatedAt:
         type: string
       userType:
@@ -1265,9 +1352,6 @@ definitions:
       address:
         description: 地址
         type: string
-      createID:
-        description: 创建者
-        type: integer
       createdAt:
         type: string
       email:
@@ -1275,15 +1359,19 @@ definitions:
         type: string
       enable:
         description: 是否启用//radio/1,启用,2,禁用
-        type: integer
+        type: boolean
       endTime:
         description: 结束时间
         type: string
+      groups:
+        items:
+          $ref: '#/definitions/base.DevopsSysGroup'
+        type: array
       id:
         description: 主键
         type: integer
       merchants:
-        description: 所属商户
+        description: 所属域
         type: string
       password:
         description: 密码
@@ -1317,9 +1405,6 @@ definitions:
       titleURL:
         description: 头像地址
         type: string
-      updateID:
-        description: 更新人
-        type: integer
       updatedAt:
         type: string
       userType:
@@ -1531,6 +1616,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 给角色关联api权限
+      tags:
+      - Apis
+  /sys/api/tree:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分页获取API列表,返回包括列表,总数,页码,每页数量
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.PageResult'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取API树状列表
       tags:
       - Apis
   /sys/config/add:
@@ -1800,7 +1908,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/group.DevopsSysGroup'
+          $ref: '#/definitions/base.DevopsSysGroup'
       produces:
       - application/json
       responses:
@@ -1920,7 +2028,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/group.DevopsSysGroup'
+          $ref: '#/definitions/base.DevopsSysGroup'
       produces:
       - application/json
       responses:
@@ -1931,6 +2039,23 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 修改分组接口
+      tags:
+      - Group
+  /sys/group/tree:
+    get:
+      consumes:
+      - application/json
+      description: 获得分组树形结构接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得分组树形结构接口
       tags:
       - Group
   /sys/icon/list:
@@ -2374,6 +2499,23 @@ paths:
       summary: 修改角色接口
       tags:
       - Role
+  /sys/roles/tree:
+    get:
+      consumes:
+      - application/json
+      description: 获得角色树接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得角色树接口
+      tags:
+      - Role
   /third/tencent/apm/addMerchantApm:
     post:
       consumes:
@@ -2566,7 +2708,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.PageRequest'
+          $ref: '#/definitions/request.SearchUserParams'
       produces:
       - application/json
       responses:

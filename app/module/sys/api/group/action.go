@@ -1,9 +1,9 @@
 package group
 
 import (
+	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/sys/model/group"
 	"devops-http/framework/gin"
 )
 
@@ -59,21 +59,44 @@ func (a *ApiGroup) ListGroups(c *gin.Context) {
 	c.DJson(res)
 }
 
+// TreeGroups godoc
+// @Summary 获得分组树形结构接口
+// @Security ApiKeyAuth
+// @Description 获得分组树形结构接口
+// @accept application/json
+// @Produce application/json
+// @Tags Group
+// @Success 200 {object}  response.Response
+// @Router /sys/group/tree [get]
+func (a *ApiGroup) TreeGroups(c *gin.Context) {
+	res := response.Response{Code: 1, Msg: "查询成功", Data: nil}
+	result, err := a.service.GetGroupTree()
+	if err != nil {
+		res.Code = -1
+		res.Msg = err.Error()
+		c.DJson(res)
+		return
+	}
+	res.Data = result
+	c.DJson(res)
+}
+
 // AddGroup godoc
 // @Summary 新增分组接口
 // @Security ApiKeyAuth
 // @Description 新增分组接口
 // @accept application/json
 // @Produce application/json
-// @Param data body group.DevopsSysGroup true "分组"
+// @Param data body base.DevopsSysGroup true "分组"
 // @Tags Group
 // @Success 200 {object}  response.Response
 // @Router /sys/group/add [post]
 func (a *ApiGroup) AddGroup(c *gin.Context) {
-	var req group.DevopsSysGroup
+	var req base.DevopsSysGroup
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "新增成功"}
 	if err != nil {
+		res.Code = -1
 		res.Msg = err.Error()
 		c.DJson(res)
 		return
@@ -91,12 +114,12 @@ func (a *ApiGroup) AddGroup(c *gin.Context) {
 // @Description 修改分组接口
 // @accept application/json
 // @Produce application/json
-// @Param data body group.DevopsSysGroup true "分组"
+// @Param data body base.DevopsSysGroup true "分组"
 // @Tags Group
 // @Success 200 {object}  response.Response
 // @Router /sys/group/modify [post]
 func (a *ApiGroup) ModifyGroup(c *gin.Context) {
-	var req group.DevopsSysGroup
+	var req base.DevopsSysGroup
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "修改成功"}
 	if err != nil {

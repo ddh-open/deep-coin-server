@@ -355,6 +355,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/sys/api/tree": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Apis"
+                ],
+                "summary": "获取API树状列表",
+                "responses": {
+                    "200": {
+                        "description": "分页获取API列表,返回包括列表,总数,页码,每页数量",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.PageResult"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/sys/config/add": {
             "post": {
                 "security": [
@@ -776,7 +818,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/group.DevopsSysGroup"
+                            "$ref": "#/definitions/base.DevopsSysGroup"
                         }
                     }
                 ],
@@ -971,10 +1013,38 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/group.DevopsSysGroup"
+                            "$ref": "#/definitions/base.DevopsSysGroup"
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sys/group/tree": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获得分组树形结构接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Group"
+                ],
+                "summary": "获得分组树形结构接口",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1722,6 +1792,34 @@ const docTemplate = `{
                 }
             }
         },
+        "/sys/roles/tree": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获得角色树接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "获得角色树接口",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/sys/roles/{id}": {
             "get": {
                 "security": [
@@ -2079,7 +2177,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.PageRequest"
+                            "$ref": "#/definitions/request.SearchUserParams"
                         }
                     }
                 ],
@@ -2713,6 +2811,169 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "base.DevopsSysGroup": {
+            "type": "object",
+            "properties": {
+                "alias": {
+                    "description": "别名",
+                    "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/base.DevopsSysGroup"
+                    }
+                },
+                "code": {
+                    "description": "机构编码",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "domain": {
+                    "description": "域",
+                    "type": "integer"
+                },
+                "enable": {
+                    "description": "是否启用",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "linkman": {
+                    "description": "联系人",
+                    "type": "string"
+                },
+                "linkmanNo": {
+                    "description": "联系人电话",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "部门/11111",
+                    "type": "string"
+                },
+                "parentId": {
+                    "description": "上级机构",
+                    "type": "integer"
+                },
+                "parentName": {
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "组描述",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "序号",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/base.DevopsSysUser"
+                    }
+                },
+                "wechat": {
+                    "description": "wechat",
+                    "type": "string"
+                }
+            }
+        },
+        "base.DevopsSysUser": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "地址",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "enable": {
+                    "description": "是否启用//radio/1,启用,2,禁用",
+                    "type": "boolean"
+                },
+                "endTime": {
+                    "description": "结束时间",
+                    "type": "string"
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/base.DevopsSysGroup"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "merchants": {
+                    "description": "所属域",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "realName": {
+                    "description": "真实姓名",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "salt": {
+                    "description": "密码盐",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态",
+                    "type": "integer"
+                },
+                "tel": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "theme": {
+                    "description": "主题",
+                    "type": "string"
+                },
+                "titleURL": {
+                    "description": "头像地址",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userType": {
+                    "description": "用户类型",
+                    "type": "integer"
+                },
+                "username": {
+                    "description": "登录名/11111",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "UUID",
+                    "type": "string"
+                },
+                "workNum": {
+                    "description": "工号",
+                    "type": "string"
+                }
+            }
+        },
         "config.DevopsSysConfig": {
             "type": "object",
             "properties": {
@@ -2791,77 +3052,6 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "updatedAt": {
-                    "type": "string"
-                }
-            }
-        },
-        "group.DevopsSysGroup": {
-            "type": "object",
-            "properties": {
-                "alias": {
-                    "description": "别名",
-                    "type": "string"
-                },
-                "children": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/group.DevopsSysGroup"
-                    }
-                },
-                "code": {
-                    "description": "机构编码",
-                    "type": "string"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "domain": {
-                    "description": "域",
-                    "type": "integer"
-                },
-                "enable": {
-                    "description": "是否启用",
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "linkman": {
-                    "description": "联系人",
-                    "type": "string"
-                },
-                "linkmanNo": {
-                    "description": "联系人电话",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "部门/11111",
-                    "type": "string"
-                },
-                "parentId": {
-                    "description": "上级机构",
-                    "type": "integer"
-                },
-                "remark": {
-                    "description": "组描述",
-                    "type": "string"
-                },
-                "sort": {
-                    "description": "序号",
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "users": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/user.DevopsSysUser"
-                    }
-                },
-                "wechat": {
-                    "description": "wechat",
                     "type": "string"
                 }
             }
@@ -3262,6 +3452,12 @@ const docTemplate = `{
                 "apiGroup": {
                     "description": "api组",
                     "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/path.DevopsSysApi"
+                    }
                 },
                 "createId": {
                     "description": "创建者",
@@ -3689,6 +3885,12 @@ const docTemplate = `{
                     "description": "api组",
                     "type": "string"
                 },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/path.DevopsSysApi"
+                    }
+                },
                 "createId": {
                     "description": "创建者",
                     "type": "integer"
@@ -3810,7 +4012,7 @@ const docTemplate = `{
                 "children": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/group.DevopsSysGroup"
+                        "$ref": "#/definitions/base.DevopsSysGroup"
                     }
                 },
                 "code": {
@@ -3868,6 +4070,9 @@ const docTemplate = `{
                     "description": "上级机构",
                     "type": "integer"
                 },
+                "parentName": {
+                    "type": "string"
+                },
                 "remark": {
                     "description": "组描述",
                     "type": "string"
@@ -3882,7 +4087,7 @@ const docTemplate = `{
                 "users": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/user.DevopsSysUser"
+                        "$ref": "#/definitions/base.DevopsSysUser"
                     }
                 },
                 "wechat": {
@@ -4175,6 +4380,115 @@ const docTemplate = `{
                 }
             }
         },
+        "request.SearchUserParams": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "地址",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "enable": {
+                    "description": "是否启用//radio/1,启用,2,禁用",
+                    "type": "boolean"
+                },
+                "endTime": {
+                    "description": "结束时间",
+                    "type": "string"
+                },
+                "filter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/base.DevopsSysGroup"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "merchants": {
+                    "description": "所属域",
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "realName": {
+                    "description": "真实姓名",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "salt": {
+                    "description": "密码盐",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态",
+                    "type": "integer"
+                },
+                "tel": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "theme": {
+                    "description": "主题",
+                    "type": "string"
+                },
+                "titleURL": {
+                    "description": "头像地址",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userType": {
+                    "description": "用户类型",
+                    "type": "integer"
+                },
+                "username": {
+                    "description": "登录名/11111",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "UUID",
+                    "type": "string"
+                },
+                "workNum": {
+                    "description": "工号",
+                    "type": "string"
+                }
+            }
+        },
         "request.TaskReceiver": {
             "type": "object",
             "properties": {
@@ -4315,97 +4629,6 @@ const docTemplate = `{
                 }
             }
         },
-        "user.DevopsSysUser": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "description": "地址",
-                    "type": "string"
-                },
-                "createID": {
-                    "description": "创建者",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "email": {
-                    "description": "email",
-                    "type": "string"
-                },
-                "enable": {
-                    "description": "是否启用//radio/1,启用,2,禁用",
-                    "type": "integer"
-                },
-                "endTime": {
-                    "description": "结束时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键",
-                    "type": "integer"
-                },
-                "merchants": {
-                    "description": "所属商户",
-                    "type": "string"
-                },
-                "password": {
-                    "description": "密码",
-                    "type": "string"
-                },
-                "realName": {
-                    "description": "真实姓名",
-                    "type": "string"
-                },
-                "remark": {
-                    "description": "说明",
-                    "type": "string"
-                },
-                "salt": {
-                    "description": "密码盐",
-                    "type": "string"
-                },
-                "status": {
-                    "description": "状态",
-                    "type": "integer"
-                },
-                "tel": {
-                    "description": "手机号",
-                    "type": "string"
-                },
-                "theme": {
-                    "description": "主题",
-                    "type": "string"
-                },
-                "titleURL": {
-                    "description": "头像地址",
-                    "type": "string"
-                },
-                "updateID": {
-                    "description": "更新人",
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "userType": {
-                    "description": "用户类型",
-                    "type": "integer"
-                },
-                "username": {
-                    "description": "登录名/11111",
-                    "type": "string"
-                },
-                "uuid": {
-                    "description": "UUID",
-                    "type": "string"
-                },
-                "workNum": {
-                    "description": "工号",
-                    "type": "string"
-                }
-            }
-        },
         "user.DevopsSysUserEntity": {
             "type": "object",
             "properties": {
@@ -4413,10 +4636,6 @@ const docTemplate = `{
                     "description": "地址",
                     "type": "string"
                 },
-                "createID": {
-                    "description": "创建者",
-                    "type": "integer"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -4426,18 +4645,24 @@ const docTemplate = `{
                 },
                 "enable": {
                     "description": "是否启用//radio/1,启用,2,禁用",
-                    "type": "integer"
+                    "type": "boolean"
                 },
                 "endTime": {
                     "description": "结束时间",
                     "type": "string"
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/base.DevopsSysGroup"
+                    }
                 },
                 "id": {
                     "description": "主键",
                     "type": "integer"
                 },
                 "merchants": {
-                    "description": "所属商户",
+                    "description": "所属域",
                     "type": "string"
                 },
                 "password": {
@@ -4478,10 +4703,6 @@ const docTemplate = `{
                     "description": "头像地址",
                     "type": "string"
                 },
-                "updateID": {
-                    "description": "更新人",
-                    "type": "integer"
-                },
                 "updatedAt": {
                     "type": "string"
                 },
@@ -4510,10 +4731,6 @@ const docTemplate = `{
                     "description": "地址",
                     "type": "string"
                 },
-                "createID": {
-                    "description": "创建者",
-                    "type": "integer"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -4523,18 +4740,24 @@ const docTemplate = `{
                 },
                 "enable": {
                     "description": "是否启用//radio/1,启用,2,禁用",
-                    "type": "integer"
+                    "type": "boolean"
                 },
                 "endTime": {
                     "description": "结束时间",
                     "type": "string"
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/base.DevopsSysGroup"
+                    }
                 },
                 "id": {
                     "description": "主键",
                     "type": "integer"
                 },
                 "merchants": {
-                    "description": "所属商户",
+                    "description": "所属域",
                     "type": "string"
                 },
                 "password": {
@@ -4580,10 +4803,6 @@ const docTemplate = `{
                 "titleURL": {
                     "description": "头像地址",
                     "type": "string"
-                },
-                "updateID": {
-                    "description": "更新人",
-                    "type": "integer"
                 },
                 "updatedAt": {
                     "type": "string"

@@ -18,6 +18,7 @@ func Register(r *gin.Engine) error {
 	// api相关接口
 	sysGroup.POST("api/get", api.GetApiById)
 	sysGroup.POST("api/list", api.GetApiList)
+	sysGroup.GET("api/tree", api.GetApiTree)
 	sysGroup.POST("api/add", api.CreateApi)
 	sysGroup.PUT("api/modify", api.UpdateApi)
 	sysGroup.DELETE("api/delete", api.DeleteApisByIds)

@@ -1,6 +1,8 @@
 package user
 
+import "devops-http/app/module/base"
+
 type DevopsSysUserEntity struct {
-	DevopsSysUser
+	base.DevopsSysUser
 	RoleIds []string `json:"roleIds"`
 }

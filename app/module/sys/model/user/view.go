@@ -1,12 +1,14 @@
 package user
 
-import "devops-http/app/module/base"
+import (
+	"devops-http/app/module/base"
+)
 
 // DevopsSysUserView 用户
 type DevopsSysUserView struct {
-	DevopsSysUser
-	RoleIds []string `json:"roleIds"`
-	Roles   []string `json:"roles"`
+	base.DevopsSysUser
+	RoleIds []string `json:"roleIds" gorm:"-"`
+	Roles   []string `json:"roles" gorm:"-"`
 }
 
 // SysUserViewColumns get sql column name.获取数据库列名

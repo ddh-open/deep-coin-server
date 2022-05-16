@@ -97,6 +97,23 @@ func (s *Service) GetAPIInfoList(req request.SearchApiParams, logGet contract2.L
 	return err, apiList, total
 }
 
+func (s *Service) GetApiTree() (result []path.DevopsSysApi, err error) {
+	var list []path.DevopsSysApi
+	db := s.repository.GetDB().Model(&path.DevopsSysApi{})
+	err = db.Order("api_group").Find(&list).Error
+	if err != nil {
+		return
+	}
+	apiGroup := make(map[string][]path.DevopsSysApi, 0)
+	for i := range list {
+		apiGroup[list[i].ApiGroup] = append(apiGroup[list[i].ApiGroup], list[i])
+	}
+	for s2, _ := range apiGroup {
+		result = append(result, path.DevopsSysApi{Children: apiGroup[s2], Description: s2})
+	}
+	return
+}
+
 func (s *Service) GetAllApis() (err error, result map[string][]path.DevopsSysApi) {
 	var apis []path.DevopsSysApi
 	err = s.repository.GetDB().Find(&apis).Error

@@ -64,6 +64,21 @@ func (s *Service) GetRoleList(req request.SearchRoleParams) (result response.Pag
 	return result, err
 }
 
+func (s *Service) GetRoleTree() (result response.PageResult, err error) {
+	lists := make([]role.DevopsSysRole, 0)
+	db := s.repository.GetDB().Model(&role.DevopsSysRole{})
+	err = db.Count(&result.Total).Error
+	if err != nil {
+		return result, err
+	}
+	err = db.Order("sort desc").Find(&lists).Error
+	if err != nil {
+		return result, err
+	}
+	result.List = lists
+	return result, err
+}
+
 func (s *Service) AddRole(req role.DevopsSysRoleEntity) error {
 	return s.repository.GetDB().Model(role.DevopsSysRole{}).Create(&req.DevopsSysRole).Error
 }

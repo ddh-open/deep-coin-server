@@ -18,6 +18,7 @@ func Register(r *gin.Engine) error {
 	// 用户组相关接口
 	sysGroup.GET("group/:id", api.GetGroups)
 	sysGroup.POST("group/list", api.ListGroups)
+	sysGroup.GET("group/tree", api.TreeGroups)
 	sysGroup.POST("group/add", api.AddGroup)
 	sysGroup.PUT("group/modify", api.ModifyGroup)
 	sysGroup.DELETE("group/delete", api.DeleteGroup)
