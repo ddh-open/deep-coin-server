@@ -95,15 +95,22 @@ func (s *Service) GetRoleTree() (result response.PageResult, err error) {
 	return result, err
 }
 
-func (s *Service) AddRole(req role.DevopsSysRoleEntity) error {
-	return s.repository.GetDB().Model(role.DevopsSysRole{}).Create(&req.DevopsSysRole).Error
+func (s *Service) AddRole(req role.DevopsSysRoleEntity, c contract.Cabin) error {
+	err := s.repository.GetDB().Model(role.DevopsSysRole{}).Create(&req.DevopsSysRole).Error
+	if err != nil {
+		return err
+	}
+	if req.ParentId == "0" {
+		c.GetCabin().AddRoleForUserInDomain("0", cast.ToString(req.ID), cast.ToString(req.Domain))
+	}
+	return err
 }
 
 func (s *Service) ModifyRole(req role.DevopsSysRoleEntity) error {
 	return s.repository.GetDB().Model(role.DevopsSysRole{}).Where("id = ?", req.ID).Save(&req.DevopsSysRole).Error
 }
 
-func (s *Service) DeleteRole(ids string) error {
+func (s *Service) DeleteRole(ids string, c contract.Cabin) error {
 	var roles []role.DevopsSysRole
 	err := s.repository.GetDB().Model(&role.DevopsSysRole{}).Where("id in (?)", ids).Find(&roles).Error
 	if err != nil {
@@ -113,6 +120,9 @@ func (s *Service) DeleteRole(ids string) error {
 		err = s.repository.GetDB().Model(&role.DevopsSysRole{}).Unscoped().Delete(&sysRole).Error
 		if err != nil {
 			return err
+		}
+		if sysRole.ParentId == "0" {
+			c.GetCabin().DeleteRoleForUserInDomain("0", cast.ToString(sysRole.ID), cast.ToString(sysRole.Domain))
 		}
 	}
 	return nil

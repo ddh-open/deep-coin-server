@@ -120,18 +120,15 @@ func (s *Service) GetApiById(id string) (err error, api path.DevopsSysApi) {
 }
 
 func (s *Service) RelativeApiToRole(req request.RelativeRoleApisRequest, userToken *base.TokenUser, cabin contract.Cabin) (err error) {
-	if len(req.ApiIds) <= 0 {
-		return errors.New("api id为空！")
-	}
 	var apis []path.DevopsSysApi
 	s.repository.GetDB().Find(&apis, "id in (?)", req.ApiIds)
-	if len(apis) <= 0 {
-		return errors.New("api 校验失败！")
-	}
 	cabin.GetCabin().ClearPolicy()
 	_, err = cabin.GetCabin().RemoveFilteredNamedPolicy("p", 0, req.RoleId, userToken.CurrentDomain, "", "APIS")
 	if err != nil {
 		return err
+	}
+	if len(apis) <= 0 {
+		return
 	}
 	var rule [][]string
 	for i := range apis {

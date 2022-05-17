@@ -201,15 +201,22 @@ func (s *Service) GetMenuByRole(userToken *base.TokenUser, id string, cabin cont
 
 // GetMenuByUser 根据用户获取菜单
 func (s *Service) GetMenuByUser(tokenUser *base.TokenUser, cabin contract.Cabin) (err error, menus []menu.DevopsSysMenu) {
+	menus = make([]menu.DevopsSysMenu, 0)
 	list, err := cabin.GetCabin().GetImplicitResourcesForUser(tokenUser.Uuid, tokenUser.CurrentDomain)
-	var menusIdStr []string
+	var menusIds []string
 	for _, str := range list {
-		if str[3] == "MENUS" {
-			menusIdStr = append(menusIdStr, str[2])
+		if str[3] == base.SourceList[base.MENUS] {
+			menusIds = append(menusIds, str[2])
 		}
 	}
+	if len(menusIds) <= 0 {
+		return
+	}
+	for _, s2 := range menusIds {
+		s.intervalFind(s2, &menusIds)
+	}
 	var allMenus []menu.DevopsSysMenu
-	err = s.repository.SetRepository(&menu.DevopsSysMenu{}).GetDB().Order("sort").Find(&allMenus).Error
+	err = s.repository.SetRepository(&menu.DevopsSysMenu{}).GetDB().Order("sort").Find(&allMenus, menusIds).Error
 	if err != nil {
 		return
 	}
@@ -222,6 +229,15 @@ func (s *Service) GetMenuByUser(tokenUser *base.TokenUser, cabin contract.Cabin)
 		err = s.getChildrenList(&menus[i], treeMap)
 	}
 	return err, menus
+}
+
+func (s *Service) intervalFind(id string, result *[]string) {
+	var menus []menu.DevopsSysMenu
+	s.repository.GetDB().Model(menu.DevopsSysMenu{}).Where("id = ?", id).Find(&menus)
+	for _, sysMenu := range menus {
+		*result = append(*result, cast.ToString(sysMenu.ID))
+		s.intervalFind(cast.ToString(sysMenu.ParentId), result)
+	}
 }
 
 func (s *Service) DeleteBaseMenu(id request.DeleteById) (err error) {

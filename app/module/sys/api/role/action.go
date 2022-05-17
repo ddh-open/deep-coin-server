@@ -112,7 +112,8 @@ func (a *ApiRole) AddRole(c *gin.Context) {
 		c.DJson(res)
 		return
 	}
-	err = a.service.AddRole(req)
+
+	err = a.service.AddRole(req, c.MustMake(contract.KeyCaBin).(contract.Cabin))
 	if err != nil {
 		res.Msg = err.Error()
 		res.Code = -1
@@ -168,7 +169,7 @@ func (a *ApiRole) DeleteRole(c *gin.Context) {
 		c.DJson(res)
 		return
 	}
-	err = a.service.DeleteRole(req.Ids)
+	err = a.service.DeleteRole(req.Ids, c.MustMake(contract.KeyCaBin).(contract.Cabin))
 	if err != nil {
 		res.Msg = err.Error()
 		res.Code = -1

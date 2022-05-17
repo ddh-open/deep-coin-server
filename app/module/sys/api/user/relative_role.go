@@ -62,7 +62,7 @@ func (api *ApiUser) UserGetApis(c *gin.Context) {
 		res.Code = -1
 		res.Msg = err.Error()
 	}
-	res.Data = result
+	res.Data = map[string]interface{}{"list": result}
 	c.DJson(res)
 }
 
