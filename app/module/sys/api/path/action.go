@@ -174,25 +174,6 @@ func (a *ApiPath) UpdateApi(c *gin.Context) {
 	}
 }
 
-// GetAllApis
-// @Tags Apis
-// @Summary 获取所有的Api 不分页
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {object} response.Response{data=map[string][]path.DevopsSysApi,msg=string} "获取所有的Api 不分页,返回包括api列表"
-// @Router /sys/api/all [get]
-func (a *ApiPath) GetAllApis(c *gin.Context) {
-	logGet := c.MustMakeLog()
-	if err, apis := a.service.GetAllApis(); err != nil {
-		logGet.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
-		return
-	} else {
-		response.OkWithDetailed(apis, "获取成功", c)
-	}
-}
-
 // DeleteApisByIds
 // @Tags Apis
 // @Summary 删除选中Api

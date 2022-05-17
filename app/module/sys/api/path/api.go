@@ -22,7 +22,6 @@ func Register(r *gin.Engine) error {
 	sysGroup.POST("api/add", api.CreateApi)
 	sysGroup.PUT("api/modify", api.UpdateApi)
 	sysGroup.DELETE("api/delete", api.DeleteApisByIds)
-	sysGroup.GET("api/all", api.GetAllApis)
 	sysGroup.POST("api/role", api.RelativeToRole)
 	return nil
 }

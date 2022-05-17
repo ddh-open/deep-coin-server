@@ -1454,33 +1454,6 @@ paths:
       summary: 创建基础api
       tags:
       - Apis
-  /sys/api/all:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 获取所有的Api 不分页,返回包括api列表
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  additionalProperties:
-                    items:
-                      $ref: '#/definitions/path.DevopsSysApi'
-                    type: array
-                  type: object
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 获取所有的Api 不分页
-      tags:
-      - Apis
   /sys/api/delete:
     delete:
       consumes:

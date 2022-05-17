@@ -233,7 +233,7 @@ func (s *Service) DeleteBaseMenu(id request.DeleteById) (err error) {
 			return err
 		}
 		for _, v := range menuData {
-			err = s.repository.GetDB().Delete(&menu.DevopsSysMenu{}, "id = ?", v.ID).Error
+			err = s.repository.GetDB().Unscoped().Delete(&menu.DevopsSysMenu{}, "id = ?", v.ID).Error
 			// 删除相关的权限 此处预留
 			if err != nil {
 				return err

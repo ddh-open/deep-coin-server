@@ -150,7 +150,7 @@ func (s *Service) Delete(ids string, c contract.Cabin) error {
 		//if sysUser.UserType == 1 || sysUser.UserType == 0 {
 		//
 		//}
-		err = s.repository.SetRepository(&base.DevopsSysUser{}).GetDB().Where("id = ?", sysUser.ID).Delete(&sysUser).Error
+		err = s.repository.SetRepository(&base.DevopsSysUser{}).GetDB().Unscoped().Where("id = ?", sysUser.ID).Delete(&sysUser).Error
 		if err != nil {
 			return errors.Errorf("数据库删除用户: %s出错：%s", sysUser.Username, err.Error())
 		}

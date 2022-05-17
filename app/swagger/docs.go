@@ -66,54 +66,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/sys/api/all": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Apis"
-                ],
-                "summary": "获取所有的Api 不分页",
-                "responses": {
-                    "200": {
-                        "description": "获取所有的Api 不分页,返回包括api列表",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "object",
-                                            "additionalProperties": {
-                                                "type": "array",
-                                                "items": {
-                                                    "$ref": "#/definitions/path.DevopsSysApi"
-                                                }
-                                            }
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
         "/sys/api/delete": {
             "delete": {
                 "security": [

@@ -2,6 +2,13 @@ package base
 
 import uuid "github.com/satori/go.uuid"
 
+const (
+	MENUS = iota
+	APIS
+)
+
+var SourceList = [...]string{"MENUS", "APIS"}
+
 // DevopsSysUser 用户
 type DevopsSysUser struct {
 	DevopsModel

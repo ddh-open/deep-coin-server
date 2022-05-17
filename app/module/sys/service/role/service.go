@@ -41,7 +41,7 @@ func (s *Service) GetRoleById(id string) (result role.DevopsSysRoleView, err err
 	return
 }
 
-func (s *Service) GetRoleList(req request.SearchRoleParams) (result response.PageResult, err error) {
+func (s *Service) GetRoleList(req request.SearchRoleParams, userToken *base.TokenUser, cabin contract.Cabin) (result response.PageResult, err error) {
 	lists := make([]role.DevopsSysRole, 0)
 	db := s.repository.GetDB().Model(&role.DevopsSysRole{})
 	if req.Name != "" {
@@ -60,7 +60,23 @@ func (s *Service) GetRoleList(req request.SearchRoleParams) (result response.Pag
 	if err != nil {
 		return result, err
 	}
-	result.List = lists
+	resultList := make([]role.DevopsSysRoleView, 0)
+	for _, list := range lists {
+		var handleRoleData role.DevopsSysRoleView
+		handleRoleData.DevopsSysRole = list
+		cabin.GetCabin().ClearPolicy()
+		data := cabin.GetCabin().GetFilteredNamedPolicy("p", 0, cast.ToString(list.ID), userToken.CurrentDomain, "", "")
+		for _, datum := range data {
+			if datum[3] == base.SourceList[base.MENUS] {
+				handleRoleData.Menus = append(handleRoleData.Menus, cast.ToInt(datum[2]))
+			}
+			if datum[3] == base.SourceList[base.APIS] {
+				handleRoleData.Apis = append(handleRoleData.Apis, cast.ToInt(datum[2]))
+			}
+		}
+		resultList = append(resultList, handleRoleData)
+	}
+	result.List = resultList
 	return result, err
 }
 
@@ -94,7 +110,7 @@ func (s *Service) DeleteRole(ids string) error {
 		return err
 	}
 	for _, sysRole := range roles {
-		err = s.repository.GetDB().Model(&role.DevopsSysRole{}).Delete(&sysRole).Error
+		err = s.repository.GetDB().Model(&role.DevopsSysRole{}).Unscoped().Delete(&sysRole).Error
 		if err != nil {
 			return err
 		}

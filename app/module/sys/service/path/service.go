@@ -114,23 +114,6 @@ func (s *Service) GetApiTree() (result []path.DevopsSysApi, err error) {
 	return
 }
 
-func (s *Service) GetAllApis() (err error, result map[string][]path.DevopsSysApi) {
-	var apis []path.DevopsSysApi
-	err = s.repository.GetDB().Find(&apis).Error
-	result = make(map[string][]path.DevopsSysApi, 0)
-	for _, sysApis := range apis {
-		if data, ok := result[sysApis.ApiGroup]; ok {
-			data = append(data, sysApis)
-			result[sysApis.ApiGroup] = data
-		} else {
-			var list []path.DevopsSysApi
-			list = append(list, sysApis)
-			result[sysApis.ApiGroup] = list
-		}
-	}
-	return
-}
-
 func (s *Service) GetApiById(id string) (err error, api path.DevopsSysApi) {
 	err = s.repository.GetDB().Where("id = ?", id).First(&api).Error
 	return
@@ -182,6 +165,6 @@ func (s *Service) UpdateApi(api path.DevopsSysApi, c contract.Cabin) (err error)
 }
 
 func (s *Service) DeleteApisByIds(ids request.ReqById) (err error) {
-	err = s.repository.GetDB().Delete(&[]path.DevopsSysApi{}, "id in (?)", ids.Ids).Error
+	err = s.repository.GetDB().Unscoped().Delete(&[]path.DevopsSysApi{}, "id in (?)", ids.Ids).Error
 	return err
 }

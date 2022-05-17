@@ -4,6 +4,7 @@ import (
 	"devops-http/app/contract"
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
+	"devops-http/app/module/base/utils"
 	"devops-http/app/module/sys/model/role"
 	"devops-http/framework/gin"
 )
@@ -40,16 +41,27 @@ func (a *ApiRole) GetRole(c *gin.Context) {
 // @Success 200 {object}  response.Response
 // @Router /sys/roles/list [post]
 func (a *ApiRole) ListRoles(c *gin.Context) {
+	log := c.MustMakeLog()
 	var req request.SearchRoleParams
 	err := c.ShouldBindJSON(&req)
 	res := response.Response{Code: 1, Msg: "查询成功", Data: nil}
 	if err != nil {
 		res.Msg = err.Error()
+		log.Error(err.Error())
 		res.Code = -1
 		c.DJson(res)
 		return
 	}
-	result, err := a.service.GetRoleList(req)
+	cabin := c.MustMake(contract.KeyCaBin).(contract.Cabin)
+	userToken, err := utils.ParseToken(c)
+	if err != nil {
+		log.Error(err.Error())
+		res.Msg = err.Error()
+		res.Code = -1
+		c.DJson(res)
+		return
+	}
+	result, err := a.service.GetRoleList(req, userToken, cabin)
 	if err != nil {
 		res.Msg = err.Error()
 		res.Code = -1
