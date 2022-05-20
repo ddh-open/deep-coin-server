@@ -18,13 +18,12 @@ type DevopsSysMenu struct {
 }
 
 type Meta struct {
-	Title       string `json:"title" gorm:"comment:菜单名"`                // 菜单名
-	NoKeepAlive bool   `json:"noKeepAlive" gorm:"comment:是否缓存"`         // 是否缓存
-	DefaultMenu bool   `json:"defaultMenu" gorm:"comment:是否是基础路由（开发中）"` // 是否是基础路由（开发中）
-	Icon        string `json:"icon" gorm:"comment:菜单图标"`                // 菜单图标
-	NoClosable  bool   `json:"noClosable" gorm:"comment:是否固定"`          // 是否固定
-	LevelHidden bool   `json:"levelHidden" gorm:"comment:始终显示当前节点"`     // 始终显示当前节点
-	Hidden      bool   `json:"hidden" gorm:"comment:是否隐藏"`              // 是否隐藏
-	Dot         bool   `json:"dot" gorm:"comment:是否dot"`                // 是否dot
-	Badge       string `json:"badge" gorm:"comment:badge"`              // badge
+	Title       string `json:"title" gorm:"comment:菜单名"`            // 菜单名
+	NoKeepAlive bool   `json:"noKeepAlive" gorm:"comment:是否缓存"`     // 是否缓存
+	Icon        string `json:"icon" gorm:"comment:菜单图标"`            // 菜单图标
+	NoClosable  bool   `json:"noClosable" gorm:"comment:是否固定"`      // 是否固定
+	LevelHidden bool   `json:"levelHidden" gorm:"comment:始终显示当前节点"` // 始终显示当前节点
+	Hidden      bool   `json:"hidden" gorm:"comment:是否隐藏"`          // 是否隐藏
+	Dot         bool   `json:"dot" gorm:"comment:是否dot"`            // 是否dot
+	Badge       string `json:"badge" gorm:"comment:badge"`          // badge
 }

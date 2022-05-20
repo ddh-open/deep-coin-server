@@ -267,11 +267,13 @@ func (s *Service) UpdateBaseMenu(menuData menu.DevopsSysMenuEntity) (err error) 
 	upDateMap := make(map[string]interface{})
 	upDateMap["no_keep_alive"] = menuData.NoKeepAlive
 	upDateMap["no_closable"] = menuData.NoClosable
-	upDateMap["default_menu"] = menuData.DefaultMenu
+	upDateMap["dot"] = menuData.Dot
+	upDateMap["badge"] = menuData.Badge
 	upDateMap["parent_id"] = menuData.ParentId
 	upDateMap["path"] = menuData.Path
 	upDateMap["name"] = menuData.Name
 	upDateMap["hidden"] = menuData.Hidden
+	upDateMap["level_hidden"] = menuData.LevelHidden
 	upDateMap["component"] = menuData.Component
 	upDateMap["title"] = menuData.Title
 	upDateMap["icon"] = menuData.Icon

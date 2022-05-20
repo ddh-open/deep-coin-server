@@ -1,6 +1,7 @@
 package orm
 
 import (
+	"devops-http/app/module/base"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
 	"go.uber.org/zap"
@@ -28,12 +29,14 @@ func NewNiceGorm(params ...interface{}) (interface{}, error) {
 	defaultPath := params[1].(string)
 	dbs := make(map[string]*gorm.DB)
 	lock := &sync.RWMutex{}
-	return &NiceGorm{
+	orm := &NiceGorm{
 		container:   container,
 		dbs:         dbs,
 		lock:        lock,
 		defaultPath: defaultPath,
-	}, nil
+	}
+	base.Orm = orm
+	return orm, nil
 }
 
 // GetDB 获取DB实例

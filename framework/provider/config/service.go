@@ -2,6 +2,7 @@ package config
 
 import (
 	"bytes"
+	"devops-http/app/module/base"
 	"devops-http/framework"
 	"devops-http/framework/contract"
 	"fmt"
@@ -171,7 +172,7 @@ func NewNiceConfig(params ...interface{}) (interface{}, error) {
 			}
 		}
 	}()
-
+	base.Config = niceConf
 	return niceConf, nil
 }
 

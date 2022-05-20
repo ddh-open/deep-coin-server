@@ -2,6 +2,7 @@ package services
 
 import (
 	"bytes"
+	"devops-http/app/module/base"
 	"devops-http/framework"
 	"devops-http/framework/contract"
 	"fmt"
@@ -14,7 +15,9 @@ import (
 func NewNiceLog(params ...interface{}) (interface{}, error) {
 	container := params[0].(framework.Container)
 	config := container.MustMake(contract.ConfigKey).(contract.Config)
-	return &NiceLog{c: container, Zap: Zap(config)}, nil
+	logger := &NiceLog{c: container, Zap: Zap(config)}
+	base.Logger = logger
+	return logger, nil
 }
 
 // NiceLog 的通用实例
