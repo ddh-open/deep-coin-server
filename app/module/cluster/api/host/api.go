@@ -3,7 +3,7 @@ package host
 import (
 	"devops-http/app/module/base/request"
 	"devops-http/app/module/base/response"
-	"devops-http/app/module/sys/service/host"
+	"devops-http/app/module/cluster/service/host"
 	"devops-http/framework"
 	"devops-http/framework/gin"
 )
@@ -72,5 +72,26 @@ func (a *ApiHost) GetHostList(c *gin.Context) {
 		return
 	}
 	res.Data = &result
+	c.DJson(res)
+}
+
+// GetHostShell godoc
+// @Summary 获得主机终端调试接口
+// @Security ApiKeyAuth
+// @Description 获得主机终端调试接口
+// @accept application/json
+// @Produce application/json
+// @Tags Menu
+// @Success 200 {object}  response.Response
+// @Router /cmdb/host/shell [get]
+func (a *ApiHost) GetHostShell(c *gin.Context) {
+	res := response.Response{Code: 1, Msg: "获取成功", Data: nil}
+	//result, err := a.service.GetHostShell(param)
+	//if err != nil {
+	//	res.Msg = err.Error()
+	//	c.DJson(res)
+	//	return
+	//}
+	//res.Data = &result
 	c.DJson(res)
 }

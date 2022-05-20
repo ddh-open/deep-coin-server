@@ -2,10 +2,10 @@ package app
 
 import (
 	"devops-http/app/middleware"
+	"devops-http/app/module/cluster/api/host"
 	"devops-http/app/module/sys/api/config"
 	"devops-http/app/module/sys/api/domain"
 	"devops-http/app/module/sys/api/group"
-	"devops-http/app/module/sys/api/host"
 	"devops-http/app/module/sys/api/icon"
 	"devops-http/app/module/sys/api/menu"
 	"devops-http/app/module/sys/api/operation"

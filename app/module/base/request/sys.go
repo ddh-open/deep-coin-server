@@ -1,8 +1,8 @@
 package request
 
 import (
+	"devops-http/app/module/cluster/model/host"
 	"devops-http/app/module/sys/model/config"
-	"devops-http/app/module/sys/model/host"
 	"devops-http/app/module/sys/model/icon"
 	"devops-http/app/module/sys/model/menu"
 	"devops-http/app/module/sys/model/operation"

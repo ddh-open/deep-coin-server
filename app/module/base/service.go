@@ -1,6 +1,8 @@
 package base
 
-import "devops-http/framework/contract"
+import (
+	"devops-http/framework/contract"
+)
 
 var (
 	Logger contract.Log

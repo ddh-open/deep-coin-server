@@ -3,7 +3,7 @@ package host
 import (
 	"devops-http/app/module/base"
 	"devops-http/app/module/base/request"
-	"devops-http/app/module/sys/model/host"
+	"devops-http/app/module/cluster/model/host"
 	"devops-http/framework"
 	contract2 "devops-http/framework/contract"
 	"go.uber.org/zap"
