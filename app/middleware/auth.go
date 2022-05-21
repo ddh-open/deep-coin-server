@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var whiteList = append(make([]string, 0), "/user/login", "/user/register")
+var whiteList = append(make([]string, 0), "/user/login", "/user/register", "/base/ws")
 
 // Auth 鉴权中间件
 func Auth() gin.HandlerFunc {

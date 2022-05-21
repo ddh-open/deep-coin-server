@@ -16,6 +16,129 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/base/ws": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获得全局通用ws",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ws"
+                ],
+                "summary": "获得全局通用ws",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/cmdb/host/group/tree": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获得主机分组树接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "获得主机分组树接口",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/cmdb/host/list": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获得主机列表接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "获得主机列表接口",
+                "parameters": [
+                    {
+                        "description": "页数，页大小，筛选条件",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.SearchHostParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/cmdb/host/shell": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获得主机终端调试接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "获得主机终端调试接口",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/sys/api/add": {
             "post": {
                 "security": [
@@ -3008,6 +3131,118 @@ const docTemplate = `{
                 }
             }
         },
+        "host.DevopsCmdbHost": {
+            "type": "object",
+            "properties": {
+                "checked": {
+                    "description": "是否验证过",
+                    "type": "boolean"
+                },
+                "configureInfo": {
+                    "description": "配置信息",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/host.DevopsCmdbHostGroup"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "ip": {
+                    "description": "主机Ip",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "主机名",
+                    "type": "string"
+                },
+                "port": {
+                    "description": "主机ssh端口",
+                    "type": "integer"
+                },
+                "remark": {
+                    "description": "主机描述",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序标记",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "主机的状态",
+                    "type": "string"
+                },
+                "systemInfo": {
+                    "description": "系统信息",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "user": {
+                    "description": "用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "host.DevopsCmdbHostGroup": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "description": "主机数量",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/host.DevopsCmdbHostGroup"
+                    }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "enable": {
+                    "description": "分组状态",
+                    "type": "boolean"
+                },
+                "hostNum": {
+                    "description": "主机数量",
+                    "type": "integer"
+                },
+                "hosts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/host.DevopsCmdbHost"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "分组名",
+                    "type": "string"
+                },
+                "parentId": {
+                    "type": "integer"
+                },
+                "remark": {
+                    "description": "分组的描述",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
         "menu.DevopsSysMenu": {
             "type": "object",
             "properties": {
@@ -3027,10 +3262,6 @@ const docTemplate = `{
                 },
                 "createdAt": {
                     "type": "string"
-                },
-                "defaultMenu": {
-                    "description": "是否是基础路由（开发中）",
-                    "type": "boolean"
                 },
                 "dot": {
                     "description": "是否dot",
@@ -3108,10 +3339,6 @@ const docTemplate = `{
                 },
                 "createdAt": {
                     "type": "string"
-                },
-                "defaultMenu": {
-                    "description": "是否是基础路由（开发中）",
-                    "type": "boolean"
                 },
                 "dot": {
                     "description": "是否dot",
@@ -4048,6 +4275,65 @@ const docTemplate = `{
                 }
             }
         },
+        "request.SearchHostParams": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "description": "主机数量",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/host.DevopsCmdbHostGroup"
+                    }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "排序方式:升序false(默认)|降序true",
+                    "type": "boolean"
+                },
+                "enable": {
+                    "description": "分组状态",
+                    "type": "boolean"
+                },
+                "hostNum": {
+                    "description": "主机数量",
+                    "type": "integer"
+                },
+                "hosts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/host.DevopsCmdbHost"
+                    }
+                },
+                "id": {
+                    "description": "主键",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "分组名",
+                    "type": "string"
+                },
+                "orderKey": {
+                    "description": "排序",
+                    "type": "string"
+                },
+                "parentId": {
+                    "type": "integer"
+                },
+                "remark": {
+                    "description": "分组的描述",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
         "request.SearchIconParams": {
             "type": "object",
             "properties": {
@@ -4187,10 +4473,6 @@ const docTemplate = `{
                 },
                 "createdAt": {
                     "type": "string"
-                },
-                "defaultMenu": {
-                    "description": "是否是基础路由（开发中）",
-                    "type": "boolean"
                 },
                 "desc": {
                     "description": "排序方式:升序false(默认)|降序true",

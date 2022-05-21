@@ -1,4 +1,4 @@
-package shell
+package hostShell
 
 import (
 	"bytes"
@@ -49,11 +49,11 @@ func NewContext(ip string, port int, user string) *Context {
 	}
 }
 
-func (c *Context) InitCommonTerminal(password string) error {
+func (c *Context) InitTerminalWithPassword(password string) error {
 	if c.Start {
 		base.Logger.Error("session is start terminal")
 	}
-	err := c.InitCommonSession(password)
+	err := c.InitSession(password)
 	if err != nil {
 		return err
 	}
@@ -87,14 +87,14 @@ func (c *Context) InitCommonTerminal(password string) error {
 	return err
 }
 
-func (c *Context) InitCommonSession(password string) error {
+func (c *Context) InitSession(password string) error {
 	config := &ssh.ClientConfig{
 		Timeout:         time.Second * 3,
-		User:            "root",
+		User:            c.User,
 		Auth:            []ssh.AuthMethod{ssh.Password(password)},
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
-	client, err := ssh.Dial("tcp", "45.136.184.165:22", config)
+	client, err := ssh.Dial("tcp", fmt.Sprintf("%v:%v", c.Ip, c.Port), config)
 	if err != nil {
 		base.Logger.Error("dial SSH error :", zap.Error(err))
 		return err
@@ -138,6 +138,12 @@ out:
 		time.Sleep(200 * time.Millisecond)
 		select {
 		case <-c.Cancel:
+			// 开始的可以进行下一个任务了
+			<-c.ExecStart
+			// 执行的结束的反馈
+			if wait {
+				c.ExecEnd <- struct{}{}
+			}
 			break out
 		default:
 			n, err := c.SSHBuffer.outBuf.Read(buf)

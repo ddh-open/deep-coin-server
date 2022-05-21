@@ -6,8 +6,9 @@ import "devops-http/app/module/base"
 type DevopsCmdbHost struct {
 	base.DevopsModel
 	Ip            string                `json:"ip" gorm:"comment:主机Ip"`           // 主机Ip
-	Port          string                `json:"port" gorm:"comment:主机ssh端口"`      // 主机ssh端口
+	Port          int                   `json:"port" gorm:"comment:主机ssh端口"`      // 主机ssh端口
 	Name          string                `json:"name" gorm:"comment:主机名"`          // 主机名
+	User          string                `json:"user" gorm:"comment:用户名"`          // 用户名
 	ConfigureInfo string                `json:"configureInfo" gorm:"comment:主机名"` // 配置信息
 	SystemInfo    string                `json:"systemInfo" gorm:"comment:系统信息"`   // 系统信息
 	Status        string                `json:"status" gorm:"comment:主机状态"`       // 主机的状态

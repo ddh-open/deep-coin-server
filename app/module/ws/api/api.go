@@ -4,15 +4,11 @@ import (
 	"devops-http/app/module/base/response"
 	"devops-http/app/module/ws/model"
 	"devops-http/app/module/ws/service"
+	"devops-http/app/module/ws/service/def"
 	"devops-http/framework/gin"
 	"encoding/json"
 	uuid "github.com/satori/go.uuid"
 )
-
-func Register(r *gin.Engine) error {
-	r.GET("base/ws", CreateWs)
-	return nil
-}
 
 // CreateWs godoc
 // @Summary 获得全局通用ws
@@ -22,7 +18,7 @@ func Register(r *gin.Engine) error {
 // @Produce application/json
 // @Tags Ws
 // @Success 200 {object}  response.Response
-// @Router /sys/ws [get]
+// @Router /base/ws [get]
 func CreateWs(c *gin.Context) {
 	res := response.Response{Code: 1, Msg: "", Data: nil}
 	// 升级get请求为webSocket协议
@@ -32,7 +28,7 @@ func CreateWs(c *gin.Context) {
 		res.Msg = err.Error()
 		return
 	}
-	ws := service.NewWs(conn)
+	ws := def.NewWs(conn)
 	defer ws.Close()
 	var readMessage model.WebSocketReadMessage
 	for {
@@ -40,7 +36,7 @@ func CreateWs(c *gin.Context) {
 		if err == nil {
 			err = json.Unmarshal(data, &readMessage)
 			if err != nil {
-				go service.HandleMessageError(ws, err)
+				go ws.HandleMessageError(err, nil)
 				continue
 			}
 			// 处理真实的业务功能

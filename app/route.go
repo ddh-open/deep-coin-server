@@ -16,6 +16,7 @@ import (
 	"devops-http/app/module/third/api/cls"
 	"devops-http/app/module/third/api/tencent"
 	workflow "devops-http/app/module/workflow/api"
+	"devops-http/app/module/ws"
 	"devops-http/app/swagger"
 	"devops-http/framework/contract"
 	"devops-http/framework/gin"
@@ -61,4 +62,7 @@ func Routes(r *gin.Engine) {
 
 	/** 工作流 **/
 	workflow.Register(r)
+
+	// websocket 注册
+	ws.Register(r)
 }
