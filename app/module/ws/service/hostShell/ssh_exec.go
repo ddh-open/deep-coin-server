@@ -84,6 +84,7 @@ func (c *Context) InitTerminalWithPassword(password string) error {
 	go c.listenMessages(true)
 	<-c.ExecEnd
 	go session.Wait()
+	c.Start = true
 	return err
 }
 

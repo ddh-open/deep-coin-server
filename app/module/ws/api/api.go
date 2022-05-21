@@ -33,19 +33,22 @@ func CreateWs(c *gin.Context) {
 	var readMessage model.WebSocketReadMessage
 	for {
 		_, data, err := ws.ReadMessage()
-		if err == nil {
-			err = json.Unmarshal(data, &readMessage)
-			if err != nil {
-				go ws.HandleMessageError(err, nil)
-				continue
-			}
-			// 处理真实的业务功能
-			if readMessage.UUID == nil {
-				// 第一次来分配个uuid
-				*(readMessage.UUID) = uuid.NewV1()
-			}
-			// 把业务功能分配出去
-			go service.HandleMessage(ws, readMessage)
+		if err != nil {
+			// todo:在此之前， 记得把之前的资源回收
+			break
 		}
+		err = json.Unmarshal(data, &readMessage)
+		if err != nil {
+			go ws.HandleMessageError(err, nil)
+			continue
+		}
+		// 处理真实的业务功能
+		if readMessage.UUID == nil {
+			// 第一次来分配个uuid
+			uuidData := uuid.NewV1()
+			readMessage.UUID = &uuidData
+		}
+		// 把业务功能分配出去
+		go service.HandleMessage(ws, readMessage)
 	}
 }

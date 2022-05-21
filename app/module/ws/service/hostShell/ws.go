@@ -54,6 +54,20 @@ func WsHostShellHandle(ws *def.WebsocketService, data *model.WebSocketReadMessag
 		}()
 		err = shell.SendCmd(data.Param["shell"])
 		cancel()
+	} else {
+	outLabel:
+		for {
+			select {
+			case msg := <-shell.Logs:
+				sendData.Data = msg
+				sendByteData, _ := json.Marshal(&sendData)
+				ws.WriteMessage(1, sendByteData)
+			default:
+				if shell.Start {
+					break outLabel
+				}
+			}
+		}
 	}
 	return err
 }
