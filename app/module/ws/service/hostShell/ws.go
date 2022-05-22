@@ -11,19 +11,19 @@ import (
 
 func WsHostShellHandle(ws *def.WebsocketService, data *model.WebSocketReadMessage) (err error) {
 	links := NewLinkManage()
-	shell := links.GetLink(data.UUID.String())
+	shell := links.GetLink(data.UUID)
 	var sendData model.WebSocketWriteMessage
 	sendData.Type = data.Type
 	sendData.UUID = data.UUID
 	// 如果不存在， 就先创建连接
 	if shell == nil {
-		if data.Action == "create" && data.Param != nil && data.Param["user"] != "" && data.Param["ip"] != "" && data.Param["port"] != "" {
+		if data.Param != nil && data.Param["user"] != "" && data.Param["ip"] != "" && data.Param["port"] != "" {
 			shell = NewContext(data.Param["ip"], cast.ToInt(data.Param["port"]), data.Param["user"])
 			err = shell.InitTerminalWithPassword("dou.190824")
 			if err != nil {
 				return
 			}
-			links.AddLink(data.UUID.String(), shell)
+			links.AddLink(data.UUID, shell)
 		} else {
 			err = errors.New("未连接web-shell, 参数错误")
 			return err

@@ -4,7 +4,6 @@ import (
 	"devops-http/app/module/ws/model"
 	"encoding/json"
 	"github.com/gorilla/websocket"
-	uuid "github.com/satori/go.uuid"
 	"sync"
 )
 
@@ -37,7 +36,7 @@ func (ws *WebsocketService) Close() {
 	ws.m.Unlock()
 }
 
-func (ws *WebsocketService) HandleMessageError(err error, uuid *uuid.UUID) {
+func (ws *WebsocketService) HandleMessageError(err error, uuid string) {
 	errData := model.WebSocketWriteMessage{
 		UUID: uuid,
 		Type: "error",

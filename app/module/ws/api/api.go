@@ -39,14 +39,14 @@ func CreateWs(c *gin.Context) {
 		}
 		err = json.Unmarshal(data, &readMessage)
 		if err != nil {
-			go ws.HandleMessageError(err, nil)
+			go ws.HandleMessageError(err, "")
 			continue
 		}
 		// 处理真实的业务功能
-		if readMessage.UUID == nil {
+		if readMessage.UUID == "" {
 			// 第一次来分配个uuid
 			uuidData := uuid.NewV1()
-			readMessage.UUID = &uuidData
+			readMessage.UUID = uuidData.String()
 		}
 		// 把业务功能分配出去
 		go service.HandleMessage(ws, readMessage)

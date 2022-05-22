@@ -122,7 +122,6 @@ func (c *Context) InitClient() error {
 		return err
 	}
 	c.SSHClient = client
-	<-c.ExecEnd
 	c.User = config.User
 	return nil
 }
@@ -138,6 +137,7 @@ out:
 	for {
 		time.Sleep(200 * time.Millisecond)
 		select {
+		// todo: 这里要做一个会话窗口时间的限制
 		case <-c.Cancel:
 			// 开始的可以进行下一个任务了
 			<-c.ExecStart
@@ -179,7 +179,6 @@ func (c *Context) EnableSudo() error {
 
 func (c *Context) SendCmd(cmd string) error {
 	c.ExecStart <- struct{}{}
-	c.Logs <- "  " + cmd + "\n"
 	_, err := c.SSHBuffer.stdinBuf.Write([]byte(fmt.Sprintf("%v\n", cmd)))
 	if err != nil {
 		<-c.ExecStart
