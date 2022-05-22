@@ -64,6 +64,7 @@ func NewContext(ip string, port int, user string, uuid string) *Context {
 				}
 				links := NewLinkManage()
 				links.RemoveLink(c.UUID)
+				return
 			}
 		}
 	}()
