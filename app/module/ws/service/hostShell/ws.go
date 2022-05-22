@@ -18,7 +18,7 @@ func WsHostShellHandle(ws *def.WebsocketService, data *model.WebSocketReadMessag
 	// 如果不存在， 就先创建连接
 	if shell == nil {
 		if data.Param != nil && data.Param["user"] != "" && data.Param["ip"] != "" && data.Param["port"] != "" {
-			shell = NewContext(data.Param["ip"], cast.ToInt(data.Param["port"]), data.Param["user"])
+			shell = NewContext(data.Param["ip"], cast.ToInt(data.Param["port"]), data.Param["user"], data.UUID)
 			err = shell.InitTerminalWithPassword("dou.190824")
 			if err != nil {
 				return

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"devops-http/app/module/base"
 	"fmt"
-	uuid "github.com/satori/go.uuid"
 	"go.uber.org/zap"
 	"golang.org/x/crypto/ssh"
 	"io"
@@ -12,7 +11,7 @@ import (
 )
 
 type Context struct {
-	UUID uuid.UUID
+	UUID string
 	Ip   string
 	User string
 	Port int
@@ -25,6 +24,7 @@ type Context struct {
 	ExecStart  chan struct{}
 	ExecEnd    chan struct{}
 	Cancel     chan struct{}
+	Timer      *time.Timer
 }
 
 type SShBuffer struct {
@@ -32,9 +32,11 @@ type SShBuffer struct {
 	stdinBuf io.WriteCloser
 }
 
-func NewContext(ip string, port int, user string) *Context {
+func NewContext(ip string, port int, user string, uuid string) *Context {
 	var stdinBuf io.WriteCloser
-	return &Context{
+	timer := time.NewTimer(time.Minute * 10)
+	c := &Context{
+		UUID:      uuid,
 		Ip:        ip,
 		Port:      port,
 		User:      user,
@@ -46,7 +48,26 @@ func NewContext(ip string, port int, user string) *Context {
 			bytes.NewBuffer(make([]byte, 0)),
 			stdinBuf,
 		},
+		Timer: timer,
 	}
+	go func() {
+		for {
+			select {
+			case <-c.Timer.C:
+				// 超过时间， 释放资源
+				c.Cancel <- struct{}{}
+				if c.SSHSession != nil {
+					c.SSHSession.Close()
+				}
+				if c.SSHClient != nil {
+					c.SSHClient.Close()
+				}
+				links := NewLinkManage()
+				links.RemoveLink(c.UUID)
+			}
+		}
+	}()
+	return c
 }
 
 func (c *Context) InitTerminalWithPassword(password string) error {
@@ -133,9 +154,11 @@ func (c *Context) listenMessages(wait bool) error {
 	if c.User == "root" {
 		terminator = []byte{'#', ' '}
 	}
+	// 重置10分钟
+	c.Timer.Reset(10 * time.Minute)
+	time.Sleep(200 * time.Millisecond)
 out:
 	for {
-		time.Sleep(200 * time.Millisecond)
 		select {
 		// todo: 这里要做一个会话窗口时间的限制
 		case <-c.Cancel:
