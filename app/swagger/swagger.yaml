@@ -1,5 +1,51 @@
 basePath: /
 definitions:
+  application.DevopsClusterApplication:
+    properties:
+      configs:
+        items:
+          $ref: '#/definitions/application.DevopsClusterApplicationConfig'
+        type: array
+      createdAt:
+        type: string
+      groups:
+        items:
+          $ref: '#/definitions/base.DevopsSysGroup'
+        type: array
+      id:
+        description: 主键
+        type: integer
+      name:
+        description: 服务名
+        type: string
+      remark:
+        description: 服务描述
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  application.DevopsClusterApplicationConfig:
+    properties:
+      createdAt:
+        type: string
+      env:
+        description: 环境名
+        type: string
+      id:
+        description: 主键
+        type: integer
+      name:
+        description: 配置名
+        type: string
+      namespace:
+        description: 命令空间
+        type: string
+      remark:
+        description: 服务环境描述
+        type: string
+      updatedAt:
+        type: string
+    type: object
   base.DevopsSysGroup:
     properties:
       alias:
@@ -866,6 +912,44 @@ definitions:
       updatedAt:
         type: string
     type: object
+  request.SearchApplicationParams:
+    properties:
+      configs:
+        items:
+          $ref: '#/definitions/application.DevopsClusterApplicationConfig'
+        type: array
+      createdAt:
+        type: string
+      desc:
+        description: 排序方式:升序false(默认)|降序true
+        type: boolean
+      filter:
+        items:
+          type: string
+        type: array
+      groups:
+        items:
+          $ref: '#/definitions/base.DevopsSysGroup'
+        type: array
+      id:
+        description: 主键
+        type: integer
+      name:
+        description: 服务名
+        type: string
+      orderKey:
+        description: 排序
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      remark:
+        description: 服务描述
+        type: string
+      updatedAt:
+        type: string
+    type: object
   request.SearchConfigParams:
     properties:
       createId:
@@ -1556,6 +1640,196 @@ paths:
       summary: 获得全局通用ws
       tags:
       - Ws
+  /cluster/application/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获得单个应用接口
+      parameters:
+      - description: 应用id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得单个应用接口
+      tags:
+      - Role
+  /cluster/application/add:
+    post:
+      consumes:
+      - application/json
+      description: 新增应用接口
+      parameters:
+      - description: 应用
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/application.DevopsClusterApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增应用接口
+      tags:
+      - Role
+  /cluster/application/add/config:
+    post:
+      consumes:
+      - application/json
+      description: 新增应用接口
+      parameters:
+      - description: 应用
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/application.DevopsClusterApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增应用接口
+      tags:
+      - Role
+  /cluster/application/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除应用接口
+      parameters:
+      - description: 应用id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除应用接口
+      tags:
+      - Role
+  /cluster/application/delete/config:
+    delete:
+      consumes:
+      - application/json
+      description: 删除应用配置接口
+      parameters:
+      - description: 删除应用配置
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/application.DevopsClusterApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除应用配置接口
+      tags:
+      - application
+  /cluster/application/list:
+    get:
+      consumes:
+      - application/json
+      description: 获得应用列表接口
+      parameters:
+      - description: 页数，页大小，筛选条件
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SearchApplicationParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获得应用列表接口
+      tags:
+      - Menu
+  /cluster/application/modify:
+    put:
+      consumes:
+      - application/json
+      description: 修改应用接口
+      parameters:
+      - description: 角色
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/role.DevopsSysRoleEntity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改应用接口
+      tags:
+      - Role
+  /cluster/application/modify/config:
+    put:
+      consumes:
+      - application/json
+      description: 修改应用配置接口
+      parameters:
+      - description: 修改应用配置
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/application.DevopsClusterApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改应用配置接口
+      tags:
+      - Role
   /cmdb/host/group/tree:
     get:
       consumes:

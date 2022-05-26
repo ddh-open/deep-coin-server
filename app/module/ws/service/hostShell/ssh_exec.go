@@ -161,7 +161,6 @@ func (c *Context) listenMessages(wait bool) error {
 out:
 	for {
 		select {
-		// todo: 这里要做一个会话窗口时间的限制
 		case <-c.Cancel:
 			// 开始的可以进行下一个任务了
 			<-c.ExecStart

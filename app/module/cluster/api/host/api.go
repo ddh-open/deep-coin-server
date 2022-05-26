@@ -12,15 +12,6 @@ type ApiHost struct {
 	service *host.Service
 }
 
-func Register(r *gin.Engine) error {
-	api := NewHostApi(r.GetContainer())
-	cmdbGroup := r.Group("/cmdb/", func(c *gin.Context) {
-	})
-	cmdbGroup.POST("host/list", api.GetHostList)
-	cmdbGroup.GET("host/group/tree", api.GetHostGroupTree)
-	return nil
-}
-
 func NewHostApi(c framework.Container) *ApiHost {
 	return &ApiHost{service: host.NewService(c)}
 }

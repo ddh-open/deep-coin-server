@@ -2,7 +2,7 @@ package app
 
 import (
 	"devops-http/app/middleware"
-	"devops-http/app/module/cluster/api/host"
+	"devops-http/app/module/cluster"
 	"devops-http/app/module/sys/api/config"
 	"devops-http/app/module/sys/api/domain"
 	"devops-http/app/module/sys/api/group"
@@ -52,8 +52,8 @@ func Routes(r *gin.Engine) {
 	icon.Register(r)
 	// 用户模块注册路由
 	user.Register(r)
-	// cmdb 主机模块
-	host.Register(r)
+	// 集群模块
+	cluster.Register(r)
 
 	/** 第三方相关  **/
 	apm.Register(r)
